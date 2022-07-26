@@ -24,6 +24,7 @@
     "@storybook/addon-links": "^6.5.9",
     "@storybook/builder-webpack4": "^6.5.9",
     "@storybook/manager-webpack4": "^6.5.9",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.9",
     "@storybook/testing-library": "^0.0.13",
     "@types/react": "^18.0.15",
@@ -33,9 +34,13 @@
     "rollup": "^2.77.0",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-scss": "^3.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.54.0",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "sass-loader": "10.0.0"
+  }
 }

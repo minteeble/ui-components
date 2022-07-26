@@ -5,7 +5,7 @@ import Button from "./Button";
 import { ButtonProps } from "./Button.types";
 
 export default {
-  title: "Marbella/Button",
+  title: "ui-components/Button",
   component: Button,
   argTypes: {},
 } as Meta<typeof Button>;
