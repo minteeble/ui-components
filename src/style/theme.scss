@@ -1,0 +1,39 @@
+/**
+ * Copyright Minteeble 2022. All Rights Reserved.
+ * Node module: @minteeble/ui-components
+ * This file is licensed under the MIT License.
+ * License text available at https://opensource.org/licenses/MIT
+ * 
+ * email:     minteeble@gmail.com
+ * website:   https://minteeble.com
+ */
+
+// Theming
+
+$themes: (
+  // Default theme
+  default:
+    (
+      "primary-color": #53c2de,
+      "normal-text-color": rgb(79, 79, 79),
+      "primary-bg": whitesmoke,
+      "border-color": rgb(218, 218, 218),
+    ),
+  // Dark theme
+  dark:
+    (
+      "primary-color": #53c2de,
+      "normal-text-color": rgb(213, 213, 213),
+      "primary-bg": #414345,
+      "border-color": rgb(218, 218, 218),
+    )
+);
+
+// Creating theming class names
+@each $name, $map in $themes {
+  .minteeble-#{$name}-theme {
+    @each $key, $value in $map {
+      --#{$key}: #{$value};
+    }
+  }
+}

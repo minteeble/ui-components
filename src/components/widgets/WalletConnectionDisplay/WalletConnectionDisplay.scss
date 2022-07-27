@@ -1,0 +1,32 @@
+.wallet-connection-display-wrapper {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--normal-text-color);
+  padding: 0.2rem;
+  border-radius: 0.4rem;
+  border: 1px solid transparent;
+  transition: all 0.3s;
+
+  &:hover {
+    border: 1px solid var(--border-color);
+  }
+
+  $avatar-size: 2.3rem;
+
+  .wallet-avatar-box {
+    height: $avatar-size;
+    width: $avatar-size;
+    background-color: rgb(255, 167, 15);
+    border-radius: calc($avatar-size / 4);
+    border: 2px solid var(--border-color);
+  }
+
+  .wallet-address-box {
+    .wallet-address {
+      font-weight: bold;
+    }
+  }
+}

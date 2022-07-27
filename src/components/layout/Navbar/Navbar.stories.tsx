@@ -10,6 +10,9 @@ export default {
   title: "ui-components/Navbar",
   component: Navbar,
   argTypes: {},
+  parameters: {
+    layout: "fullscreen",
+  },
 } as Meta<typeof Navbar>;
 
 const Template: Story<NavbarProps> = (args) => <Navbar {...args} />;

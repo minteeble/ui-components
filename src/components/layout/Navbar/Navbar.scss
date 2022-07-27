@@ -1,3 +1,31 @@
+/**
+ * Copyright Minteeble 2022. All Rights Reserved.
+ * Node module: @minteeble/ui-components
+ * This file is licensed under the MIT License.
+ * License text available at https://opensource.org/licenses/MIT
+ *
+ * email:     minteeble@gmail.com
+ * website:   https://minteeble.com
+ */
+
+// Navabr component
+
 .navbar {
-  background-color: rgb(163, 81, 81);
+  background-color: var(--back);
+  height: 3rem;
+  box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
+  position: sticky;
+  top: 0px;
+  padding: 0.7rem;
+
+  display: flex;
+  flex-direction: row;
+  // align-items: center;
+  justify-content: center;
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
