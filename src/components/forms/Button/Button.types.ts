@@ -8,6 +8,11 @@
  * website:   https://minteeble.com
  */
 
+export enum ButtonStyleType {
+  Filled
+}
+
 export interface ButtonProps {
   text: string;
+  styleType?: ButtonStyleType;
 }

@@ -21,11 +21,18 @@
   display: flex;
   flex-direction: row;
   // align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
-  .nav-item {
+  .nav-area {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
