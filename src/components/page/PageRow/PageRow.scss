@@ -1,0 +1,10 @@
+.page-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: stretch;
+
+  .page-card {
+    flex: 1;
+  }
+}

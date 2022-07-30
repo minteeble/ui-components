@@ -1,0 +1,10 @@
+.page-card {
+  background-color: var(--primary-bg);
+  padding: 2rem;
+  display: flex;
+  border-radius: 0.7rem;
+
+  &.inline {
+    display: inline-flex;
+  }
+}
