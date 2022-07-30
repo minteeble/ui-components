@@ -32,5 +32,5 @@ export interface ClassExtensible {
  * Component that can have children items
  */
 export interface ParentComponent {
-  children?: any;
+  children: any;
 }

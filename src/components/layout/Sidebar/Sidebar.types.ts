@@ -8,6 +8,8 @@
  * website:   https://minteeble.com
  */
 
+import { ParentComponent } from "../../shared";
+
 export interface SidebarItem {
   text: string;
   icon?: string;
@@ -20,7 +22,7 @@ export interface SidebarSection {
   items: Array<SidebarItem>;
 }
 
-export interface SidebarProps {
+export interface SidebarProps extends ParentComponent {
   frontItem: any;
   sections: Array<SidebarSection>;
   open: boolean;

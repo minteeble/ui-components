@@ -8,90 +8,110 @@
  * website:   https://minteeble.com
  */
 
-.sidebar {
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-  flex-direction: column;
+$sidebar-width: 15rem;
 
-  transition: all 0.5s;
-  overflow-x: hidden;
-
-  $sidebar-width: 15rem;
-
-  position: fixed;
+.sidebar-wrapper {
+  display: fixed;
   top: 0rem;
-  left: -$sidebar-width;
-  width: $sidebar-width;
+  left: 0rem;
+  width: 100vw;
   height: 100vh;
 
-  border-right: 1px solid var(--border-color);
-
-  background-color: var(--primary-bg);
-
-  &.open {
-    left: 0rem;
-  }
-
-  .sidebar-content {
+  .sidebar {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     align-items: stretch;
-    padding: 1.5rem;
-    position: relative;
+    justify-content: stretch;
+    flex-direction: column;
 
-    .close-sidebar {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
+    transition: all 0.5s;
+    overflow-x: hidden;
+
+    position: absolute;
+    top: 0rem;
+    left: -$sidebar-width;
+    width: $sidebar-width;
+    height: 100vh;
+
+    border-right: 1px solid var(--border-color);
+
+    background-color: var(--primary-bg);
+
+    &.open {
+      left: 0rem;
     }
 
-    h1,
-    h2 {
-      text-align: center;
-    }
-
-    .front-item {
-      padding-bottom: 2rem;
-    }
-
-    .side-sections {
+    .sidebar-content {
       display: flex;
       flex-direction: column;
-      align-items: stretch;
       justify-content: flex-start;
-      gap: 1rem;
+      align-items: stretch;
       padding: 1.5rem;
+      position: relative;
 
-      .side-section {
+      .close-sidebar {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      h1,
+      h2 {
+        text-align: center;
+      }
+
+      .front-item {
+        padding-bottom: 2rem;
+      }
+
+      .side-sections {
         display: flex;
         flex-direction: column;
         align-items: stretch;
         justify-content: flex-start;
+        gap: 1rem;
+        padding: 1.5rem;
 
-        .side-section-header {
-          margin-bottom: 0.5rem;
-          text-transform: uppercase;
-          letter-spacing: 0.3rem;
+        .side-section {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: flex-start;
 
-          .side-section-title {
-            font-size: 1.1rem;
+          .side-section-header {
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3rem;
+
+            .side-section-title {
+              font-size: 1.1rem;
+            }
           }
-        }
 
-        .side-item {
-          margin-left: 0.7rem;
-          cursor: pointer;
-          // margin: 0.7rem 0.6rem;
-          padding: 0.4rem 1rem;
-          border-radius: 0.4rem;
-          &:hover {
-            background-color: var(--primary-color);
-            color: white;
+          .side-item {
+            margin-left: 0.7rem;
+            cursor: pointer;
+            // margin: 0.7rem 0.6rem;
+            padding: 0.4rem 1rem;
+            border-radius: 0.4rem;
+            &:hover {
+              background-color: var(--primary-color);
+              color: white;
+            }
           }
         }
       }
+    }
+  }
+
+  .out-content {
+    position: absolute;
+    left: 0rem;
+    width: 100vw;
+    transition: all 0.5s;
+
+    &.open {
+      left: $sidebar-width;
+      width: calc(100vw - $sidebar-width);
     }
   }
 }
