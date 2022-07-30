@@ -5,8 +5,6 @@ import Navbar from "./Navbar";
 import { NavbarItemPosition, NavbarProps } from "./Navbar.types";
 import WalletConnectionDisplay from "../../widgets/WalletConnectionDisplay/WalletConnectionDisplay";
 
-// import "./Navbar.scss"
-
 export default {
   title: "ui-components/layout/Navbar",
   component: Navbar,

@@ -1,3 +1,13 @@
+/**
+ * Copyright Minteeble 2022. All Rights Reserved.
+ * Node module: @minteeble/ui-components
+ * This file is licensed under the MIT License.
+ * License text available at https://opensource.org/licenses/MIT
+ *
+ * email:     minteeble@gmail.com
+ * website:   https://minteeble.com
+ */
+
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
