@@ -16,7 +16,7 @@ import ActionButton from "./ActionButton";
 import { Action, ActionButtonProps } from "./ActionButton.types";
 
 export default {
-  title: "ui-components/ActionButton",
+  title: "ui-components/forms/ActionButton",
   component: ActionButton,
   argTypes: {},
 } as Meta<typeof ActionButton>;

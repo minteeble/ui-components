@@ -1,10 +1,17 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import IconButton from "../../forms/IconButton/IconButton";
 import { SidebarProps } from "./Sidebar.types";
 
 const Sidebar = (props: SidebarProps) => {
   return (
-    <div className="sidebar">
+    <div className={props.open ? "sidebar open" : "sidebar"}>
       <div className="sidebar-content">
+        <IconButton
+          icon={<FontAwesomeIcon icon={faXmark} />}
+          className="close-sidebar"
+        />
         <div className="front-item">{props.frontItem}</div>
 
         <div className="side-sections">

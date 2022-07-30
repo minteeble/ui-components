@@ -15,4 +15,5 @@ export interface SidebarSection {
 export interface SidebarProps {
   frontItem: any;
   sections: Array<SidebarSection>;
+  open: boolean;
 }

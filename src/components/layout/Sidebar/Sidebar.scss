@@ -4,15 +4,22 @@
   justify-content: stretch;
   flex-direction: column;
 
+  transition: all 0.5s;
+  overflow-x: hidden;
+
+  $sidebar-width: 15rem;
+
   position: fixed;
   top: 0rem;
-  left: 0rem;
-  width: 70%;
-  min-width: 10rem;
-  max-width: 16rem;
+  left: -$sidebar-width;
+  width: $sidebar-width;
   height: 100vh;
 
   border-right: 1px solid var(--border-color);
+
+  &.open {
+    left: 0rem;
+  }
 
   .sidebar-content {
     display: flex;
@@ -20,6 +27,13 @@
     justify-content: flex-start;
     align-items: stretch;
     padding: 1.5rem;
+    position: relative;
+
+    .close-sidebar {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
 
     h1,
     h2 {

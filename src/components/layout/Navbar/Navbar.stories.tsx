@@ -8,7 +8,7 @@ import WalletConnectionDisplay from "../../widgets/WalletConnectionDisplay/Walle
 // import "./Navbar.scss"
 
 export default {
-  title: "ui-components/Navbar",
+  title: "ui-components/layout/Navbar",
   component: Navbar,
   argTypes: {},
   parameters: {

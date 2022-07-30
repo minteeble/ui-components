@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 import { SidebarProps } from "./Sidebar.types";
 
 export default {
-  title: "ui-components/Sidebar",
+  title: "ui-components/layout/Sidebar",
   component: Sidebar,
   argTypes: {},
   parameters: {
@@ -18,6 +18,7 @@ const Template: Story<SidebarProps> = (args) => <Sidebar {...args} />;
 export const SimpleNavbar = Template.bind({});
 SimpleNavbar.args = {
   frontItem: <h2>Title</h2>,
+  open: true,
   sections: [
     {
       title: "Section 1",

@@ -16,7 +16,7 @@ import IconButton from "./IconButton";
 import { IconButtonProps } from "./IconButton.types";
 
 export default {
-  title: "ui-components/IconButton",
+  title: "ui-components/forms/IconButton",
   component: IconButton,
   argTypes: {},
 } as Meta<typeof IconButton>;

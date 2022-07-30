@@ -15,7 +15,7 @@ import Button from "./Button";
 import { ButtonProps } from "./Button.types";
 
 export default {
-  title: "ui-components/Button",
+  title: "ui-components/forms/Button",
   component: Button,
   argTypes: {},
 } as Meta<typeof Button>;
