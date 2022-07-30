@@ -36,7 +36,7 @@
       align-items: stretch;
       justify-content: flex-start;
       gap: 1rem;
-      padding: 2rem;
+      padding: 1.5rem;
 
       .side-section {
         display: flex;
@@ -50,11 +50,20 @@
           letter-spacing: 0.3rem;
 
           .side-section-title {
+            font-size: 1.1rem;
           }
         }
 
         .side-item {
-          margin-left: 1rem;
+          margin-left: 0.7rem;
+          cursor: pointer;
+          // margin: 0.7rem 0.6rem;
+          padding: 0.4rem 1rem;
+          border-radius: 0.4rem;
+          &:hover {
+            background-color: var(--primary-color);
+            color: white;
+          }
         }
       }
     }
