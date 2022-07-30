@@ -9,7 +9,9 @@
  */
 
 export enum NavbarItemPosition {
-  Left, Center, Right
+  Left,
+  Center,
+  Right,
 }
 
 export interface NavbarPropsItem {
@@ -19,5 +21,5 @@ export interface NavbarPropsItem {
 
 export interface NavbarProps {
   items: Array<NavbarPropsItem>;
-  children: any;
+  children?: any;
 }

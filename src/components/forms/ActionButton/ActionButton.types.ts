@@ -8,11 +8,13 @@
  * website:   https://minteeble.com
  */
 
+import { ClickableComponent } from "../../shared";
+
 export enum Action {
   Confirm,
   Reject,
 }
 
-export interface ActionButtonProps {
+export interface ActionButtonProps extends ClickableComponent {
   action: Action;
 }

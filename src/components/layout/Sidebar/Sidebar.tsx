@@ -21,6 +21,7 @@ const Sidebar = (props: SidebarProps) => {
         <IconButton
           icon={<FontAwesomeIcon icon={faXmark} />}
           className="close-sidebar"
+          onClick={props.onSidebarClose ? props.onSidebarClose : () => {}}
         />
         <div className="front-item">{props.frontItem}</div>
 

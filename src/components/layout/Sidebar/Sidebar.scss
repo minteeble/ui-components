@@ -27,6 +27,8 @@
 
   border-right: 1px solid var(--border-color);
 
+  background-color: var(--primary-bg);
+
   &.open {
     left: 0rem;
   }

@@ -24,4 +24,5 @@ export interface SidebarProps {
   frontItem: any;
   sections: Array<SidebarSection>;
   open: boolean;
+  onSidebarClose?: () => void;
 }

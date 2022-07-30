@@ -13,7 +13,12 @@ import { IconButtonProps } from "./IconButton.types";
 
 const IconButton = (props: IconButtonProps) => {
   return (
-    <button className={"icon-button " + props.className}>{props.icon}</button>
+    <button
+      className={"icon-button " + props.className}
+      onClick={props.onClick ? props.onClick : () => {}}
+    >
+      {props.icon}
+    </button>
   );
 };
 
