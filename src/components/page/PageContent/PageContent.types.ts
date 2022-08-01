@@ -1,3 +1,3 @@
-import { ParentComponent } from "../../shared";
+import { ParentComponent } from "../../../models";
 
 export interface PageContentProps extends ParentComponent {}

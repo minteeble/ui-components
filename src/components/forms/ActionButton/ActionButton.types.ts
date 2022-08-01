@@ -8,7 +8,7 @@
  * website:   https://minteeble.com
  */
 
-import { ClickableComponent } from "../../shared";
+import { ClickableComponent } from "../../../models";
 
 export enum Action {
   Confirm,

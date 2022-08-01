@@ -8,7 +8,7 @@
  * website:   https://minteeble.com
  */
 
-import { ParentComponent } from "../../shared";
+import { ParentComponent } from "../../../models";
 
 export interface SidebarItem {
   text: string;

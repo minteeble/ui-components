@@ -8,7 +8,7 @@
  * website:   https://minteeble.com
  */
 
-import { ClassExtensible, ClickableComponent } from "../../shared";
+import { ClassExtensible, ClickableComponent } from "../../../models";
 
 export interface IconButtonProps extends ClickableComponent, ClassExtensible {
   icon: any;
