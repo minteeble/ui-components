@@ -21,4 +21,9 @@ export interface WalletConnectionDisplayProps {
    * Image URL of the wallet avatar
    */
   avatarImageUrl: string;
+
+  isLoading: boolean;
+
+  onSignInClick?: () => void;
+  onSignOutClick?: () => void;
 }

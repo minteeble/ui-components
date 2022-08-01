@@ -9,6 +9,7 @@
  */
 
 import React from "react";
+import LoadableComponent from "../../common/LoadableComponent/LoadableComponent";
 import Button from "../../forms/Button/Button";
 import { WalletConnectionDisplayProps } from "./WalletConnectionDisplay.types";
 
@@ -21,26 +22,28 @@ const WalletConnectionDisplay = (props: WalletConnectionDisplayProps) => {
 
   return (
     <div className="wallet-connection-display-wrapper">
-      {props.address !== "" ? (
-        <>
-          <div className="wallet-avatar-box">
-            {props.avatarImageUrl && (
-              <img
-                src={props.avatarImageUrl}
-                alt=""
-                className="wallet-avatar"
-              />
-            )}
-          </div>
-          <div className="wallet-address-box">
-            <span className="wallet-address">
-              {evalWalletAbbreviation(props.address)}
-            </span>
-          </div>
-        </>
-      ) : (
-        <Button text="SIGN IN" />
-      )}
+      <LoadableComponent showCondition={() => !props.isLoading}>
+        {props.address !== "" ? (
+          <>
+            <div className="wallet-avatar-box">
+              {props.avatarImageUrl && (
+                <img
+                  src={props.avatarImageUrl}
+                  alt=""
+                  className="wallet-avatar"
+                />
+              )}
+            </div>
+            <div className="wallet-address-box">
+              <span className="wallet-address">
+                {evalWalletAbbreviation(props.address)}
+              </span>
+            </div>
+          </>
+        ) : (
+          <Button text="SIGN IN" onClick={props.onSignInClick} />
+        )}
+      </LoadableComponent>
     </div>
   );
 };

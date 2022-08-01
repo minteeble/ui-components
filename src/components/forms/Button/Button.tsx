@@ -12,7 +12,11 @@ import React, { useState, useEffect } from "react";
 import { ButtonProps } from "./Button.types";
 
 const Button = (props: ButtonProps) => {
-  return <div className="button btn-primary">{props.text}</div>;
+  return (
+    <div className="button btn-primary" onClick={props.onClick || (() => {})}>
+      {props.text}
+    </div>
+  );
 };
 
 export default Button;
