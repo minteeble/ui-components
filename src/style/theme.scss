@@ -36,6 +36,7 @@ $themes: (
   .minteeble-#{$name}-theme {
     @each $key, $value in $map {
       --#{$key}: #{$value};
+      --#{$key}-trs: #{rgba($value, 0.5)};
     }
   }
 }

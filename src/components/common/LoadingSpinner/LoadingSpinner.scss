@@ -1,0 +1,21 @@
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .spinner {
+    display: inline;
+    color: var(--primary-color-trs);
+    animation: spin 1s linear infinite;
+
+    width: 2rem;
+    height: 2rem;
+  }
+}
