@@ -12,7 +12,7 @@ import React from "react";
 import { IconButtonProps } from "../IconButton/IconButton.types";
 import { Action, ActionButtonProps } from "./ActionButton.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faClose, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faClose, faPencil } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "../IconButton/IconButton";
 
 const ActionButton = (props: ActionButtonProps) => {
@@ -21,12 +21,18 @@ const ActionButton = (props: ActionButtonProps) => {
     className: "",
   };
 
-  if (props.action === Action.Confirm) {
-    iconButtonProps.icon = <FontAwesomeIcon icon={faCheck} />;
-  }
+  switch (props.action) {
+    case Action.Confirm:
+      iconButtonProps.icon = <FontAwesomeIcon icon={faCheck} />;
+      break;
 
-  if (props.action === Action.Reject) {
-    iconButtonProps.icon = <FontAwesomeIcon icon={faClose} />;
+    case Action.Reject:
+      iconButtonProps.icon = <FontAwesomeIcon icon={faClose} />;
+      break;
+
+    case Action.Edit:
+      iconButtonProps.icon = <FontAwesomeIcon icon={faPencil} />;
+      break;
   }
 
   return <IconButton {...iconButtonProps} />;

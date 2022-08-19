@@ -32,3 +32,8 @@ export const RejectButton = Template.bind({});
 RejectButton.args = {
   action: Action.Reject,
 };
+
+export const EditButton = Template.bind({});
+EditButton.args = {
+  action: Action.Edit,
+};

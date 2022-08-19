@@ -13,6 +13,7 @@ import { ClickableComponent } from "../../../models";
 export enum Action {
   Confirm,
   Reject,
+  Edit,
 }
 
 export interface ActionButtonProps extends ClickableComponent {
