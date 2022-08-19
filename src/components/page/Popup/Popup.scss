@@ -1,0 +1,28 @@
+.popup-wrapper {
+  background-color: rgba(136, 136, 136, 0.425);
+  position: fixed;
+  top: 0rem;
+  left: 0rem;
+  width: 100vw;
+  height: 100vh;
+
+  .popup {
+    position: absolute;
+    padding: 2rem;
+    left: 50%;
+    margin-top: 2rem;
+    transform: translate(-50%) scale(0);
+    background-color: var(--primary-bg);
+    border-radius: 0.4rem;
+
+    &.open {
+      transform: translate(-50%) scale(1);
+    }
+
+    .popup-content-wrapper {
+      .popup-content {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
