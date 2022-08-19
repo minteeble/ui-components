@@ -25,4 +25,18 @@
   &:hover {
     border-color: var(--border-color);
   }
+
+  &.default {
+    padding: 0.3rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.3rem;
+  }
+
+  &.small {
+    padding: 0.3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.9rem;
+  }
 }

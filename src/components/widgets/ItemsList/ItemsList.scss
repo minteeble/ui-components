@@ -1,0 +1,50 @@
+/**
+ * Copyright Minteeble 2022. All Rights Reserved.
+ * Node module: @minteeble/ui-components
+ * This file is licensed under the MIT License.
+ * License text available at https://opensource.org/licenses/MIT
+ *
+ * email:     minteeble@gmail.com
+ * website:   https://minteeble.com
+ */
+
+.items-list {
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  // background-color: red;
+  border: 1px solid transparent;
+  border-color: var(--border-color);
+  border-radius: 0.3rem;
+  background-color: var(--secondary-bg);
+
+  .items-list-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-bottom: 0.5rem;
+
+    .item {
+      border: 1px solid transparent;
+      padding: 0.3rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      transition: all 0.25s;
+      user-select: none;
+
+      &:hover {
+        border-color: var(--border-color);
+        background-color: var(--primary-bg);
+      }
+
+      .display-text {
+        flex-grow: 2;
+      }
+
+      // .item-toolbar { }
+    }
+  }
+}

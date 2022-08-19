@@ -8,14 +8,17 @@
  * website:   https://minteeble.com
  */
 
-import { ClickableComponent } from "../../../models";
+import { ClickableComponent, ComponentSize } from "../../../models";
 
 export enum Action {
   Confirm,
   Reject,
   Edit,
+  Delete,
+  Add,
 }
 
 export interface ActionButtonProps extends ClickableComponent {
   action: Action;
+  size?: ComponentSize;
 }

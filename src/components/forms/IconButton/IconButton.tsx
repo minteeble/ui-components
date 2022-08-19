@@ -9,12 +9,20 @@
  */
 
 import React from "react";
+import { ComponentSize } from "../../../models";
 import { IconButtonProps } from "./IconButton.types";
 
 const IconButton = (props: IconButtonProps) => {
+  const sizeClasses = ["small", "default", "large"];
+
+  const sizeClassName =
+    sizeClasses[
+      typeof props.size !== "undefined" ? props.size : ComponentSize.Default
+    ];
+
   return (
     <button
-      className={"icon-button " + props.className}
+      className={`icon-button ${props.className} ${sizeClassName}`}
       onClick={props.onClick ? props.onClick : () => {}}
     >
       {props.icon}

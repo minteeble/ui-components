@@ -34,3 +34,12 @@ export interface ClassExtensible {
 export interface ParentComponent {
   children: any;
 }
+
+/**
+ * Enum for specifying a component size
+ */
+export enum ComponentSize {
+  Small,
+  Default,
+  Large,
+}
