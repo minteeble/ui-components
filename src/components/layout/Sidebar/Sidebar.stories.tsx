@@ -35,12 +35,15 @@ SimpleNavbar.args = {
       items: [
         {
           text: "First element",
+          url: "#",
         },
         {
           text: "Second element",
+          url: "#",
         },
         {
           text: "Third element",
+          url: "#",
         },
       ],
     },
@@ -49,12 +52,15 @@ SimpleNavbar.args = {
       items: [
         {
           text: "First element",
+          url: "#",
         },
         {
           text: "Second element",
+          url: "#",
         },
         {
           text: "Third element",
+          url: "#",
         },
       ],
     },

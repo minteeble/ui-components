@@ -8,9 +8,15 @@
  * website:   https://minteeble.com
  */
 
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faChartLine,
+  faCocktail,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { Link } from "react-router-dom";
 import IconButton from "../../forms/IconButton/IconButton";
 import { SidebarProps } from "./Sidebar.types";
 
@@ -39,8 +45,12 @@ const Sidebar = (props: SidebarProps) => {
                   {section.items.map((item) => {
                     return (
                       <div className="side-item">
-                        <div className="item-icon"></div>
-                        <div className="item-text">{item.text}</div>
+                        <div className="item-icon">
+                          <FontAwesomeIcon icon={["fas", "chart-line"]} />
+                        </div>
+                        <a href={item.url} className="item-text">
+                          {item.text}
+                        </a>
                       </div>
                     );
                   })}

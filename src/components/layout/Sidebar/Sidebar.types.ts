@@ -14,6 +14,7 @@ export interface SidebarItem {
   text: string;
   icon?: string;
   onClick?: any;
+  url: string;
 }
 
 export interface SidebarSection {
