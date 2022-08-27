@@ -8,6 +8,7 @@
  * website:   https://minteeble.com
  */
 
+import React, { FC } from "react";
 import { ParentComponent } from "../../../models";
 
 export interface SidebarItem {

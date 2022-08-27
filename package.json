@@ -36,11 +36,8 @@
     "@types/react": "^18.0.15",
     "@types/react-router": "^5.1.18",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-router-hash-link": "^2.4.5",
     "babel-loader": "^8.2.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0",
-    "react-router-hash-link": "^2.4.3",
     "rollup": "^2.77.0",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -54,5 +51,11 @@
   "dependencies": {
     "sass-loader": "10.0.0",
     "web3-utils": "^1.7.4"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.3.0",
+    "react-router-hash-link": "2.4.3"
   }
 }

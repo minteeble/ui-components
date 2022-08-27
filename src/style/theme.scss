@@ -15,6 +15,7 @@ $themes: (
   default:
     (
       "primary-color": #53c2de,
+      "primary-hover": #55c5e176,
       "normal-text-color": rgb(79, 79, 79),
       "primary-bg": rgb(255, 255, 255),
       "secondary-bg": rgb(242, 242, 242),
@@ -24,6 +25,7 @@ $themes: (
   dark:
     (
       "primary-color": #53c2de,
+      "primary-hover": #55c5e1b4,
       "normal-text-color": rgb(213, 213, 213),
       "primary-bg": #414345,
       "secondary-bg": black,

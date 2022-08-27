@@ -15,12 +15,27 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useContext } from "react";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import IconButton from "../../forms/IconButton/IconButton";
 import { SidebarProps } from "./Sidebar.types";
+import { HashLink } from "react-router-hash-link";
 
 const Sidebar = (props: SidebarProps) => {
+  // console.log(__RouterContext);
+
+  // let canUseRouter: boolean = false;
+
+  // try {
+  //   const _ = useLocation();
+  //   canUseRouter = true;
+  // } catch (err) {
+  //   console.log(err);
+  // }
+
+  // const router = useContext(__RouterContext);
+
   return (
     <div className="sidebar-wrapper">
       <div className={props.open ? "sidebar open" : "sidebar"}>
@@ -44,14 +59,17 @@ const Sidebar = (props: SidebarProps) => {
                   </div>
                   {section.items.map((item) => {
                     return (
-                      <div className="side-item">
-                        <div className="item-icon">
-                          <FontAwesomeIcon icon={["fas", "chart-line"]} />
-                        </div>
-                        <a href={item.url} className="item-text">
+                      <Link to={item.url} className="item-text">
+                        <div className="side-item">
+                          {item.icon && (
+                            <div className="item-icon">
+                              {/* @ts-ignore*/}
+                              <FontAwesomeIcon icon={item.icon} />
+                            </div>
+                          )}
                           {item.text}
-                        </a>
-                      </div>
+                        </div>
+                      </Link>
                     );
                   })}
                 </div>

@@ -13,6 +13,8 @@ import { Story, Meta } from "@storybook/react";
 
 import Sidebar from "./Sidebar";
 import { SidebarProps } from "./Sidebar.types";
+import { BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default {
   title: "ui-components/layout/Sidebar",
@@ -23,7 +25,13 @@ export default {
   },
 } as Meta<typeof Sidebar>;
 
-const Template: Story<SidebarProps> = (args) => <Sidebar {...args} />;
+const Template: Story<SidebarProps> = (args) => {
+  return (
+    <BrowserRouter>
+      <Sidebar {...args} />
+    </BrowserRouter>
+  );
+};
 
 export const SimpleNavbar = Template.bind({});
 SimpleNavbar.args = {
