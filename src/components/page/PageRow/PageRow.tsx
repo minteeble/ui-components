@@ -12,7 +12,15 @@ import React from "react";
 import { PageRowProps } from "./PageRow.types";
 
 const PageRow = (props: PageRowProps) => {
-  return <div className="page-row">{props.children}</div>;
+  let alignmentClasses = ["start", "center", "end", "stretch"];
+
+  let pageAlignmentClass = alignmentClasses[props.alignment || 0];
+
+  return (
+    <div className={"page-row " + pageAlignmentClass} style={props.style}>
+      {props.children}
+    </div>
+  );
 };
 
 export default PageRow;

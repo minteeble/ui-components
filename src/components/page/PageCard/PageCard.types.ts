@@ -8,6 +8,6 @@
  * website:   https://minteeble.com
  */
 
-import { ParentComponent } from "../../../models";
+import { ParentComponent, StylableComponent } from "../../../models";
 
-export interface PageCardProps extends ParentComponent {}
+export interface PageCardProps extends ParentComponent, StylableComponent {}

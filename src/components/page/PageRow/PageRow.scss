@@ -17,4 +17,20 @@
   .page-card {
     flex: 1;
   }
+
+  &.start {
+    justify-content: flex-start;
+  }
+
+  &.end {
+    justify-content: flex-end;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+
+  &.stretch {
+    justify-content: stretch;
+  }
 }

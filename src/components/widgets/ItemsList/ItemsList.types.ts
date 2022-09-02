@@ -20,7 +20,7 @@ export interface Item {
 /**
  * Props for ItemsList widget
  */
-export interface ItemsListProps extends ClassExtensible, ParentComponent {
+export interface ItemsListProps extends ClassExtensible {
   /**
    * Specifies if the delete operation is enabled
    */

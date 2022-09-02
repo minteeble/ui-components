@@ -12,7 +12,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import PageRow from "./PageRow";
-import { PageRowProps } from "./PageRow.types";
+import { PageRowAlignment, PageRowProps } from "./PageRow.types";
 import PageCard from "../PageCard/PageCard";
 
 export default {
@@ -38,4 +38,29 @@ SimpleRow.args = {
       </PageCard>
     </>
   ),
+};
+
+export const CenterRow = Template.bind({});
+CenterRow.args = {
+  children: (
+    <>
+      <PageCard style={{ maxWidth: "50rem" }}>
+        <h2>Card 1</h2>
+      </PageCard>
+    </>
+  ),
+  alignment: PageRowAlignment.Center,
+};
+
+export const StretchRow = Template.bind({});
+StretchRow.args = {
+  children: (
+    <>
+      <PageCard>
+        <h2>Card 1</h2>
+      </PageCard>
+    </>
+  ),
+
+  alignment: PageRowAlignment.Stretch,
 };

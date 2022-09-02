@@ -43,3 +43,10 @@ export enum ComponentSize {
   Default,
   Large,
 }
+
+/**
+ * Components able to apply in-line style
+ */
+export interface StylableComponent {
+  style?: any;
+}

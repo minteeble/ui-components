@@ -8,6 +8,15 @@
  * website:   https://minteeble.com
  */
 
-import { ParentComponent } from "../../../models";
+import { ParentComponent, StylableComponent } from "../../../models";
 
-export interface PageRowProps extends ParentComponent {}
+export enum PageRowAlignment {
+  Start,
+  Center,
+  End,
+  Stretch,
+}
+
+export interface PageRowProps extends ParentComponent, StylableComponent {
+  alignment?: PageRowAlignment;
+}
