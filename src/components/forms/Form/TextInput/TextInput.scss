@@ -1,0 +1,16 @@
+.text-input-wrapper {
+  margin: 0.2rem;
+
+  .text-input {
+    padding: 0.5rem;
+    border: 0px solid black;
+    background-color: var(--secondary-bg);
+    border-bottom: 0.2rem solid var(--dark-border-color);
+    transition: all 0.3s ease-in-out;
+
+    &:focus {
+      outline: none;
+      border-bottom-color: var(--primary-color);
+    }
+  }
+}
