@@ -8,7 +8,11 @@
  * website:   https://minteeble.com
  */
 
-import { ClickableComponent } from "../../../models";
+import {
+  ClickableComponent,
+  DisableableComponent,
+  LoadableComponentProps,
+} from "../../../models";
 
 export enum ButtonActionType {
   Button,
@@ -21,7 +25,10 @@ export enum ButtonStyleType {
   Filled,
 }
 
-export interface ButtonProps extends ClickableComponent {
+export interface ButtonProps
+  extends ClickableComponent,
+    DisableableComponent,
+    LoadableComponentProps {
   text: string;
   styleType?: ButtonStyleType;
   actionType?: ButtonActionType;

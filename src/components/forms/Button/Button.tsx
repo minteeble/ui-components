@@ -15,6 +15,13 @@ const Button = (props: ButtonProps) => {
   let button = <></>;
 
   let url = props.url || "#";
+  let disabled = props.disabled || false;
+  let loading = props.loading || false;
+
+  let commonButtonProps = {
+    className: "button btn-primary",
+    disabled: disabled,
+  };
 
   let type = props.actionType || ButtonActionType.Button;
 
