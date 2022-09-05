@@ -21,30 +21,19 @@ const Button = (props: ButtonProps) => {
   let commonButtonProps = {
     className: "button btn-primary",
     disabled: disabled,
+    onClick: props.onClick || (() => {}),
   };
 
   let type = props.actionType || ButtonActionType.Button;
 
   switch (type) {
     case ButtonActionType.Button:
-      button = (
-        <button
-          className="button btn-primary"
-          onClick={props.onClick || (() => {})}
-        >
-          {props.text}
-        </button>
-      );
+      button = <button {...commonButtonProps}>{props.text}</button>;
       break;
 
     case ButtonActionType.Anchor:
       button = (
-        <a
-          className="button btn-primary"
-          onClick={props.onClick || (() => {})}
-          href={url}
-          target="_blank"
-        >
+        <a {...commonButtonProps} href={url} target="_blank">
           {props.text}
         </a>
       );
@@ -52,12 +41,7 @@ const Button = (props: ButtonProps) => {
 
     case ButtonActionType.Submit:
       button = (
-        <input
-          className="button btn-primary"
-          onClick={props.onClick || (() => {})}
-          type="submit"
-          value={props.text}
-        ></input>
+        <input {...commonButtonProps} type="submit" value={props.text}></input>
       );
       break;
   }
