@@ -50,3 +50,17 @@ export enum ComponentSize {
 export interface StylableComponent {
   style?: any;
 }
+
+/**
+ * Component able to be disabled
+ */
+export interface DisableableComponent {
+  disabled?: boolean;
+}
+
+/**
+ * Component able to be put in loading state
+ */
+export interface LoadableComponentProps {
+  loading?: boolean;
+}
