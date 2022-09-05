@@ -12,7 +12,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import Form from "./Form";
-import { FormProps } from "./Form.types";
+import { FormFieldType, FormProps } from "./Form.types";
 
 export default {
   title: "ui-components/forms/Form",
@@ -20,7 +20,30 @@ export default {
   argTypes: {},
 } as Meta<typeof Form>;
 
-const Template: Story<FormProps> = (args) => <Form {...args} />;
+const Template: Story<FormProps> = (args) => {
+  return (
+    <Form
+      {...args}
+      elements={[
+        {
+          fieldName: "first-name",
+          type: FormFieldType.TextInput,
+          label: "First name",
+          placeholder: "Enter your first name",
+        },
+        {
+          fieldName: "last-name",
+          type: FormFieldType.TextInput,
+          label: "Last name",
+          placeholder: "Enter your last name",
+        },
+      ]}
+      onSubmit={(data: Record<string, any>) => {
+        console.log(data);
+      }}
+    />
+  );
+};
 
 export const SimpleForm = Template.bind({});
 SimpleForm.args = {

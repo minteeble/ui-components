@@ -10,6 +10,13 @@
 
 import { ClickableComponent } from "../../../models";
 
+export enum ButtonActionType {
+  Button,
+  Anchor,
+  Submit,
+  Link,
+}
+
 export enum ButtonStyleType {
   Filled,
 }
@@ -17,4 +24,6 @@ export enum ButtonStyleType {
 export interface ButtonProps extends ClickableComponent {
   text: string;
   styleType?: ButtonStyleType;
+  actionType?: ButtonActionType;
+  url?: string;
 }

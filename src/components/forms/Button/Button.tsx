@@ -9,14 +9,53 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { ButtonProps } from "./Button.types";
+import { ButtonActionType, ButtonProps } from "./Button.types";
 
 const Button = (props: ButtonProps) => {
-  return (
-    <div className="button btn-primary" onClick={props.onClick || (() => {})}>
-      {props.text}
-    </div>
-  );
+  let button = <></>;
+
+  let url = props.url || "#";
+
+  let type = props.actionType || ButtonActionType.Button;
+
+  switch (type) {
+    case ButtonActionType.Button:
+      button = (
+        <button
+          className="button btn-primary"
+          onClick={props.onClick || (() => {})}
+        >
+          {props.text}
+        </button>
+      );
+      break;
+
+    case ButtonActionType.Anchor:
+      button = (
+        <a
+          className="button btn-primary"
+          onClick={props.onClick || (() => {})}
+          href={url}
+          target="_blank"
+        >
+          {props.text}
+        </a>
+      );
+      break;
+
+    case ButtonActionType.Submit:
+      button = (
+        <input
+          className="button btn-primary"
+          onClick={props.onClick || (() => {})}
+          type="submit"
+          value={props.text}
+        ></input>
+      );
+      break;
+  }
+
+  return button;
 };
 
 export default Button;

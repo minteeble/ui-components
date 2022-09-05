@@ -1,6 +1,16 @@
 .text-input-wrapper {
   margin: 0.2rem;
 
+  display: flex;
+  flex-direction: column;
+
+  .text-input-label {
+    // background-color: pink;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--light-text-color);
+  }
+
   .text-input {
     padding: 0.5rem;
     border: 0px solid black;

@@ -8,10 +8,12 @@ const TextInput = (props: TextInputProps) => {
 
   return (
     <div className="text-input-wrapper" style={props.style}>
+      {props.label && <label className="text-input-label">{props.label}</label>}
       <input
         className="text-input"
         type={textInputType}
         value={props.value}
+        placeholder={(props.value.length === 0 && props.placeHolder) || ""}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           props.onValueChange(e.target.value);
         }}

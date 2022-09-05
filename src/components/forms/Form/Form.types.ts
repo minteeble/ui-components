@@ -8,6 +8,32 @@
  * website:   https://minteeble.com
  */
 
+import { FC } from "react";
 import { StylableComponent } from "../../../models";
 
-export interface FormProps extends StylableComponent {}
+export interface TextInputParams extends FormField {
+  value: string;
+  onValueChange: (newValue: string) => void;
+}
+
+export enum FormFieldType {
+  TextInput,
+}
+
+export interface FormField {
+  value?: any;
+  onValueChange?: (newValue: any) => void;
+  errorMessage?: string;
+  label?: string;
+  fieldName: string;
+  placeholder?: string;
+
+  type: FormFieldType;
+}
+
+export interface FormProps extends StylableComponent {
+  elements: Array<FormField>;
+  submitEnabled?: boolean;
+  submitText?: string;
+  onSubmit?: (data: any) => void;
+}

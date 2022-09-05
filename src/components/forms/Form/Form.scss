@@ -1,1 +1,15 @@
 @import "./TextInput/TextInput.scss";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .form-toolbar {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
