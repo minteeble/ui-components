@@ -1,23 +1,44 @@
 // @import "../../../../../node_modules/react-responsive-combo-box/dist/index.css";
 
-.select {
-  // background-color: red;
+.select-wrapper {
+  margin: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 
-  > div {
-    // background-color: red;
-    height: unset;
+  .select-label {
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--light-text-color);
+  }
 
-    > input {
-      padding: 0.5rem;
-      border: 0px solid black;
-      background-color: var(--secondary-bg);
-      border-bottom: 0.2rem solid var(--dark-border-color);
-      transition: all 0.3s ease-in-out;
-      border-radius: 5px;
+  .select {
+    position: relative;
 
-      &:focus {
-        outline: none;
-        border-bottom-color: var(--primary-color);
+    .select-icon {
+      right: 0.5rem;
+      top: 0.5rem;
+      position: absolute;
+      pointer-events: none;
+      color: var(--dark-border-color);
+    }
+
+    > div {
+      height: unset;
+      width: unset;
+
+      > input {
+        padding: 0.5rem;
+        border: 0px solid black;
+        background-color: var(--secondary-bg);
+        border-bottom: 0.2rem solid var(--dark-border-color);
+        transition: all 0.3s ease-in-out;
+        border-radius: 5px;
+
+        &:focus {
+          outline: none;
+          border-bottom-color: var(--primary-color);
+        }
       }
     }
   }

@@ -15,7 +15,7 @@ import Select from "./Select";
 import { SelectProps } from "./Select.types";
 
 export default {
-  title: "ui-components/forms/Select",
+  title: "ui-components/forms/Form/Select",
   component: Select,
   argTypes: {},
 } as Meta<typeof Select>;
@@ -27,4 +27,7 @@ const Template: Story<SelectProps> = (args) => {
 export const SimpleSelect = Template.bind({});
 SimpleSelect.args = {
   // text: "SimpleSelect",
+  options: ["Option A", "Option B", "Option C"],
+  placeHolder: "Select an option...",
+  label: "Option",
 };

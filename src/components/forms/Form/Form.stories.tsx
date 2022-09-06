@@ -12,7 +12,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import Form from "./Form";
-import { FormFieldType, FormProps } from "./Form.types";
+import { FormFieldType, FormProps, SelectParams } from "./Form.types";
 
 export default {
   title: "ui-components/forms/Form",
@@ -37,6 +37,13 @@ const Template: Story<FormProps> = (args) => {
           label: "Last name",
           placeholder: "Enter your last name",
         },
+        {
+          fieldName: "option",
+          type: FormFieldType.Select,
+          label: "Option",
+          placeholder: "Select option",
+          options: ["Option A", "Option B", "Option C"],
+        } as SelectParams,
       ]}
       onSubmit={(data: Record<string, any>) => {
         console.log(data);

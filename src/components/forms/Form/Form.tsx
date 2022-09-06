@@ -10,7 +10,13 @@
 
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
-import { FormField, FormFieldType, FormProps } from "./Form.types";
+import {
+  FormField,
+  FormFieldType,
+  FormProps,
+  SelectParams,
+} from "./Form.types";
+import Select from "./Select/Select";
 import TextInput from "./TextInput";
 
 export interface FieldState {
@@ -35,6 +41,21 @@ const Form = (props: FormProps) => {
           if (element.type === FormFieldType.TextInput) {
             return {
               value: "",
+              onValueChange: (newValue: any) => {
+                setFieldsState((s) => {
+                  s[i].value = newValue;
+
+                  return [...s];
+                });
+              },
+              originalFormField: element,
+            };
+          }
+
+          if (element.type === FormFieldType.Select) {
+            return {
+              value: "",
+
               onValueChange: (newValue: any) => {
                 console.log("Here");
                 setFieldsState((s) => {
@@ -61,6 +82,20 @@ const Form = (props: FormProps) => {
     if (field.originalFormField.type === FormFieldType.TextInput) {
       return (
         <TextInput
+          value={field?.value}
+          onValueChange={field?.onValueChange}
+          label={field.originalFormField.label}
+          placeHolder={field.originalFormField.placeholder}
+        />
+      );
+    }
+
+    if (field.originalFormField.type === FormFieldType.Select) {
+      let originalFormField = field.originalFormField as SelectParams;
+
+      return (
+        <Select
+          options={originalFormField.options}
           value={field?.value}
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}

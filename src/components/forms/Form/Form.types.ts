@@ -16,8 +16,13 @@ export interface TextInputParams extends FormField {
   onValueChange: (newValue: string) => void;
 }
 
+export interface SelectParams extends FormField {
+  options: Array<string>;
+}
+
 export enum FormFieldType {
   TextInput,
+  Select,
 }
 
 export interface FormField {

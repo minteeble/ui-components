@@ -40,4 +40,6 @@ const Template: Story<TextInputProps> = (args) => {
 export const SimpleTextInput = Template.bind({});
 SimpleTextInput.args = {
   // text: "SimpleForm",
+  placeHolder: "Enter name...",
+  label: "Name",
 };
