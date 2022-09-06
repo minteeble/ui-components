@@ -20,9 +20,15 @@ export interface SelectParams extends FormField {
   options: Array<string>;
 }
 
+export interface ToggleParams extends FormField {
+  value: boolean;
+  onValueChange: (newValue: boolean) => void;
+}
+
 export enum FormFieldType {
   TextInput,
   Select,
+  Toggle,
 }
 
 export interface FormField {

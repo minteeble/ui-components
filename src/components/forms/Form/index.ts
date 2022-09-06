@@ -1,4 +1,6 @@
 export * from "./TextInput";
+export * from "./Select";
+export * from "./Toggle";
 
 import Form from "./Form";
 

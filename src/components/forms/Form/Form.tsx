@@ -11,6 +11,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
 import {
+  ToggleParams,
   FormField,
   FormFieldType,
   FormProps,
@@ -18,6 +19,7 @@ import {
 } from "./Form.types";
 import Select from "./Select/Select";
 import TextInput from "./TextInput";
+import Toggle from "./Toggle";
 
 export interface FieldState {
   value: any;
@@ -68,6 +70,21 @@ const Form = (props: FormProps) => {
             };
           }
 
+          if (element.type === FormFieldType.Toggle) {
+            return {
+              value: "",
+
+              onValueChange: (newValue: any) => {
+                setFieldsState((s) => {
+                  s[i].value = newValue;
+
+                  return [...s];
+                });
+              },
+              originalFormField: element,
+            };
+          }
+
           return {
             value: "",
             onValueChange: (newValue: any) => {},
@@ -100,6 +117,18 @@ const Form = (props: FormProps) => {
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
           placeHolder={field.originalFormField.placeholder}
+        />
+      );
+    }
+
+    if (field.originalFormField.type === FormFieldType.Toggle) {
+      let originalFormField = field.originalFormField as ToggleParams;
+
+      return (
+        <Toggle
+          value={field?.value}
+          onValueChange={field?.onValueChange}
+          label={field.originalFormField.label}
         />
       );
     }

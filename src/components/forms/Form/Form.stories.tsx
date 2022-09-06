@@ -12,7 +12,12 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import Form from "./Form";
-import { FormFieldType, FormProps, SelectParams } from "./Form.types";
+import {
+  FormFieldType,
+  FormProps,
+  SelectParams,
+  ToggleParams,
+} from "./Form.types";
 
 export default {
   title: "ui-components/forms/Form",
@@ -44,6 +49,11 @@ const Template: Story<FormProps> = (args) => {
           placeholder: "Select option",
           options: ["Option A", "Option B", "Option C"],
         } as SelectParams,
+        {
+          fieldName: "enabled",
+          type: FormFieldType.Toggle,
+          label: "Enabled",
+        } as ToggleParams,
       ]}
       onSubmit={(data: Record<string, any>) => {
         console.log(data);
