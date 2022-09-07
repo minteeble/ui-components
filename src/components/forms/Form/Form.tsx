@@ -148,7 +148,13 @@ const Form = (props: FormProps) => {
         });
 
         if (props.onSubmit) {
-          props.onSubmit(data);
+          let canSubmit = true;
+          fieldsState.forEach((field) => {
+            if (field.originalFormField.required && !field.value)
+              canSubmit = false;
+          });
+
+          if (canSubmit) props.onSubmit(data);
         }
       }}
     >

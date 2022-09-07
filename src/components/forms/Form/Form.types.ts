@@ -38,6 +38,7 @@ export interface FormField {
   label?: string;
   fieldName: string;
   placeholder?: string;
+  required?: boolean;
 
   type: FormFieldType;
 }

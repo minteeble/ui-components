@@ -33,6 +33,7 @@ const Template: Story<FormProps> = (args) => {
         {
           fieldName: "first-name",
           type: FormFieldType.TextInput,
+          required: true,
           label: "First name",
           placeholder: "Enter your first name",
         },
@@ -45,6 +46,8 @@ const Template: Story<FormProps> = (args) => {
         {
           fieldName: "option",
           type: FormFieldType.Select,
+          required: true,
+
           label: "Option",
           placeholder: "Select option",
           options: ["Option A", "Option B", "Option C"],
