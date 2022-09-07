@@ -8,6 +8,9 @@
  * website:   https://minteeble.com
  */
 
+/**
+ *
+ */
 export interface PopupLogic {
   isPopupOpen: boolean;
   openPopup: () => void;
