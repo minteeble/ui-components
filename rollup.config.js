@@ -6,6 +6,9 @@ import { terser } from "rollup-plugin-terser";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import scss from "rollup-plugin-scss";
 import svg from "rollup-plugin-svg";
+import postcss from "postcss";
+import autoprefixer from "autoprefixer";
+const path = require("path");
 
 const packageJson = require("./package.json");
 
@@ -25,11 +28,15 @@ export default [
       },
     ],
     plugins: [
-      scss(),
       peerDepsExternal(),
       resolve(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
+      scss({
+        output: "./build/css/style.css",
+        failOnError: true,
+        include: "./src/**/*.scss",
+      }),
       terser(),
       svg(),
     ],
@@ -39,5 +46,16 @@ export default [
     input: "dist/esm/types/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
+  },
+  {
+    input: "src/style.ts",
+    plugins: [
+      scss({
+        output: "./dist/css/style.css",
+        failOnError: true,
+        include: "./src/**/*.scss",
+      }),
+    ],
+    external: ["react", "react-dom", "styled-components"],
   },
 ];
