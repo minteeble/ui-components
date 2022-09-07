@@ -25,6 +25,13 @@
     background-color: var(--primary-bg);
     border-radius: 0.4rem;
 
+    .popup-cross {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+    }
+
     &.open {
       transform: translate(-50%) scale(1);
     }

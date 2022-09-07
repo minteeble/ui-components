@@ -8,8 +8,10 @@
  * website:   https://minteeble.com
  */
 
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Button } from "../../forms";
+import { Action, ActionButton, Button } from "../../forms";
 import { PopupProps } from "./Popup.types";
 
 const Popup = (props: PopupProps) => {
@@ -27,11 +29,24 @@ const Popup = (props: PopupProps) => {
           e.stopPropagation();
         }}
       >
+        {props.closeCrossEnabled && (
+          <ActionButton
+            action={Action.Reject}
+            className="popup-cross"
+            onClick={triggerClose}
+          />
+        )}
+
         <div className="popup-content-wrapper">
           <div className="popup-content">{props.children}</div>
 
           <div className="btn-toolbar right">
-            <Button text="Close" onClick={triggerClose} />
+            {props.closeButtonEnabled && (
+              <Button
+                text={props.closeButtonText || "Close"}
+                onClick={triggerClose}
+              />
+            )}
           </div>
         </div>
       </div>

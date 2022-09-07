@@ -20,4 +20,8 @@ export interface UsePopupProps {}
 export interface PopupProps {
   popupLogic: PopupLogic;
   children: any;
+
+  closeButtonEnabled?: boolean;
+  closeCrossEnabled?: boolean;
+  closeButtonText?: string;
 }

@@ -26,7 +26,7 @@ import IconButton from "../IconButton/IconButton";
 const ActionButton = (props: ActionButtonProps) => {
   let iconButtonProps: IconButtonProps = {
     icon: null,
-    className: "",
+    className: props.className,
     size: props.size,
     onClick: props.onClick,
   };

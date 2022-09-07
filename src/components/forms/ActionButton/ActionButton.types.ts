@@ -8,7 +8,11 @@
  * website:   https://minteeble.com
  */
 
-import { ClickableComponent, ComponentSize } from "../../../models";
+import {
+  ClassExtensible,
+  ClickableComponent,
+  ComponentSize,
+} from "../../../models";
 
 export enum Action {
   Confirm,
@@ -18,7 +22,7 @@ export enum Action {
   Add,
 }
 
-export interface ActionButtonProps extends ClickableComponent {
+export interface ActionButtonProps extends ClickableComponent, ClassExtensible {
   action: Action;
   size?: ComponentSize;
 }
