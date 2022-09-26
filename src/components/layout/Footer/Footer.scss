@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: space-around;
   border-top: 1px solid var(--light-text-color);
-  padding: 2rem;
+  padding: 1rem 5rem;
+  font-size: 0.6rem;
 
   .footer-item {
     flex: 1;
@@ -27,6 +28,7 @@
     .footer-wrapper-privacy {
       text-decoration: none;
       color: var(--normal-text-color);
+      font-weight: 600;
 
       &::after {
         background: var(--primary-color);
