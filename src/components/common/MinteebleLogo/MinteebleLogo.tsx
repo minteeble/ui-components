@@ -161,7 +161,7 @@ const MinteebleLogo = (props: MinteebleLogoProps) => {
 
   let sizes = ["small", "medium", "large"];
 
-  let baseClassName = "minteeble-logo " + sizes[size];
+  let baseClassName = props.className + " minteeble-logo " + sizes[size];
 
   return <div className={baseClassName}>{logos[theme][type]}</div>;
 };

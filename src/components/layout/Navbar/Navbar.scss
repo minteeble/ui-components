@@ -11,6 +11,7 @@
 // Navabr component
 
 .navbar {
+  z-index: 999;
   background-color: var(--primary-bg);
 
   height: 3rem;
@@ -18,6 +19,7 @@
   position: sticky;
   top: 0px;
   padding: 0.7rem;
+  margin-bottom: 5rem;
 
   display: flex;
   flex-direction: row;
