@@ -22,7 +22,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import MinteebleLogo from "./MinteebleLogo";
-import { MinteebleLogoProps } from "./MinteebleLogo.types";
+import { MinteebleLogoProps, MinteebleLogoTheme } from "./MinteebleLogo.types";
 
 export default {
   title: "ui-components/common/MinteebleLogo",
@@ -35,4 +35,6 @@ const Template: Story<MinteebleLogoProps> = (args) => (
 );
 
 export const SimpleMinteebleLogo = Template.bind({});
-SimpleMinteebleLogo.args = {};
+SimpleMinteebleLogo.args = {
+  theme: MinteebleLogoTheme.Dark,
+};
