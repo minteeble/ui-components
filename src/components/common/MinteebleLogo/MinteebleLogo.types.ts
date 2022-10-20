@@ -20,6 +20,7 @@ export enum MinteebleLogoType {
   FullText,
   Minimal,
   Small,
+  Blog,
 }
 
 export enum MinteebleLogoSize {
