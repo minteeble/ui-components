@@ -10,7 +10,7 @@
 
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { NavbarItemPosition, NavbarProps } from "./Navbar.types";
 
 const Navbar = (props: NavbarProps) => {
@@ -28,15 +28,20 @@ const Navbar = (props: NavbarProps) => {
     (i) => i.position === NavbarItemPosition.Center
   );
 
-  const nav = document.querySelector(".nav-mobile");
+  const navElement = useRef<HTMLDivElement>(null);
+  const nav = navElement.current;
 
   const handleOpen = () => {
-    if (isOpened && nav!.classList.contains("open")) {
+    if (isOpened) {
       setIsOpened(false);
-      nav?.classList.remove("open");
+      if (nav?.classList.contains("open")) {
+        nav?.classList.remove("open");
+      }
     } else {
       setIsOpened(true);
-      nav!.classList.add("open");
+      if (!nav?.classList.contains("open")) {
+        nav!.classList.add("open");
+      }
     }
   };
 
@@ -60,7 +65,7 @@ const Navbar = (props: NavbarProps) => {
           })}
         </div>
       </div>
-      <div className="nav-mobile">
+      <div className="nav-mobile" ref={navElement}>
         <div className="nav-header">
           <div className="nav-logo">{leftItem[0].content}</div>
           <div
