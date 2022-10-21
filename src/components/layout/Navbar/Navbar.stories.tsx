@@ -43,7 +43,35 @@ MinteebleWalletNavbar.args = {
     },
     {
       position: NavbarItemPosition.Right,
-      content: <WalletConnectionDisplay address="" avatarImageUrl="" />,
+      content: (
+        <WalletConnectionDisplay
+          address=""
+          avatarImageUrl=""
+          isLoading={false}
+        />
+      ),
+    },
+  ],
+} as NavbarProps;
+
+export const MobileNavbar = Template.bind({});
+MobileNavbar.args = {
+  items: [
+    {
+      position: NavbarItemPosition.Left,
+      content: <p>Minteeble</p>,
+    },
+    {
+      position: NavbarItemPosition.Right,
+      content: <p>lorem</p>,
+    },
+    {
+      position: NavbarItemPosition.Center,
+      content: <p>lorem</p>,
+    },
+    {
+      position: NavbarItemPosition.Left,
+      content: <p>lorem</p>,
     },
   ],
 } as NavbarProps;
