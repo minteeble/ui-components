@@ -14,7 +14,7 @@
   z-index: 900;
   background-color: var(--primary-bg);
 
-  height: 3rem;
+  height: fit-content;
   box-shadow: rgba(4, 17, 29, 0.25) 0px 0px 8px 0px;
   position: sticky;
   top: 0px;
@@ -26,6 +26,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    height: 3rem;
   }
 
   .nav-area {
@@ -55,7 +56,12 @@
     }
 
     .nav-mobile {
-      display: block;
+      display: flex;
+      height: 3rem;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
       .nav-header {
         display: flex;
         align-items: center;
@@ -86,7 +92,7 @@
           flex-direction: column;
           li {
             margin-left: 2rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
           }
         }
       }
