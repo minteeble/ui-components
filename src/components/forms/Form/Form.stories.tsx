@@ -16,8 +16,10 @@ import {
   FormFieldType,
   FormProps,
   SelectParams,
+  TextInputParams,
   ToggleParams,
 } from "./Form.types";
+import { TextInputType } from "./TextInput";
 
 export default {
   title: "ui-components/forms/Form",
@@ -41,22 +43,17 @@ const Template: Story<FormProps> = (args) => {
           fieldName: "last-name",
           type: FormFieldType.TextInput,
           label: "Last name",
+          required: true,
           placeholder: "Enter your last name",
         },
         {
-          fieldName: "option",
-          type: FormFieldType.Select,
+          fieldName: "email",
+          type: FormFieldType.TextInput,
+          label: "E-mail",
           required: true,
-
-          label: "Option",
-          placeholder: "Select option",
-          options: ["Option A", "Option B", "Option C"],
-        } as SelectParams,
-        {
-          fieldName: "enabled",
-          type: FormFieldType.Toggle,
-          label: "Enabled",
-        } as ToggleParams,
+          placeholder: "Enter your email",
+          textInputType: TextInputType.Email,
+        } as TextInputParams,
       ]}
       onSubmit={(data: Record<string, any>) => {
         console.log(data);

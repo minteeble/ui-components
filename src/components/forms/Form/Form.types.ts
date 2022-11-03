@@ -10,10 +10,12 @@
 
 import { FC } from "react";
 import { StylableComponent } from "../../../models";
+import { TextInputType } from "./TextInput";
 
 export interface TextInputParams extends FormField {
   value: string;
   onValueChange: (newValue: string) => void;
+  textInputType?: TextInputType;
 }
 
 export interface SelectParams extends FormField {

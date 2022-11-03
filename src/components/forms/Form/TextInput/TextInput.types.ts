@@ -17,13 +17,14 @@ import {
 export enum TextInputType {
   Text,
   Password,
+  Email,
 }
 
 export interface TextInputProps
   extends StylableComponent,
     DisableableComponent,
     LoadableComponentProps {
-  type?: TextInputType;
+  textInputType?: TextInputType;
   validator?: (text: string) => boolean;
   value: string;
   placeHolder?: string;

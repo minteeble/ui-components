@@ -16,6 +16,7 @@ import {
   FormFieldType,
   FormProps,
   SelectParams,
+  TextInputParams,
 } from "./Form.types";
 import Select from "./Select/Select";
 import TextInput from "./TextInput";
@@ -97,9 +98,12 @@ const Form = (props: FormProps) => {
 
   let elements = fieldsState.map((field) => {
     if (field.originalFormField.type === FormFieldType.TextInput) {
+      let originalFormField = field.originalFormField as TextInputParams;
+
       return (
         <TextInput
           value={field?.value}
+          textInputType={originalFormField.textInputType}
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
           placeHolder={field.originalFormField.placeholder}

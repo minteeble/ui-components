@@ -18,7 +18,9 @@ const TextInput = (props: TextInputProps) => {
   let disabled: boolean = props.disabled === true || props.loading === true;
   let loading: boolean = props.loading == true;
 
-  if (props.type === TextInputType.Password) textInputType = "password";
+  if (props.textInputType === TextInputType.Password)
+    textInputType = "password";
+  if (props.textInputType === TextInputType.Email) textInputType = "email";
 
   return (
     <div className="text-input-wrapper" style={props.style}>
