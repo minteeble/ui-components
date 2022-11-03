@@ -53,6 +53,12 @@ const Template: Story<FormProps> = (args) => {
           required: true,
           placeholder: "Enter your email",
           textInputType: TextInputType.Email,
+          isValid: (value: any) => {
+            return (
+              /^[a-z0-9.]{1,64}@[a-z0-9.]{1,64}$/i.test(value) ||
+              "Invalid email."
+            );
+          },
         } as TextInputParams,
       ]}
       onSubmit={(data: Record<string, any>) => {

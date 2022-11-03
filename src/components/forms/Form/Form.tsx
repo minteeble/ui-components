@@ -26,6 +26,7 @@ export interface FieldState {
   value: any;
   onValueChange: (newValue: any) => void;
   originalFormField: FormField;
+  errorMessage?: string;
 }
 
 const Form = (props: FormProps) => {
@@ -100,9 +101,11 @@ const Form = (props: FormProps) => {
     if (field.originalFormField.type === FormFieldType.TextInput) {
       let originalFormField = field.originalFormField as TextInputParams;
 
+      console.log("Error", field.errorMessage);
       return (
         <TextInput
           value={field?.value}
+          errorMessage={field.errorMessage}
           textInputType={originalFormField.textInputType}
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
@@ -140,6 +143,7 @@ const Form = (props: FormProps) => {
   return (
     <form
       className="form"
+      noValidate
       onSubmit={(e) => {
         e.preventDefault();
 
@@ -157,6 +161,28 @@ const Form = (props: FormProps) => {
             if (field.originalFormField.required && !field.value)
               canSubmit = false;
           });
+
+          if (canSubmit) {
+            fieldsState.forEach((field, fieldIndex) => {
+              if (field.originalFormField.isValid) {
+                console.log("Validating:", field);
+                let isValidResponse = field.originalFormField.isValid(
+                  field.value
+                );
+
+                if (isValidResponse !== true) {
+                  canSubmit = false;
+
+                  setFieldsState((fields) => {
+                    fields[fieldIndex].errorMessage =
+                      (isValidResponse as string) || "Invalid input.";
+
+                    return [...fields];
+                  });
+                }
+              }
+            });
+          }
 
           if (canSubmit) props.onSubmit(data);
         }

@@ -26,10 +26,12 @@ const TextInput = (props: TextInputProps) => {
     <div className="text-input-wrapper" style={props.style}>
       {loading && <LoadingSpinner />}
       {props.label && <label className="text-input-label">{props.label}</label>}
+      {props.errorMessage && <span>{props.errorMessage}</span>}
       <input
         className="text-input"
         type={textInputType}
         value={props.value}
+        formNoValidate
         placeholder={(props.value.length === 0 && props.placeHolder) || ""}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           props.onValueChange(e.target.value);

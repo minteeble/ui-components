@@ -43,6 +43,8 @@ export interface FormField {
   required?: boolean;
 
   type: FormFieldType;
+
+  isValid?: (value: any) => boolean | string;
 }
 
 export interface FormProps extends StylableComponent {
