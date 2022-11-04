@@ -32,9 +32,13 @@
     padding: 0.8rem 0.4rem;
     border: none;
     border-bottom: 2px solid var(--border-color);
-    background-color: var(--primary-bg);
+    background-color: var(--secondary-bg);
     transition: all 0.3s ease-in-out;
     border-radius: 0.5rem 0.5rem 0 0;
+
+    &::placeholder {
+      color: var(--normal-text-color);
+    }
 
     &:focus {
       outline: none;
