@@ -20,21 +20,36 @@
     position: absolute;
   }
 
-  .text-input-label {
-    // background-color: pink;
-    margin-bottom: 0.5rem;
-    margin-left: 0.4rem;
-    font-size: 1rem;
-    color: var(--normal-text-color);
+  .input-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .text-input-label {
+      margin-bottom: 0.5rem;
+      margin-left: 0.4rem;
+      font-size: 1.2rem;
+      color: var(--normal-text-color);
+    }
+
+    .error {
+      @extend .montserrat;
+      margin-bottom: 0.5rem;
+      margin-right: 0.4rem;
+      color: red;
+    }
   }
 
   .text-input {
+    @extend .montserrat;
+
     padding: 0.8rem 0.4rem;
     border: none;
     border-bottom: 2px solid var(--border-color);
     background-color: var(--secondary-bg);
     transition: all 0.3s ease-in-out;
     border-radius: 0.5rem 0.5rem 0 0;
+    color: var(--normal-text-color);
+    font-size: 1rem;
 
     &::placeholder {
       color: var(--normal-text-color);

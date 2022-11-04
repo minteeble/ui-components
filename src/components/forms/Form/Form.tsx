@@ -155,34 +155,46 @@ const Form = (props: FormProps) => {
           }
         });
 
+        setFieldsState((fields) => {
+          fields.forEach((field) => (field.errorMessage = undefined));
+
+          return [...fields];
+        });
+
         if (props.onSubmit) {
           let canSubmit = true;
-          fieldsState.forEach((field) => {
-            if (field.originalFormField.required && !field.value)
-              canSubmit = false;
+
+          fieldsState.forEach((field, fieldIndex) => {
+            if (field.originalFormField.isValid) {
+              console.log("Validating:", field);
+              let isValidResponse = field.originalFormField.isValid(
+                field.value
+              );
+
+              if (isValidResponse !== true) {
+                canSubmit = false;
+
+                setFieldsState((fields) => {
+                  fields[fieldIndex].errorMessage =
+                    (isValidResponse as string) || "Invalid input.";
+
+                  return [...fields];
+                });
+              }
+            }
           });
 
-          if (canSubmit) {
-            fieldsState.forEach((field, fieldIndex) => {
-              if (field.originalFormField.isValid) {
-                console.log("Validating:", field);
-                let isValidResponse = field.originalFormField.isValid(
-                  field.value
-                );
+          fieldsState.forEach((field, fieldIndex) => {
+            if (field.originalFormField.required && !field.value) {
+              canSubmit = false;
 
-                if (isValidResponse !== true) {
-                  canSubmit = false;
+              setFieldsState((fields) => {
+                fields[fieldIndex].errorMessage = "Field required.";
 
-                  setFieldsState((fields) => {
-                    fields[fieldIndex].errorMessage =
-                      (isValidResponse as string) || "Invalid input.";
-
-                    return [...fields];
-                  });
-                }
-              }
-            });
-          }
+                return [...fields];
+              });
+            }
+          });
 
           if (canSubmit) props.onSubmit(data);
         }

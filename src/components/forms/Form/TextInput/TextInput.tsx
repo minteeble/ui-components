@@ -25,8 +25,14 @@ const TextInput = (props: TextInputProps) => {
   return (
     <div className="text-input-wrapper" style={props.style}>
       {loading && <LoadingSpinner />}
-      {props.label && <label className="text-input-label">{props.label}</label>}
-      {props.errorMessage && <span>{props.errorMessage}</span>}
+      <div className="input-header">
+        {props.label && (
+          <label className="text-input-label">{props.label}</label>
+        )}
+        {props.errorMessage && (
+          <span className="error">{props.errorMessage}</span>
+        )}
+      </div>
       <input
         className="text-input"
         type={textInputType}
