@@ -163,6 +163,7 @@ const Form = (props: FormProps) => {
 
         if (props.onSubmit) {
           let canSubmit = true;
+          let updatedFieldState: FieldState[] = fieldsState;
 
           fieldsState.forEach((field, fieldIndex) => {
             if (field.originalFormField.isValid) {
@@ -178,6 +179,7 @@ const Form = (props: FormProps) => {
                   fields[fieldIndex].errorMessage =
                     (isValidResponse as string) || "Invalid input.";
 
+                  updatedFieldState = [...fields];
                   return [...fields];
                 });
               }
@@ -191,12 +193,17 @@ const Form = (props: FormProps) => {
               setFieldsState((fields) => {
                 fields[fieldIndex].errorMessage = "Field required.";
 
+                updatedFieldState = [...fields];
                 return [...fields];
               });
             }
           });
 
-          if (canSubmit) props.onSubmit(data);
+          if (canSubmit) {
+            props.onSubmit(data);
+          } else if (props.onError) {
+            props.onError(updatedFieldState.map((field) => field.errorMessage));
+          }
         }
       }}
     >

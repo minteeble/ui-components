@@ -64,6 +64,9 @@ const Template: Story<FormProps> = (args) => {
       onSubmit={(data: Record<string, any>) => {
         console.log(data);
       }}
+      onError={(errors: Array<string | undefined>) => {
+        console.log("Errors");
+      }}
     />
   );
 };
