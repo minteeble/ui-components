@@ -24,7 +24,56 @@ const Template: Story<TableProps> = (args) => <Table {...args} />;
 
 export const SimpleTable = Template.bind({});
 const SimpleTableArgs: TableProps = {
-  records: [],
+  records: [
+    {
+      items: [
+        {
+          value: "record1",
+          fieldName: "lorem1",
+        },
+        {
+          value: "record3",
+          fieldName: "lorem3",
+        },
+        {
+          value: "record2",
+          fieldName: "lorem2",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "record1",
+          fieldName: "lorem1",
+        },
+        {
+          value: "record2",
+          fieldName: "lorem2",
+        },
+        {
+          value: "record3",
+          fieldName: "lorem3",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "record1",
+          fieldName: "lorem1",
+        },
+        {
+          value: "record2",
+          fieldName: "lorem2",
+        },
+        {
+          value: "record3",
+          fieldName: "lorem3",
+        },
+      ],
+    },
+  ],
   header: [
     {
       fieldName: "lorem1",
@@ -34,6 +83,9 @@ const SimpleTableArgs: TableProps = {
     },
     {
       fieldName: "lorem3",
+    },
+    {
+      fieldName: "lorem4",
     },
   ],
 };

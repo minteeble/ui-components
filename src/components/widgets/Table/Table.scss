@@ -1,0 +1,50 @@
+.table-component-wrapper {
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  width: 90%;
+  .table-wrapper {
+    width: 100%;
+    .table {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .table-header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        .header-field {
+          width: calc(100% / 3);
+          border-right: 1px solid gray;
+          border-bottom: 1px solid gray;
+          padding: 0.5rem;
+          font-weight: bold;
+        }
+      }
+
+      .table-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+
+        .table-record {
+          width: 100%;
+          display: flex;
+
+          .table-record-item {
+            width: calc(100% / 3);
+            border-right: 1px solid gray;
+            border-bottom: 1px solid gray;
+            padding: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+}
