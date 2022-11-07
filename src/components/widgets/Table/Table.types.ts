@@ -50,6 +50,16 @@ export interface TableProps {
   records: Array<TableRecord>;
 
   /**
+   * Allow to click on a row to receive data
+   */
+  rowsClickable?: boolean;
+
+  /**
+   * On row click callback
+   */
+  onRowClick?: (recordData: TableRecord) => void;
+
+  /**
    * Table header.
    */
   header: Array<HeaderItem>;

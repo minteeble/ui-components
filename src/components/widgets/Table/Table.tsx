@@ -37,6 +37,9 @@ const Table = (props: TableProps) => {
     sortedRecords.push(sortedRecordItems);
   }
 
+  if (props.rowsClickable) {
+  }
+
   return (
     <>
       <div className="table-component-wrapper">
@@ -56,11 +59,22 @@ const Table = (props: TableProps) => {
             <div className="table-content">
               {sortedRecords.map((record) => {
                 return (
-                  <div className="table-record">
+                  <div
+                    onClick={() => {
+                      if (props.rowsClickable && props.onRowClick) {
+                        props.onRowClick(record);
+                      }
+                    }}
+                    className={`table-record ${
+                      props.rowsClickable ? "clickable" : ""
+                    }`}
+                  >
                     {record.items.map((item, index) => {
                       return (
                         <div className="table-record-item" key={index}>
-                          {item.value}
+                          <span className="table-record-item-text">
+                            {item.value}
+                          </span>
                         </div>
                       );
                     })}
