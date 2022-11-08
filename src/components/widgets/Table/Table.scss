@@ -104,14 +104,6 @@
                 transition: all 0.1s ease-out;
                 transform: scale(0.99);
               }
-
-              &:hover .table-record-item-text {
-                &::before {
-                  background: rgb(236, 236, 236);
-                  // padding-left: 300%;
-                  // z-index: -1;
-                }
-              }
             }
 
             .table-record-item {
@@ -122,17 +114,6 @@
               &:first-child {
                 text-align: left;
                 width: 15rem;
-                .table-record-item-text {
-                  &::before {
-                    right: unset;
-                    left: 0;
-                    position: absolute;
-                  }
-
-                  &:hover::before {
-                    padding-right: 100%;
-                  }
-                }
               }
 
               .table-record-item-text {
@@ -140,19 +121,6 @@
                 transition: all 0.1s ease-in-out;
                 position: relative;
                 z-index: 100;
-                &::before {
-                  content: "";
-                  display: block;
-                  position: absolute;
-                  top: 0;
-                  right: 0;
-                  border-radius: 1rem;
-                  height: 100%;
-                  width: 100%;
-                  transition: all 0.1s ease-out;
-
-                  z-index: -100;
-                }
               }
             }
           }
