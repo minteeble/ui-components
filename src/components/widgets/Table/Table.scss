@@ -43,88 +43,116 @@
         align-items: center;
         justify-content: flex-start;
 
-        .table-record {
-          width: 100%;
-          display: flex;
+        .table-record-wrapper {
           border-top: 1px solid rgb(203, 203, 203);
-          position: relative;
+          width: 100%;
 
-          &.clickable {
-            cursor: pointer;
-            &::after {
-              content: "";
-              display: block;
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              width: calc(100% - 2rem);
-              height: 0;
-              border: 1px solid rgb(223, 223, 223);
-              border-radius: 0.2rem;
-              filter: opacity(0);
-              transition: all 0.2s ease-out;
-            }
-
-            &:hover::after {
-              width: calc(100% - 1rem);
-              height: calc(100% - 1rem);
-              filter: opacity(1);
-            }
-
-            &:active::after {
-              width: calc(100% - 1.3rem);
-              height: calc(100% - 1.3rem);
-              transition: all 0.1s ease-out;
-            }
-
-            &:hover .table-record-item-text {
-              &::before {
-                background: rgb(236, 236, 236);
-                padding-left: 300%;
-                z-index: -1;
-              }
-            }
-          }
-
-          .table-record-item {
-            padding: 1.4rem 1rem;
-            width: 10rem;
-            text-align: right;
+          .table-record {
+            width: 100%;
+            display: flex;
             position: relative;
-            &:first-child {
-              text-align: left;
-              width: 15rem;
-              .table-record-item-text {
-                &::before {
-                  right: unset;
-                  left: 0;
-                  position: absolute;
-                }
 
-                &:hover::before {
-                  padding-right: 100%;
-                }
-              }
-            }
-
-            .table-record-item-text {
-              padding: 0 0.5rem;
-              transition: all 0.1s ease-in-out;
-              position: relative;
-              z-index: 100;
+            &.clickable {
+              cursor: pointer;
+              &::after,
               &::before {
                 content: "";
                 display: block;
                 position: absolute;
-                top: 0;
-                right: 0;
-                border-radius: 1rem;
-                height: 100%;
-                width: 100%;
-                transition: all 0.1s ease-out;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: calc(100% - 2rem);
+                height: 0;
+                border: 1px solid rgb(223, 223, 223);
+                border-radius: 0.2rem;
+                filter: opacity(0);
+                transition: all 0.2s ease-out;
+              }
 
-                z-index: -100;
+              &:hover {
+                // background: rgb(236, 236, 236);
+
+                &::after {
+                  width: calc(100% - 1rem);
+                  height: calc(100% - 1rem);
+                  filter: opacity(1);
+                }
+
+                &::before {
+                  width: calc(100% - 1rem);
+                  height: calc(100% - 1rem);
+                  background: rgb(236, 236, 236);
+                  opacity: 0.3;
+                  filter: opacity(1);
+                }
+              }
+
+              &:active {
+                &::after,
+                &::before {
+                  width: calc(100% - 1.3rem);
+                  height: calc(100% - 1.3rem);
+                  transition: all 0.1s ease-out;
+                }
+
+                & > * {
+                  transition: all 0.1s ease-out;
+                  transform: scale(0.99);
+                }
+
+                transition: all 0.1s ease-out;
+                transform: scale(0.99);
+              }
+
+              &:hover .table-record-item-text {
+                &::before {
+                  background: rgb(236, 236, 236);
+                  // padding-left: 300%;
+                  // z-index: -1;
+                }
+              }
+            }
+
+            .table-record-item {
+              padding: 1.4rem 1rem;
+              width: 10rem;
+              text-align: right;
+              position: relative;
+              &:first-child {
+                text-align: left;
+                width: 15rem;
+                .table-record-item-text {
+                  &::before {
+                    right: unset;
+                    left: 0;
+                    position: absolute;
+                  }
+
+                  &:hover::before {
+                    padding-right: 100%;
+                  }
+                }
+              }
+
+              .table-record-item-text {
+                padding: 0 0.5rem;
+                transition: all 0.1s ease-in-out;
+                position: relative;
+                z-index: 100;
+                &::before {
+                  content: "";
+                  display: block;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  border-radius: 1rem;
+                  height: 100%;
+                  width: 100%;
+                  transition: all 0.1s ease-out;
+
+                  z-index: -100;
+                }
               }
             }
           }
