@@ -1,0 +1,68 @@
+.table-paginator {
+  width: 100%;
+  background: rgb(243, 243, 243);
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: "Roboto", sans-serif;
+  border-top: 1px solid rgb(203, 203, 203);
+
+  * {
+    font-family: "Roboto", sans-serif;
+  }
+  .edit-items-num {
+    span {
+      font-size: 14px;
+      margin-right: 0.5rem;
+    }
+
+    .edit-items-num-dropdown {
+      border: none;
+      padding: 0.1rem 0.4rem;
+      border-radius: 0.3rem;
+      background: white;
+      cursor: pointer;
+      margin-right: 2rem;
+    }
+  }
+
+  .current-page {
+    font-size: 14px;
+    margin-right: 2rem;
+  }
+
+  .set-page {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 8rem;
+    .icon {
+      position: relative;
+      max-height: 1rem;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 18px;
+      height: fit-content;
+    }
+
+    .first {
+      .second {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0.5rem;
+      }
+    }
+
+    .last {
+      .second {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0.5rem;
+      }
+    }
+  }
+}

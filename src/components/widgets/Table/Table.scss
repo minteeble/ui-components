@@ -3,6 +3,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Roboto", sans-serif;
+
+  * {
+    font-family: "Roboto", sans-serif;
+  }
 
   .table-wrapper {
     width: fit-content;
@@ -26,7 +31,7 @@
           padding: 1.4rem 1.2rem;
           text-align: right;
           font-size: 14px;
-          width: 10rem;
+          width: calc(var(--column-width) + 10%);
           filter: opacity(0.7);
 
           &:first-child {
@@ -108,12 +113,11 @@
 
             .table-record-item {
               padding: 1.4rem 1rem;
-              width: 10rem;
+              width: var(--column-width);
               text-align: right;
               position: relative;
               &:first-child {
                 text-align: left;
-                width: 15rem;
               }
 
               .table-record-item-text {

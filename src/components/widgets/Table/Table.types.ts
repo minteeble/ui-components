@@ -60,6 +60,11 @@ export interface TableProps {
   onRowClick?: (recordData: TableRecord) => void;
 
   /**
+   * Activate the table pagination
+   */
+  paginationEnabled?: boolean;
+
+  /**
    * Table header.
    */
   header: Array<HeaderItem>;

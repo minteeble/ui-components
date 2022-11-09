@@ -1,17 +1,77 @@
-import React from "react";
-import { usePaginatoProps } from "./TablePaginator.types";
+import React, { useEffect, useState } from "react";
+import { TablePaginatorLogic, usePaginatorProps } from "./TablePaginator.types";
+import { RecordItem, TableRecord } from "../../Table.types";
 
-const usePaginator = (props: usePaginatoProps) => {
-  const rowsNum = props.rowsNum;
-  const maxRowsForPage = props.maxRowsForPage;
+const usePaginator = (props: usePaginatorProps) => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pages, setPages] = useState<number>(1);
+  const [currentRecords, setCurrentRecords] = useState<Array<TableRecord>>([]);
 
-  const pagesNum = Math.floor(rowsNum / maxRowsForPage);
+  const records = props.records || [];
+  const [maxRowsForPage, setMaxRowsForPage] = useState<number>(
+    props.maxRowsForPage || 20
+  );
 
-  let currentPage = 0;
+  const paginate = () => {
+    if (records) {
+      setPages(Math.ceil(records.length / maxRowsForPage));
+      let pageRecords: Array<TableRecord> = [];
 
-  const handlePage = () => {};
+      pageRecords = [...records].splice(
+        (currentPage - 1) * maxRowsForPage,
+        maxRowsForPage
+      );
+      setCurrentRecords(pageRecords);
+    }
+  };
 
-  return <></>;
+  useEffect(() => {
+    paginate();
+    if (currentPage > pages) {
+      setCurrentPage(pages);
+    }
+  }, [currentPage, pages]);
+
+  useEffect(() => {
+    paginate();
+    console.log(currentPage, pages);
+  }, [maxRowsForPage]);
+
+  //   useEffect(() => {
+  //     paginate();
+  //   }, [maxRowsForPage, props.records]);
+
+  let paginatorLogic: TablePaginatorLogic = {
+    currentPage: currentPage,
+    currentRecords: currentRecords,
+    maxRowsForPage: maxRowsForPage,
+    pages: pages,
+    setMaxRowsForPage: function (maxRows: number): void {
+      setMaxRowsForPage(maxRows);
+    },
+
+    setPage: function (pageIndex: number): void {
+      setCurrentPage(pageIndex);
+    },
+    nextPage: function (): void {
+      paginatorLogic.setPage(
+        currentPage + 1 <= pages ? currentPage + 1 : currentPage
+      );
+    },
+    prevPage: function (): void {
+      paginatorLogic.setPage(
+        currentPage - 1 >= 1 ? currentPage - 1 : currentPage
+      );
+    },
+    firstPage: function (): void {
+      paginatorLogic.setPage(1);
+    },
+    lastPage: function (): void {
+      paginatorLogic.setPage(pages);
+    },
+  };
+
+  return { paginatorLogic };
 };
 
 export default usePaginator;

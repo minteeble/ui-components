@@ -187,3 +187,749 @@ const ClickableTableArgs: TableProps = {
   ],
 };
 ClickableTable.args = ClickableTableArgs;
+
+export const PaginableTable = Template.bind({});
+const PaginableTableArgs: TableProps = {
+  rowsClickable: true,
+  paginationEnabled: true,
+  onRowClick: (data) => {
+    console.log("Clicked record:", data);
+  },
+  records: [
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "first book",
+          fieldName: "book name",
+        },
+        {
+          value: "8",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$10.25",
+          fieldName: "book price",
+        },
+        {
+          value: "20.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "second book",
+          fieldName: "book name",
+        },
+        {
+          value: "10.00%",
+          fieldName: "book discount",
+        },
+        {
+          value: "1",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$42.50",
+          fieldName: "book price",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+  ],
+  header: [
+    {
+      fieldName: "book name",
+    },
+    {
+      fieldName: "ordered amount",
+    },
+    {
+      fieldName: "book price",
+    },
+    {
+      fieldName: "book discount",
+    },
+  ],
+};
+PaginableTable.args = PaginableTableArgs;

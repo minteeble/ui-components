@@ -1,4 +1,5 @@
 import React from "react";
+import TablePaginator, { usePaginator } from "./components/TablePaginator";
 import { RecordItem, TableProps, TableRecord } from "./Table.types";
 
 const Table = (props: TableProps) => {
@@ -37,12 +38,21 @@ const Table = (props: TableProps) => {
     sortedRecords.push(sortedRecordItems);
   }
 
+  const { paginatorLogic } = usePaginator({
+    records: sortedRecords,
+    maxRowsForPage: props.paginationEnabled ? 20 : sortedRecords.length,
+  });
+
   if (props.rowsClickable) {
   }
 
+  const style = {
+    "--column-width": `${100 / fieldNames.length}%`,
+  } as React.CSSProperties;
+
   return (
     <>
-      <div className="table-component-wrapper">
+      <div className="table-component-wrapper" style={style}>
         {/* <div className="toolbar-wrapper"></div> */}
 
         <div className="table-wrapper">
@@ -57,7 +67,7 @@ const Table = (props: TableProps) => {
               })}
             </div>
             <div className="table-content">
-              {sortedRecords.map((record) => {
+              {paginatorLogic.currentRecords.map((record) => {
                 return (
                   <div className="table-record-wrapper">
                     <div
@@ -84,6 +94,11 @@ const Table = (props: TableProps) => {
                 );
               })}
             </div>
+            {props.paginationEnabled ? (
+              <TablePaginator paginatorLogic={paginatorLogic} />
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
