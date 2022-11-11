@@ -192,6 +192,7 @@ export const PaginableTable = Template.bind({});
 const PaginableTableArgs: TableProps = {
   rowsClickable: true,
   paginationEnabled: true,
+  maxRowsForPage: 10,
   onRowClick: (data) => {
     console.log("Clicked record:", data);
   },
@@ -933,3 +934,28 @@ const PaginableTableArgs: TableProps = {
   ],
 };
 PaginableTable.args = PaginableTableArgs;
+
+export const EmptyTable = Template.bind({});
+const EmptyTableArgs: TableProps = {
+  rowsClickable: true,
+  paginationEnabled: true,
+  onRowClick: (data) => {
+    console.log("Clicked record:", data);
+  },
+  records: [],
+  header: [
+    {
+      fieldName: "book name",
+    },
+    {
+      fieldName: "ordered amount",
+    },
+    {
+      fieldName: "book price",
+    },
+    {
+      fieldName: "book discount",
+    },
+  ],
+};
+EmptyTable.args = EmptyTableArgs;

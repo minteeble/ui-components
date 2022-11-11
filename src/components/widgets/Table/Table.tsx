@@ -1,10 +1,13 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import TablePaginator, { usePaginator } from "./components/TablePaginator";
 import { RecordItem, TableProps, TableRecord } from "./Table.types";
+import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 
 const Table = (props: TableProps) => {
   const header = props.header || [];
   const records = props.records || [];
+  const maxRowsForPage = props.maxRowsForPage || 20;
 
   let fieldNames = [];
 
@@ -39,8 +42,10 @@ const Table = (props: TableProps) => {
   }
 
   const { paginatorLogic } = usePaginator({
-    records: sortedRecords,
-    maxRowsForPage: props.paginationEnabled ? 20 : sortedRecords.length,
+    records: records,
+    maxRowsForPage: props.paginationEnabled
+      ? maxRowsForPage
+      : sortedRecords.length,
   });
 
   if (props.rowsClickable) {
@@ -67,32 +72,42 @@ const Table = (props: TableProps) => {
               })}
             </div>
             <div className="table-content">
-              {paginatorLogic.currentRecords.map((record) => {
-                return (
-                  <div className="table-record-wrapper">
-                    <div
-                      onClick={() => {
-                        if (props.rowsClickable && props.onRowClick) {
-                          props.onRowClick(record);
-                        }
-                      }}
-                      className={`table-record ${
-                        props.rowsClickable ? "clickable" : ""
-                      }`}
-                    >
-                      {record.items.map((item, index) => {
-                        return (
-                          <div className="table-record-item" key={index}>
-                            <span className="table-record-item-text">
-                              {item.value}
-                            </span>
-                          </div>
-                        );
-                      })}
+              {paginatorLogic.currentRecords.length > 0 ? (
+                paginatorLogic.currentRecords.map((record) => {
+                  return (
+                    <div className="table-record-wrapper">
+                      <div
+                        onClick={() => {
+                          if (props.rowsClickable && props.onRowClick) {
+                            props.onRowClick(record);
+                          }
+                        }}
+                        className={`table-record ${
+                          props.rowsClickable ? "clickable" : ""
+                        }`}
+                      >
+                        {record.items.map((item, index) => {
+                          return (
+                            <div className="table-record-item" key={index}>
+                              <span className="table-record-item-text">
+                                {item.value}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <div className="no-item">
+                  <FontAwesomeIcon
+                    className="error-icon"
+                    icon={faCircleExclamation}
+                  />
+                  <span>No items found</span>
+                </div>
+              )}
             </div>
             {props.paginationEnabled ? (
               <TablePaginator paginatorLogic={paginatorLogic} />

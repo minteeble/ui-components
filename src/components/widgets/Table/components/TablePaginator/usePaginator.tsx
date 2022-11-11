@@ -7,7 +7,7 @@ const usePaginator = (props: usePaginatorProps) => {
   const [pages, setPages] = useState<number>(1);
   const [currentRecords, setCurrentRecords] = useState<Array<TableRecord>>([]);
 
-  const records = props.records || [];
+  const records = [...props.records] || [];
   const [maxRowsForPage, setMaxRowsForPage] = useState<number>(
     props.maxRowsForPage || 20
   );
@@ -21,7 +21,11 @@ const usePaginator = (props: usePaginatorProps) => {
         (currentPage - 1) * maxRowsForPage,
         maxRowsForPage
       );
-      setCurrentRecords(pageRecords);
+
+      if (pageRecords != currentRecords) {
+        console.log(pageRecords != currentRecords);
+        setCurrentRecords(pageRecords);
+      }
     }
   };
 
@@ -34,12 +38,11 @@ const usePaginator = (props: usePaginatorProps) => {
 
   useEffect(() => {
     paginate();
-    console.log(currentPage, pages);
   }, [maxRowsForPage]);
 
-  //   useEffect(() => {
-  //     paginate();
-  //   }, [maxRowsForPage, props.records]);
+  useEffect(() => {
+    paginate();
+  }, [props.records]);
 
   let paginatorLogic: TablePaginatorLogic = {
     currentPage: currentPage,

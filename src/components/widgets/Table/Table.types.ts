@@ -55,6 +55,11 @@ export interface TableProps {
   rowsClickable?: boolean;
 
   /**
+   * Set the default max rows number for page
+   */
+  maxRowsForPage?: number;
+
+  /**
    * On row click callback
    */
   onRowClick?: (recordData: TableRecord) => void;
