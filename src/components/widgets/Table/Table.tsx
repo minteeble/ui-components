@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TablePaginator, { usePaginator } from "./components/TablePaginator";
 import { RecordItem, TableProps, TableRecord } from "./Table.types";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -9,37 +9,45 @@ const Table = (props: TableProps) => {
   const records = props.records || [];
   const maxRowsForPage = props.maxRowsForPage || 20;
 
-  let fieldNames = [];
+  const [sortedRecords, setSortedRecords] = useState<Array<TableRecord>>([]);
+
+  let fieldNames: Array<string> = [];
 
   for (let i = 0; i < header.length; i++) {
     fieldNames.push(header[i].fieldName);
   }
 
-  let sortedRecords: TableRecord[] = [];
+  useEffect(() => {
+    if (records) {
+      let sorted: TableRecord[] = [];
 
-  for (let i = 0; i < records.length; i++) {
-    let sortedRecordItems: TableRecord = {
-      items: [],
-    };
+      for (let i = 0; i < records.length; i++) {
+        let sortedRecordItems: TableRecord = {
+          items: [],
+        };
 
-    for (let z = 0; z < fieldNames.length; z++) {
-      sortedRecordItems.items.push({
-        value: "",
-        fieldName: "",
-      });
-    }
-
-    for (let j = 0; j < header.length; j++) {
-      if (records[i].items[j]) {
-        if (fieldNames.includes(records[i].items[j].fieldName)) {
-          sortedRecordItems.items[
-            fieldNames.indexOf(records[i].items[j].fieldName)
-          ] = records[i].items[j];
+        for (let z = 0; z < fieldNames.length; z++) {
+          sortedRecordItems.items.push({
+            value: "",
+            fieldName: "",
+          });
         }
+
+        for (let j = 0; j < header.length; j++) {
+          if (records[i].items[j]) {
+            if (fieldNames.includes(records[i].items[j].fieldName)) {
+              sortedRecordItems.items[
+                fieldNames.indexOf(records[i].items[j].fieldName)
+              ] = records[i].items[j];
+            }
+          }
+        }
+        sorted.push(sortedRecordItems);
       }
+
+      setSortedRecords(sorted);
     }
-    sortedRecords.push(sortedRecordItems);
-  }
+  }, [records]);
 
   const { paginatorLogic } = usePaginator({
     records: sortedRecords,
