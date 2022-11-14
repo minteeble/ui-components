@@ -42,7 +42,7 @@ const Table = (props: TableProps) => {
   }
 
   const { paginatorLogic } = usePaginator({
-    records: records,
+    records: sortedRecords,
     maxRowsForPage: props.paginationEnabled
       ? maxRowsForPage
       : sortedRecords.length,

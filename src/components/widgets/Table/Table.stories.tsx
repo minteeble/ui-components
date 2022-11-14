@@ -37,7 +37,7 @@ const SimpleTableArgs: TableProps = {
         },
         {
           value: "$10.25",
-          fieldName: "book price",
+          fieldName: "book pric",
         },
         {
           value: "20.00%",
