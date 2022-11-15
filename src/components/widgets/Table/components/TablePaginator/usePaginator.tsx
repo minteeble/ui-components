@@ -32,7 +32,11 @@ const usePaginator = (props: usePaginatorProps) => {
   useEffect(() => {
     paginate();
     if (currentPage > pages) {
-      setCurrentPage(pages);
+      if (pages === 0) {
+        setCurrentPage(1);
+      } else {
+        setCurrentPage(pages);
+      }
     }
   }, [currentPage, pages]);
 
