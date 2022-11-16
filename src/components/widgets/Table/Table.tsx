@@ -70,52 +70,56 @@ const Table = (props: TableProps) => {
 
         <div className="table-wrapper">
           <div className="table">
-            <div className="table-header">
-              {header.map((item, index) => {
-                return (
-                  <div className="header-field" key={index}>
-                    {item.fieldName}
-                  </div>
-                );
-              })}
-            </div>
-            <div className="table-content">
-              {paginatorLogic.currentRecords.length > 0 ? (
-                paginatorLogic.currentRecords.map((record) => {
-                  return (
-                    <div className="table-record-wrapper">
-                      <div
-                        onClick={() => {
-                          if (props.rowsClickable && props.onRowClick) {
-                            props.onRowClick(record);
-                          }
-                        }}
-                        className={`table-record ${
-                          props.rowsClickable ? "clickable" : ""
-                        }`}
-                      >
-                        {record.items.map((item, index) => {
-                          return (
-                            <div className="table-record-item" key={index}>
-                              <span className="table-record-item-text">
-                                {item.value}
-                              </span>
-                            </div>
-                          );
-                        })}
+            <div className="table-scroll">
+              <div className="table-scroll-content">
+                <div className="table-header">
+                  {header.map((item, index) => {
+                    return (
+                      <div className="header-field" key={index}>
+                        {item.fieldName}
                       </div>
-                    </div>
-                  );
-                })
-              ) : (
-                <div className="no-item">
-                  <FontAwesomeIcon
-                    className="error-icon"
-                    icon={faCircleExclamation}
-                  />
-                  <span>No items found</span>
+                    );
+                  })}
                 </div>
-              )}
+                <div className="table-content">
+                  {paginatorLogic.currentRecords.length > 0 ? (
+                    paginatorLogic.currentRecords.map((record) => {
+                      return (
+                        <div className="table-record-wrapper">
+                          <div
+                            onClick={() => {
+                              if (props.rowsClickable && props.onRowClick) {
+                                props.onRowClick(record);
+                              }
+                            }}
+                            className={`table-record ${
+                              props.rowsClickable ? "clickable" : ""
+                            }`}
+                          >
+                            {record.items.map((item, index) => {
+                              return (
+                                <div className="table-record-item" key={index}>
+                                  <span className="table-record-item-text">
+                                    {item.value}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="no-item">
+                      <FontAwesomeIcon
+                        className="error-icon"
+                        icon={faCircleExclamation}
+                      />
+                      <span>No items found</span>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
             {props.paginationEnabled ? (
               <TablePaginator paginatorLogic={paginatorLogic} />
