@@ -21,5 +21,6 @@ export interface NavbarPropsItem {
 
 export interface NavbarProps {
   items: Array<NavbarPropsItem>;
+  mobile?: boolean;
   children?: any;
 }

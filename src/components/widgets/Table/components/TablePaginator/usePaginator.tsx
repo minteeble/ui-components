@@ -23,7 +23,6 @@ const usePaginator = (props: usePaginatorProps) => {
       );
 
       if (pageRecords != currentRecords) {
-        console.log(pageRecords != currentRecords);
         setCurrentRecords(pageRecords);
       }
     }
@@ -37,6 +36,10 @@ const usePaginator = (props: usePaginatorProps) => {
       } else {
         setCurrentPage(pages);
       }
+    }
+
+    if (props.records.length <= 0) {
+      setCurrentPage(0);
     }
   }, [currentPage, pages]);
 

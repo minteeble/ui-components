@@ -46,7 +46,7 @@ const Navbar = (props: NavbarProps) => {
   };
 
   return (
-    <div className="navbar">
+    <div className={`navbar ${props.mobile ? "mobile" : ""}`}>
       <div className="nav-desktop">
         <div className="nav-area">
           {leftItem.map((item) => {
@@ -65,42 +65,23 @@ const Navbar = (props: NavbarProps) => {
           })}
         </div>
       </div>
-      <div className="nav-mobile" ref={navElement}>
-        <div className="nav-header">
-          <div className="nav-logo">{leftItem[0].content}</div>
-          <div
-            className="nav-btn"
-            onClick={() => {
-              handleOpen();
-            }}
-          >
-            <FontAwesomeIcon icon={isOpened ? faXmark : faBars} />
-          </div>
-        </div>
-        <div className="nav-content">
-          <ul>
-            {leftItem.map((item, index) => {
-              if (index === 0) {
-                return;
-              }
-              return (
-                <li>
-                  <div className="nav-area">{item.content}</div>
-                </li>
-              );
-            })}
-            <div className="nav-area">
-              {centerItems.map((item) => {
-                return (
-                  <li>
-                    <div className="nav-area">{item.content}</div>
-                  </li>
-                );
-              })}
+      {props.mobile && (
+        <div className="nav-mobile" ref={navElement}>
+          <div className="nav-header">
+            <div className="nav-logo">{leftItem[0].content}</div>
+            <div
+              className="nav-btn"
+              onClick={() => {
+                handleOpen();
+              }}
+            >
+              <FontAwesomeIcon icon={isOpened ? faXmark : faBars} />
             </div>
-            <div className="nav-area">
-              {rightItems.map((item, index) => {
-                if (index === rightItems.length - 1) {
+          </div>
+          <div className="nav-content">
+            <ul>
+              {leftItem.map((item, index) => {
+                if (index === 0) {
                   return;
                 }
                 return (
@@ -109,14 +90,35 @@ const Navbar = (props: NavbarProps) => {
                   </li>
                 );
               })}
-              {props.children}
-            </div>
-            <div className="nav-footer">
-              <div>{rightItems[rightItems.length - 1].content}</div>
-            </div>
-          </ul>
+              <div className="nav-area">
+                {centerItems.map((item) => {
+                  return (
+                    <li>
+                      <div className="nav-area">{item.content}</div>
+                    </li>
+                  );
+                })}
+              </div>
+              <div className="nav-area">
+                {rightItems.map((item, index) => {
+                  if (index === rightItems.length - 1) {
+                    return;
+                  }
+                  return (
+                    <li>
+                      <div className="nav-area">{item.content}</div>
+                    </li>
+                  );
+                })}
+                {props.children}
+              </div>
+              <div className="nav-footer">
+                <div>{rightItems[rightItems.length - 1].content}</div>
+              </div>
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
