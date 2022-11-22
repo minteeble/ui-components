@@ -47,6 +47,14 @@ const Template: Story<FormProps> = (args) => {
           placeholder: "Enter your last name",
         },
         {
+          fieldName: "gender",
+          type: FormFieldType.Select,
+          label: "Gender",
+          required: true,
+          placeholder: "Enter your gender",
+          options: ["Male", "Female", "Other"],
+        } as SelectParams,
+        {
           fieldName: "email",
           type: FormFieldType.TextInput,
           label: "E-mail",

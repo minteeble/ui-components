@@ -7,7 +7,12 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 const Select = (props: SelectProps) => {
   return (
     <div className="select-wrapper">
-      {props.label && <label className="select-label">{props.label}</label>}
+      <div className="input-header">
+        {props.label && <label className="select-label">{props.label}</label>}
+        {props.errorMessage && (
+          <span className="error">{props.errorMessage}</span>
+        )}
+      </div>
       <div className="select">
         <ComboBox
           options={props.options}

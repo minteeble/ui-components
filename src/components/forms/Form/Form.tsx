@@ -121,6 +121,7 @@ const Form = (props: FormProps) => {
         <Select
           options={originalFormField.options}
           value={field?.value}
+          errorMessage={field.errorMessage}
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
           placeHolder={field.originalFormField.placeholder}
