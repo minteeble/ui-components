@@ -1,3 +1,8 @@
+import {
+  TableToolbarItems,
+  TableToolbarProps,
+} from "./components/TableToolbar";
+
 /**
  * Header Item Model
  */
@@ -68,6 +73,21 @@ export interface TableProps {
    * Activate the table pagination
    */
   paginationEnabled?: boolean;
+
+  /**
+   * Enable the table toolbar
+   */
+  ToolbarEnabled?: boolean;
+
+  /**
+   * Props of Toolbar
+   */
+  ToolbarProps?: TableToolbarItems[];
+
+  /**
+   * Enable the add button on toolbar
+   */
+  onAdd?: () => void;
 
   /**
    * Table header.

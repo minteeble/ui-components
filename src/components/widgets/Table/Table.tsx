@@ -3,6 +3,11 @@ import React, { useEffect, useState } from "react";
 import TablePaginator, { usePaginator } from "./components/TablePaginator";
 import { RecordItem, TableProps, TableRecord } from "./Table.types";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import TableToolbar, {
+  TableToolbarItems,
+  TableToolbarItemsPosition,
+} from "./components/TableToolbar";
+import { Button } from "../../forms";
 
 const Table = (props: TableProps) => {
   const header = props.header || [];
@@ -10,12 +15,31 @@ const Table = (props: TableProps) => {
   const maxRowsForPage = props.maxRowsForPage || 20;
 
   const [sortedRecords, setSortedRecords] = useState<Array<TableRecord>>([]);
+  const [currentToolbarItems, setCurrentToolbarItems] = useState<
+    Array<TableToolbarItems>
+  >([]);
 
   let fieldNames: Array<string> = [];
 
   for (let i = 0; i < header.length; i++) {
     fieldNames.push(header[i].fieldName);
   }
+
+  useEffect(() => {
+    if (props.ToolbarProps) {
+      let newItems = [...props.ToolbarProps];
+      if (props.onAdd) {
+        let addBtn: TableToolbarItems = {
+          content: <Button onClick={props.onAdd} text={"Add"} />,
+          position: TableToolbarItemsPosition.Right,
+        };
+
+        newItems.push(addBtn);
+      }
+      setCurrentToolbarItems(newItems);
+    }
+  }),
+    [props.ToolbarProps];
 
   useEffect(() => {
     if (records) {
@@ -72,11 +96,14 @@ const Table = (props: TableProps) => {
           <div className="table">
             <div className="table-scroll">
               <div className="table-scroll-content">
+                {props.ToolbarEnabled && (
+                  <TableToolbar items={currentToolbarItems} />
+                )}
                 <div className="table-header">
                   {header.map((item, index) => {
                     return (
                       <div className="header-field" key={index}>
-                        {item.fieldName}
+                        <span>{item.fieldName}</span>
                       </div>
                     );
                   })}

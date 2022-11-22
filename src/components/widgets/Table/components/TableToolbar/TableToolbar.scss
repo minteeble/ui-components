@@ -1,0 +1,33 @@
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  height: 3rem;
+  max-height: 3rem;
+  background: rgb(255, 255, 255);
+
+  .item-container {
+    width: calc(100% / 3);
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .left-items {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .center-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .right-items {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
