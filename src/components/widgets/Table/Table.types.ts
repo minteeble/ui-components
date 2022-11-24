@@ -60,14 +60,15 @@ export interface TableProps {
   rowsClickable?: boolean;
 
   /**
+   * On row click callback
+   */
+
+  onRowClick?: (recordData: TableRecord) => void;
+
+  /**
    * Set the default max rows number for page
    */
   maxRowsForPage?: number;
-
-  /**
-   * On row click callback
-   */
-  onRowClick?: (recordData: TableRecord) => void;
 
   /**
    * Activate the table pagination

@@ -30,17 +30,14 @@ const usePaginator = (props: usePaginatorProps) => {
 
   useEffect(() => {
     paginate();
-    if (currentPage > pages) {
-      if (pages === 0) {
-        setCurrentPage(1);
-      } else {
+
+    if (pages) {
+      if (currentPage > pages) {
         setCurrentPage(pages);
       }
     }
 
-    if (props.records.length <= 0) {
-      setCurrentPage(0);
-    }
+    console.log(currentPage);
   }, [currentPage, pages]);
 
   useEffect(() => {
@@ -49,6 +46,14 @@ const usePaginator = (props: usePaginatorProps) => {
 
   useEffect(() => {
     paginate();
+  }, [props.records]);
+
+  useEffect(() => {
+    if (props.records.length <= 0) {
+      setCurrentPage(0);
+    } else {
+      setCurrentPage(1);
+    }
   }, [props.records]);
 
   let paginatorLogic: TablePaginatorLogic = {
