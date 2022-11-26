@@ -8,6 +8,7 @@ import TableToolbar, {
   TableToolbarItemsPosition,
 } from "./components/TableToolbar";
 import { Button } from "../../forms";
+import { LoadingSpinner, LoadingSpinnerSize } from "../../common";
 
 const Table = (props: TableProps) => {
   const header = props.header || [];
@@ -26,8 +27,8 @@ const Table = (props: TableProps) => {
   }
 
   useEffect(() => {
-    if (props.ToolbarProps) {
-      let newItems = [...props.ToolbarProps];
+    if (props.toolbarProps) {
+      let newItems = [...props.toolbarProps];
       if (props.onAdd) {
         let addBtn: TableToolbarItems = {
           content: <Button onClick={props.onAdd} text={"Add"} />,
@@ -39,7 +40,7 @@ const Table = (props: TableProps) => {
       setCurrentToolbarItems(newItems);
     }
   }),
-    [props.ToolbarProps];
+    [props.toolbarProps];
 
   useEffect(() => {
     if (records) {
@@ -96,7 +97,7 @@ const Table = (props: TableProps) => {
           <div className="table">
             <div className="table-scroll">
               <div className="table-scroll-content">
-                {props.ToolbarEnabled && (
+                {props.toolbarEnabled && (
                   <TableToolbar items={currentToolbarItems} />
                 )}
                 <div className="table-header">
@@ -109,6 +110,11 @@ const Table = (props: TableProps) => {
                   })}
                 </div>
                 <div className="table-content">
+                  {props.onSave != undefined && props.onSave === true && (
+                    <div className="loading-table">
+                      <LoadingSpinner Size={LoadingSpinnerSize.Large} />
+                    </div>
+                  )}
                   {paginatorLogic.currentRecords.length > 0 ? (
                     paginatorLogic.currentRecords.map((record) => {
                       return (

@@ -78,12 +78,17 @@ export interface TableProps {
   /**
    * Enable the table toolbar
    */
-  ToolbarEnabled?: boolean;
+  toolbarEnabled?: boolean;
 
   /**
    * Props of Toolbar
    */
-  ToolbarProps?: TableToolbarItems[];
+  toolbarProps?: TableToolbarItems[];
+
+  /**
+   * Show the loading spinner
+   */
+  onSave?: boolean;
 
   /**
    * Enable the add button on toolbar

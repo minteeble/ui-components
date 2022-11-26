@@ -967,8 +967,8 @@ const ToolbarTableArgs: TableProps = {
     console.log("Clicked record:", data);
   },
   paginationEnabled: true,
-  ToolbarEnabled: true,
-  ToolbarProps: [
+  toolbarEnabled: true,
+  toolbarProps: [
     {
       position: TableToolbarItemsPosition.Left,
       content: <span>left</span>,
@@ -1072,3 +1072,50 @@ const ToolbarTableArgs: TableProps = {
   ],
 };
 ToolbarTable.args = ToolbarTableArgs;
+
+export const LoadingTable = Template.bind({});
+const LoadingTableArgs: TableProps = {
+  rowsClickable: true,
+  paginationEnabled: true,
+  onRowClick: (data) => {
+    console.log("Clicked record:", data);
+  },
+  onSave: true,
+  records: [
+    {
+      items: [
+        {
+          value: "third book",
+          fieldName: "book name",
+        },
+        {
+          value: "2",
+          fieldName: "ordered amount",
+        },
+        {
+          value: "$15.00",
+          fieldName: "book price",
+        },
+        {
+          value: "15.00%",
+          fieldName: "book discount",
+        },
+      ],
+    },
+  ],
+  header: [
+    {
+      fieldName: "book name",
+    },
+    {
+      fieldName: "ordered amount",
+    },
+    {
+      fieldName: "book price",
+    },
+    {
+      fieldName: "book discount",
+    },
+  ],
+};
+LoadingTable.args = LoadingTableArgs;
