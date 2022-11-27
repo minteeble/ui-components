@@ -88,7 +88,7 @@ export interface TableProps {
   /**
    * Show the loading spinner
    */
-  onSave?: boolean;
+  isLoading?: boolean;
 
   /**
    * Enable the add button on toolbar

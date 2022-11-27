@@ -30,12 +30,11 @@ const Table = (props: TableProps) => {
     if (props.toolbarProps) {
       let newItems = [...props.toolbarProps];
       if (props.onAdd) {
-        let addBtn: TableToolbarItems = {
-          content: <Button onClick={props.onAdd} text={"Add"} />,
-          position: TableToolbarItemsPosition.Right,
-        };
-
-        newItems.push(addBtn);
+        // let addBtn: TableToolbarItems = {
+        //   content: <Button onClick={props.onAdd} text={"Add"} />,
+        //   position: TableToolbarItemsPosition.Right,
+        // };
+        // newItems.push(addBtn);
       }
       setCurrentToolbarItems(newItems);
     }
@@ -98,7 +97,21 @@ const Table = (props: TableProps) => {
             <div className="table-scroll">
               <div className="table-scroll-content">
                 {props.toolbarEnabled && (
-                  <TableToolbar items={currentToolbarItems} />
+                  <TableToolbar
+                    items={
+                      !props.onAdd
+                        ? currentToolbarItems
+                        : [
+                            ...currentToolbarItems,
+                            {
+                              content: (
+                                <Button onClick={props.onAdd} text={"Add"} />
+                              ),
+                              position: TableToolbarItemsPosition.Right,
+                            },
+                          ]
+                    }
+                  />
                 )}
                 <div className="table-header">
                   {header.map((item, index) => {
@@ -110,7 +123,7 @@ const Table = (props: TableProps) => {
                   })}
                 </div>
                 <div className="table-content">
-                  {props.onSave != undefined && props.onSave === true && (
+                  {props.isLoading != undefined && props.isLoading === true && (
                     <div className="loading-table">
                       <LoadingSpinner Size={LoadingSpinnerSize.Large} />
                     </div>
