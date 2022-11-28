@@ -46,10 +46,17 @@ const Form = (props: FormProps) => {
         .map((element, i) => {
           if (element.type === FormFieldType.TextInput) {
             return {
-              value: "",
+              value: element.value || "",
               onValueChange: (newValue: any) => {
+                let sanitized: boolean = true;
+                console.log("ELement", element);
+                if (element.sanitize) {
+                  sanitized = element.sanitize(newValue);
+                  console.log("Sanitized:", sanitized);
+                }
+
                 setFieldsState((s) => {
-                  s[i].value = newValue;
+                  if (sanitized) s[i].value = newValue;
 
                   return [...s];
                 });
@@ -63,9 +70,14 @@ const Form = (props: FormProps) => {
               value: "",
 
               onValueChange: (newValue: any) => {
-                console.log("Here");
+                let sanitized: boolean = true;
+
+                if (element.sanitize) {
+                  sanitized = element.sanitize(newValue);
+                }
+
                 setFieldsState((s) => {
-                  s[i].value = newValue;
+                  if (sanitized) s[i].value = newValue;
 
                   return [...s];
                 });
@@ -111,6 +123,7 @@ const Form = (props: FormProps) => {
           textInputType={originalFormField.textInputType}
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
+          alignment={field.originalFormField.alignment}
           placeHolder={field.originalFormField.placeholder}
         />
       );

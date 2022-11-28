@@ -10,6 +10,7 @@
 
 import React from "react";
 import LoadingSpinner from "../../../common/LoadingSpinner";
+import { FormFieldAlignment } from "../Form.types";
 import { TextInputProps, TextInputType } from "./TextInput.types";
 
 const TextInput = (props: TextInputProps) => {
@@ -17,13 +18,20 @@ const TextInput = (props: TextInputProps) => {
 
   let disabled: boolean = props.disabled === true || props.loading === true;
   let loading: boolean = props.loading == true;
+  let alignment: FormFieldAlignment =
+    props.alignment || FormFieldAlignment.Vertical;
 
   if (props.textInputType === TextInputType.Password)
     textInputType = "password";
   if (props.textInputType === TextInputType.Email) textInputType = "email";
 
   return (
-    <div className="text-input-wrapper" style={props.style}>
+    <div
+      className={`text-input-wrapper ${
+        alignment === FormFieldAlignment.Horizontal ? "horizontal" : "vertical"
+      }`}
+      style={props.style}
+    >
       {loading && <LoadingSpinner />}
       <div className="input-header">
         {props.label && (

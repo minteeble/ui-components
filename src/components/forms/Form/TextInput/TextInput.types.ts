@@ -13,6 +13,7 @@ import {
   LoadableComponentProps,
   StylableComponent,
 } from "../../../../models";
+import { FormFieldAlignment } from "../Form.types";
 
 export enum TextInputType {
   Text,
@@ -30,5 +31,7 @@ export interface TextInputProps
   placeHolder?: string;
   errorMessage?: string;
   label?: string;
+  alignment?: FormFieldAlignment;
+
   onValueChange: (newValue: string) => void;
 }

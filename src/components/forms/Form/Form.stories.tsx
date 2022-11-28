@@ -48,6 +48,18 @@ const Template: Story<FormProps> = (args) => {
           placeholder: "Enter your last name",
         },
         {
+          fieldName: "tel",
+          type: FormFieldType.TextInput,
+          label: "Telephone",
+          required: true,
+          sanitize: (val) => {
+            let regex = /^[0-9]*$/;
+
+            return regex.test(val);
+          },
+          placeholder: "Enter your last name",
+        },
+        {
           fieldName: "gender",
           type: FormFieldType.Select,
           label: "Gender",

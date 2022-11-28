@@ -39,6 +39,11 @@ export enum FormFieldType {
   TextArea,
 }
 
+export enum FormFieldAlignment {
+  Horizontal = "horizontal",
+  Vertical = "vertical",
+}
+
 export interface FormField {
   value?: any;
   onValueChange?: (newValue: any) => void;
@@ -49,6 +54,9 @@ export interface FormField {
   required?: boolean;
 
   type: FormFieldType;
+  alignment?: FormFieldAlignment;
+
+  sanitize?: (value: any) => boolean;
 
   isValid?: (value: any) => boolean | string;
 }
