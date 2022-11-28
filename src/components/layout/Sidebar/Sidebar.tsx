@@ -17,10 +17,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
 import IconButton from "../../forms/IconButton/IconButton";
 import { SidebarProps } from "./Sidebar.types";
 import { HashLink } from "react-router-hash-link";
+import { Link } from "react-router-dom";
 
 const Sidebar = (props: SidebarProps) => {
   // console.log(__RouterContext);

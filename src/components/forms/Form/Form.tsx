@@ -88,7 +88,7 @@ const Form = (props: FormProps) => {
 
           if (element.type === FormFieldType.Toggle) {
             return {
-              value: "",
+              value: element.value,
 
               onValueChange: (newValue: any) => {
                 setFieldsState((s) => {
