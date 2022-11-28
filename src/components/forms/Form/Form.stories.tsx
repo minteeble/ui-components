@@ -16,6 +16,7 @@ import {
   FormFieldType,
   FormProps,
   SelectParams,
+  TextAreaParams,
   TextInputParams,
   ToggleParams,
 } from "./Form.types";
@@ -68,6 +69,14 @@ const Template: Story<FormProps> = (args) => {
             );
           },
         } as TextInputParams,
+        {
+          fieldName: "info",
+          type: FormFieldType.TextArea,
+          label: "Info",
+          required: true,
+          placeholder: "Additional Info",
+          resizable: true,
+        } as TextAreaParams,
       ]}
       onSubmit={(data: Record<string, any>) => {
         console.log(data);

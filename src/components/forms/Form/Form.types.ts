@@ -27,10 +27,16 @@ export interface ToggleParams extends FormField {
   onValueChange: (newValue: boolean) => void;
 }
 
+export interface TextAreaParams extends FormField {
+  value: string;
+  resizable: boolean;
+}
+
 export enum FormFieldType {
   TextInput,
   Select,
   Toggle,
+  TextArea,
 }
 
 export interface FormField {

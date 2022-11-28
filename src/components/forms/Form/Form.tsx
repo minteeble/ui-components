@@ -17,8 +17,10 @@ import {
   FormProps,
   SelectParams,
   TextInputParams,
+  TextAreaParams,
 } from "./Form.types";
 import Select from "./Select/Select";
+import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 import Toggle from "./Toggle";
 
@@ -137,6 +139,21 @@ const Form = (props: FormProps) => {
           value={field?.value}
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
+        />
+      );
+    }
+
+    if (field.originalFormField.type === FormFieldType.TextArea) {
+      let originalFormField = field.originalFormField as TextAreaParams;
+
+      console.log("Error", field.errorMessage);
+      return (
+        <TextArea
+          value={field?.value}
+          errorMessage={field.errorMessage}
+          label={field.originalFormField.label}
+          placeHolder={field.originalFormField.placeholder}
+          resizable={originalFormField.resizable}
         />
       );
     }
