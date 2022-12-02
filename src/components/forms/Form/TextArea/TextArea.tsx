@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextAreaProps } from "./TextArea.types";
 
 const TextArea = (props: TextAreaProps) => {
@@ -19,9 +19,11 @@ const TextArea = (props: TextAreaProps) => {
           rows={props.rows ? props.rows : 10}
           placeholder={props.placeHolder ? props.placeHolder : ""}
           className="textarea"
-        >
-          {props.value}
-        </textarea>
+          value={props.value}
+          onChange={(e) => {
+            props.onValueChange(e.target.value);
+          }}
+        ></textarea>
       </div>
     </>
   );

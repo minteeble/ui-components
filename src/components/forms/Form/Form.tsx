@@ -65,6 +65,28 @@ const Form = (props: FormProps) => {
             };
           }
 
+          if (element.type === FormFieldType.TextArea) {
+            return {
+              value: element.value || "",
+              onValueChange: (newValue: any) => {
+                let sanitized: boolean = true;
+                console.log("ELement", element);
+                if (element.sanitize) {
+                  sanitized = element.sanitize(newValue);
+                  console.log("Sanitized:", sanitized);
+                }
+
+                setFieldsState((s) => {
+                  console.log("AAAAAA", s);
+                  if (sanitized) s[i].value = newValue;
+
+                  return [...s];
+                });
+              },
+              originalFormField: element,
+            };
+          }
+
           if (element.type === FormFieldType.Select) {
             return {
               value: "",
@@ -162,6 +184,7 @@ const Form = (props: FormProps) => {
       console.log("Error", field.errorMessage);
       return (
         <TextArea
+          onValueChange={field?.onValueChange}
           value={field?.value}
           errorMessage={field.errorMessage}
           label={field.originalFormField.label}
