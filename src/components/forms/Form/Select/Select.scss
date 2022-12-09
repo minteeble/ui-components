@@ -99,7 +99,7 @@
         &:focus {
           outline: none;
           padding-left: 0.4rem;
-          border-bottom: none;
+          border-bottom: 2px solid transparent;
         }
       }
     }

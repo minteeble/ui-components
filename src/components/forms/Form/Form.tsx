@@ -285,7 +285,7 @@ const Form = (props: FormProps) => {
             //
           />
         )}
-        {submitEnabled && <Button text={props.submitText || "Submit"} />}
+        {props.submitEnabled && <Button text={props.submitText || "Submit"} />}
       </div>
     </form>
   );

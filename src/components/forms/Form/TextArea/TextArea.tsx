@@ -14,7 +14,13 @@ const TextArea = (props: TextAreaProps) => {
           )}
         </div>
         <textarea
-          style={{ resize: props.resizable ? "both" : "none" }}
+          style={{
+            resize: props.readonlyField
+              ? "none"
+              : props.resizable
+              ? "both"
+              : "none",
+          }}
           cols={props.cols ? props.cols : 30}
           rows={props.rows ? props.rows : 10}
           placeholder={props.placeHolder ? props.placeHolder : ""}
