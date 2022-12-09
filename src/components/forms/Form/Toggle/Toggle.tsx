@@ -18,10 +18,12 @@ const Toggle = (props: ToggleProps) => {
     <div className={"toggle-wrapper" + (disabled ? " disabled" : "")}>
       <input
         type="checkbox"
-        className="toggle"
+        className={`toggle ${props.readonlyField ? "disabled" : ""}`}
         checked={props.value}
         disabled={disabled}
+        readOnly={props.readonlyField ? true : false}
         onChange={(e) => {
+          // @ts-ignore
           props.onValueChange(e.target.checked);
         }}
       />

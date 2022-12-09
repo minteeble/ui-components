@@ -32,6 +32,7 @@ export interface TextInputProps
   errorMessage?: string;
   label?: string;
   alignment?: FormFieldAlignment;
+  readonlyField?: boolean;
 
   onValueChange: (newValue: string) => void;
 }

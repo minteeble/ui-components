@@ -6,17 +6,17 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 const Select = (props: SelectProps) => {
   return (
-    <div className="select-wrapper">
+    <div className="select-wrapper ">
       <div className="input-header">
         {props.label && <label className="select-label">{props.label}</label>}
         {props.errorMessage && (
           <span className="error">{props.errorMessage}</span>
         )}
       </div>
-      <div className="select">
+      <div className={`select ${props.readonlyField ? "disabled" : ""}`}>
         <ComboBox
           options={props.options}
-          // defaultValue={props.value }
+          // defaultValue={props.value}
           placeholder={props.placeHolder || ""}
           editable={false}
           onSelect={(newValue) => {

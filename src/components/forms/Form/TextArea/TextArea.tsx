@@ -18,9 +18,11 @@ const TextArea = (props: TextAreaProps) => {
           cols={props.cols ? props.cols : 30}
           rows={props.rows ? props.rows : 10}
           placeholder={props.placeHolder ? props.placeHolder : ""}
-          className="textarea"
+          className={`textarea ${props.readonlyField ? "disabled" : ""}`}
+          readOnly={props.readonlyField ? true : false}
           value={props.value}
           onChange={(e) => {
+            // @ts-ignore
             props.onValueChange(e.target.value);
           }}
         ></textarea>

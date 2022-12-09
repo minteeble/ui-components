@@ -42,12 +42,14 @@ const TextInput = (props: TextInputProps) => {
         )}
       </div>
       <input
-        className="text-input"
+        className={`text-input ${props.readonlyField ? "disabled" : ""}`}
         type={textInputType}
         value={props.value}
         formNoValidate
+        readOnly={props.readonlyField ? true : false}
         placeholder={(props.value.length === 0 && props.placeHolder) || ""}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          // @ts-ignore
           props.onValueChange(e.target.value);
         }}
         disabled={disabled}

@@ -7,6 +7,7 @@ export interface TextAreaProps {
   cols?: number;
   rows?: number;
   resizable: boolean;
+  readonlyField?: boolean;
 
   onValueChange: (newValue: string) => void;
 }

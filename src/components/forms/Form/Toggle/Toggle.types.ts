@@ -15,4 +15,5 @@ export interface ToggleProps extends StylableComponent, DisableableComponent {
   errorMessage?: string;
   label?: string;
   onValueChange: (newValue: boolean) => void;
+  readonlyField?: boolean;
 }

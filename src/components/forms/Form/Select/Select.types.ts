@@ -7,4 +7,5 @@ export interface SelectProps extends StylableComponent, DisableableComponent {
   errorMessage?: string;
   label?: string;
   onValueChange: (newValue: string) => void;
+  readonlyField?: boolean;
 }

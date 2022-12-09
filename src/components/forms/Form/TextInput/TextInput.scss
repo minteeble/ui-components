@@ -15,9 +15,14 @@
   justify-content: space-between;
 
   position: relative;
+  max-width: 100%;
 
   &.horizontal {
     flex-direction: row;
+    .text-input {
+      width: 30%;
+      max-width: 30%;
+    }
   }
 
   &.vertical {
@@ -67,6 +72,16 @@
       outline: none;
       padding-left: 1.2rem;
       border-bottom: 2px solid var(--primary-color);
+    }
+    &.disabled {
+      background-color: transparent;
+      border-bottom: none;
+
+      &:focus {
+        outline: none;
+        padding-left: 0.4rem;
+        border-bottom: none;
+      }
     }
   }
 }

@@ -38,6 +38,13 @@
       position: absolute;
       pointer-events: none;
       color: var(--dark-border-color);
+      opacity: 1;
+    }
+
+    &.disabled {
+      .select-icon {
+        opacity: 0;
+      }
     }
 
     > div {
@@ -81,6 +88,19 @@
       li {
         @extend .montserrat;
         color: var(--normal-text-color);
+      }
+    }
+
+    &.disabled {
+      input {
+        background-color: transparent;
+        border-bottom: none;
+
+        &:focus {
+          outline: none;
+          padding-left: 0.4rem;
+          border-bottom: none;
+        }
       }
     }
   }
