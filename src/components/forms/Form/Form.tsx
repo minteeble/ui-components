@@ -8,8 +8,11 @@
  * website:   https://minteeble.com
  */
 
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
+import IconButton from "../IconButton";
 import {
   ToggleParams,
   FormField,
@@ -32,7 +35,8 @@ export interface FieldState {
 }
 
 const Form = (props: FormProps) => {
-  let [fieldsState, setFieldsState] = useState<Array<FieldState>>([]);
+  const [fieldsState, setFieldsState] = useState<Array<FieldState>>([]);
+  const [underEdit, setUnderEdit] = useState<boolean>(false);
 
   let submitEnabled = props.submitEnabled || true;
 
@@ -147,6 +151,7 @@ const Form = (props: FormProps) => {
           label={field.originalFormField.label}
           alignment={field.originalFormField.alignment}
           placeHolder={field.originalFormField.placeholder}
+          readonlyField={props.editable ? underEdit : false}
         />
       );
     }
@@ -162,6 +167,7 @@ const Form = (props: FormProps) => {
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
           placeHolder={field.originalFormField.placeholder}
+          readonlyField={props.editable ? underEdit : false}
         />
       );
     }
@@ -174,6 +180,7 @@ const Form = (props: FormProps) => {
           value={field?.value}
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
+          readonlyField={props.editable ? underEdit : false}
         />
       );
     }
@@ -190,6 +197,7 @@ const Form = (props: FormProps) => {
           label={field.originalFormField.label}
           placeHolder={field.originalFormField.placeholder}
           resizable={originalFormField.resizable}
+          readonlyField={props.editable ? underEdit : false}
         />
       );
     }
@@ -263,6 +271,12 @@ const Form = (props: FormProps) => {
     >
       {elements.map((elem) => (typeof elem !== "undefined" ? elem : <></>))}
       <div className="form-toolbar">
+        {props.editable && (
+          <IconButton
+            icon={<FontAwesomeIcon icon={faPencil} />}
+            //
+          />
+        )}
         {submitEnabled && <Button text={props.submitText || "Submit"} />}
       </div>
     </form>
