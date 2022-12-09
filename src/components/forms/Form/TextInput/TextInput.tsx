@@ -37,7 +37,7 @@ const TextInput = (props: TextInputProps) => {
         {props.label && (
           <label className="text-input-label">{props.label}</label>
         )}
-        {props.errorMessage && (
+        {props.errorMessage && !props.readonlyField && (
           <span className="error">{props.errorMessage}</span>
         )}
       </div>

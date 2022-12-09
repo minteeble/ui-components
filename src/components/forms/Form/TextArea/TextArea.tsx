@@ -9,7 +9,7 @@ const TextArea = (props: TextAreaProps) => {
           {props.label && (
             <label className="textarea-label">{props.label}</label>
           )}
-          {props.errorMessage && (
+          {props.errorMessage && !props.readonlyField && (
             <span className="error">{props.errorMessage}</span>
           )}
         </div>

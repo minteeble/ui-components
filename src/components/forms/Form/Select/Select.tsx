@@ -9,7 +9,7 @@ const Select = (props: SelectProps) => {
     <div className="select-wrapper ">
       <div className="input-header">
         {props.label && <label className="select-label">{props.label}</label>}
-        {props.errorMessage && (
+        {props.errorMessage && !props.readonlyField && (
           <span className="error">{props.errorMessage}</span>
         )}
       </div>

@@ -8,7 +8,7 @@
  * website:   https://minteeble.com
  */
 
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
@@ -151,7 +151,7 @@ const Form = (props: FormProps) => {
           label={field.originalFormField.label}
           alignment={field.originalFormField.alignment}
           placeHolder={field.originalFormField.placeholder}
-          readonlyField={props.editable ? underEdit : false}
+          readonlyField={props.editable ? !underEdit : false}
         />
       );
     }
@@ -167,7 +167,7 @@ const Form = (props: FormProps) => {
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
           placeHolder={field.originalFormField.placeholder}
-          readonlyField={props.editable ? underEdit : false}
+          readonlyField={props.editable ? !underEdit : false}
         />
       );
     }
@@ -180,7 +180,7 @@ const Form = (props: FormProps) => {
           value={field?.value}
           onValueChange={field?.onValueChange}
           label={field.originalFormField.label}
-          readonlyField={props.editable ? underEdit : false}
+          readonlyField={props.editable ? !underEdit : false}
         />
       );
     }
@@ -197,7 +197,7 @@ const Form = (props: FormProps) => {
           label={field.originalFormField.label}
           placeHolder={field.originalFormField.placeholder}
           resizable={originalFormField.resizable}
-          readonlyField={props.editable ? underEdit : false}
+          readonlyField={props.editable ? !underEdit : false}
         />
       );
     }
@@ -273,7 +273,15 @@ const Form = (props: FormProps) => {
       <div className="form-toolbar">
         {props.editable && (
           <IconButton
-            icon={<FontAwesomeIcon icon={faPencil} />}
+            icon={
+              <FontAwesomeIcon
+                icon={underEdit ? faBan : faPencil}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setUnderEdit(!underEdit);
+                }}
+              />
+            }
             //
           />
         )}

@@ -23,13 +23,7 @@ const IconButton = (props: IconButtonProps) => {
   return (
     <button
       className={`icon-button ${props.className} ${sizeClassName}`}
-      onClick={
-        props.onClick
-          ? props.onClick
-          : (e) => {
-              e.preventDefault();
-            }
-      }
+      onClick={props.onClick ? props.onClick : () => {}}
     >
       {props.icon}
     </button>
