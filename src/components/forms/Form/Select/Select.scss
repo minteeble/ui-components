@@ -94,7 +94,7 @@
     &.disabled {
       input {
         background-color: transparent;
-        border-bottom: none;
+        border-bottom: 2px solid transparent;
 
         &:focus {
           outline: none;

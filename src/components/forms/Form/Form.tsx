@@ -8,7 +8,7 @@
  * website:   https://minteeble.com
  */
 
-import { faBan, faPencil } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faCheck, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
@@ -275,9 +275,11 @@ const Form = (props: FormProps) => {
           <IconButton
             icon={
               <FontAwesomeIcon
-                icon={underEdit ? faBan : faPencil}
+                icon={underEdit ? faCheck : faPencil}
+                style={{ color: underEdit ? "lime" : "var(--primary-color)" }}
                 onClick={(e) => {
                   e.preventDefault();
+
                   setUnderEdit(!underEdit);
                 }}
               />
@@ -285,7 +287,9 @@ const Form = (props: FormProps) => {
             //
           />
         )}
-        {props.submitEnabled && <Button text={props.submitText || "Submit"} />}
+        {props.submitEnabled && !props.editable && (
+          <Button text={props.submitText || "Submit"} />
+        )}
       </div>
     </form>
   );
