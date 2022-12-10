@@ -21,6 +21,9 @@
   border: 1px solid transparent;
   transition: all 0.5s;
   cursor: pointer;
+  svg {
+    pointer-events: none;
+  }
 
   &:hover {
     border-color: var(--border-color);

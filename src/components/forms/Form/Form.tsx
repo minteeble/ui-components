@@ -11,7 +11,7 @@
 import { faBan, faCheck, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import Button from "../Button";
+import Button, { ButtonActionType } from "../Button";
 import IconButton from "../IconButton";
 import {
   ToggleParams,
@@ -37,6 +37,7 @@ export interface FieldState {
 const Form = (props: FormProps) => {
   const [fieldsState, setFieldsState] = useState<Array<FieldState>>([]);
   const [underEdit, setUnderEdit] = useState<boolean>(false);
+  const [canSubmit, setCanSubmit] = useState<boolean>(true);
 
   let submitEnabled = props.submitEnabled || true;
 
@@ -202,93 +203,117 @@ const Form = (props: FormProps) => {
       );
     }
   });
+
+  const handleSubmit = () => {
+    console.log("HAndlign submit");
+    let data = {} as Record<string, any>;
+
+    fieldsState.forEach((field) => {
+      if (field) {
+        data[field.originalFormField.fieldName] = field.value;
+      }
+    });
+
+    setFieldsState((fields) => {
+      fields.forEach((field) => (field.errorMessage = undefined));
+
+      return [...fields];
+    });
+
+    if (props.onSubmit) {
+      let canSubmitVal: boolean = true;
+      // setCanSubmit(true);
+
+      let updatedFieldState: FieldState[] = fieldsState;
+
+      fieldsState.forEach((field, fieldIndex) => {
+        if (field.originalFormField.isValid) {
+          console.log("Validating:", field);
+          let isValidResponse = field.originalFormField.isValid(field.value);
+
+          if (isValidResponse !== true) {
+            // setCanSubmit(false);
+            canSubmitVal = false;
+
+            setFieldsState((fields) => {
+              fields[fieldIndex].errorMessage =
+                (isValidResponse as string) || "Invalid input.";
+
+              updatedFieldState = [...fields];
+              return [...fields];
+            });
+          }
+        }
+      });
+
+      fieldsState.forEach((field, fieldIndex) => {
+        if (field.originalFormField.required && !field.value) {
+          // setCanSubmit(false);
+          canSubmitVal = false;
+
+          setFieldsState((fields) => {
+            fields[fieldIndex].errorMessage = "Field required.";
+
+            updatedFieldState = [...fields];
+            return [...fields];
+          });
+        }
+      });
+
+      setCanSubmit(canSubmitVal);
+
+      if (canSubmitVal) {
+        props.onSubmit(data);
+
+        if (underEdit) {
+          setUnderEdit(false);
+        }
+      } else if (props.onError) {
+        props.onError(updatedFieldState.map((field) => field.errorMessage));
+      }
+    }
+  };
+
   return (
     <form
       className="form"
       noValidate
       onSubmit={(e) => {
         e.preventDefault();
-
-        let data = {} as Record<string, any>;
-
-        fieldsState.forEach((field) => {
-          if (field) {
-            data[field.originalFormField.fieldName] = field.value;
-          }
-        });
-
-        setFieldsState((fields) => {
-          fields.forEach((field) => (field.errorMessage = undefined));
-
-          return [...fields];
-        });
-
-        if (props.onSubmit) {
-          let canSubmit = true;
-          let updatedFieldState: FieldState[] = fieldsState;
-
-          fieldsState.forEach((field, fieldIndex) => {
-            if (field.originalFormField.isValid) {
-              console.log("Validating:", field);
-              let isValidResponse = field.originalFormField.isValid(
-                field.value
-              );
-
-              if (isValidResponse !== true) {
-                canSubmit = false;
-
-                setFieldsState((fields) => {
-                  fields[fieldIndex].errorMessage =
-                    (isValidResponse as string) || "Invalid input.";
-
-                  updatedFieldState = [...fields];
-                  return [...fields];
-                });
-              }
-            }
-          });
-
-          fieldsState.forEach((field, fieldIndex) => {
-            if (field.originalFormField.required && !field.value) {
-              canSubmit = false;
-
-              setFieldsState((fields) => {
-                fields[fieldIndex].errorMessage = "Field required.";
-
-                updatedFieldState = [...fields];
-                return [...fields];
-              });
-            }
-          });
-
-          if (canSubmit) {
-            props.onSubmit(data);
-          } else if (props.onError) {
-            props.onError(updatedFieldState.map((field) => field.errorMessage));
-          }
-        }
+        handleSubmit();
       }}
     >
       {elements.map((elem) => (typeof elem !== "undefined" ? elem : <></>))}
       <div className="form-toolbar">
         {props.editable && (
           <IconButton
+            onClick={(e) => {
+              if (e) e.preventDefault();
+
+              if (underEdit) {
+                if (props.submitEnabled) {
+                  handleSubmit();
+                } else {
+                  setUnderEdit(!underEdit);
+                }
+              } else {
+                setUnderEdit(!underEdit);
+              }
+            }}
             icon={
               <FontAwesomeIcon
                 icon={underEdit ? faCheck : faPencil}
                 style={{ color: underEdit ? "lime" : "var(--primary-color)" }}
-                onClick={(e) => {
-                  e.preventDefault();
-
-                  setUnderEdit(!underEdit);
-                }}
               />
             }
             //
           />
         )}
         {props.submitEnabled && !props.editable && (
-          <Button text={props.submitText || "Submit"} />
+          <Button
+            actionType={ButtonActionType.Submit}
+            text={props.submitText || "Submit"}
+          />
         )}
       </div>
     </form>
