@@ -25,19 +25,29 @@ const WalletConnectionDisplay = (props: WalletConnectionDisplayProps) => {
       <LoadableComponent showCondition={() => !props.isLoading}>
         {props.address !== "" ? (
           <>
-            <div className="wallet-avatar-box">
-              {props.avatarImageUrl && (
-                <img
-                  src={props.avatarImageUrl}
-                  alt=""
-                  className="wallet-avatar"
+            <div className="wallet-connection-wrapper">
+              <div className="wallet-avatar-box">
+                {props.avatarImageUrl && (
+                  <img
+                    src={props.avatarImageUrl}
+                    alt=""
+                    className="wallet-avatar"
+                  />
+                )}
+              </div>
+              <div className="wallet-address-box">
+                <span className="wallet-address">
+                  {evalWalletAbbreviation(props.address)}
+                </span>
+              </div>
+              <div className="disconnect-popup">
+                <Button
+                  onClick={() => {
+                    props.onSignOutClick ? props.onSignOutClick() : () => {};
+                  }}
+                  text={props.buttonText || "Disconnect"}
                 />
-              )}
-            </div>
-            <div className="wallet-address-box">
-              <span className="wallet-address">
-                {evalWalletAbbreviation(props.address)}
-              </span>
+              </div>
             </div>
           </>
         ) : (

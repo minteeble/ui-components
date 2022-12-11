@@ -23,6 +23,7 @@ export interface WalletConnectionDisplayProps {
   avatarImageUrl: string;
 
   isLoading: boolean;
+  buttonText: string;
 
   onSignInClick?: () => void;
   onSignOutClick?: () => void;
