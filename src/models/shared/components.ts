@@ -15,7 +15,7 @@ export interface ClickableComponent {
   /**
    *  OnClick callback
    */
-  onClick?: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 /**
