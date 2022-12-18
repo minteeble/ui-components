@@ -69,4 +69,5 @@ export interface FormProps extends StylableComponent {
   onError?: (errors: Array<string | undefined>) => void;
   onSubmit?: (data: any) => void;
   editable?: boolean;
+  isLoading?: boolean;
 }

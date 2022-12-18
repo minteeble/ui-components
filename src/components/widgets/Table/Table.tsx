@@ -94,25 +94,25 @@ const Table = (props: TableProps) => {
 
         <div className="table-wrapper">
           <div className="table">
+            {props.toolbarEnabled && (
+              <TableToolbar
+                items={
+                  !props.onAdd
+                    ? currentToolbarItems
+                    : [
+                        ...currentToolbarItems,
+                        {
+                          content: (
+                            <Button onClick={props.onAdd} text={"Add"} />
+                          ),
+                          position: TableToolbarItemsPosition.Right,
+                        },
+                      ]
+                }
+              />
+            )}
             <div className="table-scroll">
               <div className="table-scroll-content">
-                {props.toolbarEnabled && (
-                  <TableToolbar
-                    items={
-                      !props.onAdd
-                        ? currentToolbarItems
-                        : [
-                            ...currentToolbarItems,
-                            {
-                              content: (
-                                <Button onClick={props.onAdd} text={"Add"} />
-                              ),
-                              position: TableToolbarItemsPosition.Right,
-                            },
-                          ]
-                    }
-                  />
-                )}
                 <div className="table-header">
                   {header.map((item, index) => {
                     return (

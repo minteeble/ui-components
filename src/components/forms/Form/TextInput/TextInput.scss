@@ -74,7 +74,8 @@
       border-bottom: 2px solid var(--primary-color);
     }
     &.disabled {
-      background-color: transparent;
+      background-color: rgb(242, 242, 242);
+      font-style: italic;
       border-bottom: 2px solid transparent;
 
       &:focus {

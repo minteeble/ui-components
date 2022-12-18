@@ -11,6 +11,7 @@
 import { faBan, faCheck, faPencil } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
+import { LoadingSpinner, LoadingSpinnerSize } from "../../common";
 import Button, { ButtonActionType } from "../Button";
 import IconButton from "../IconButton";
 import {
@@ -283,6 +284,13 @@ const Form = (props: FormProps) => {
         handleSubmit();
       }}
     >
+      {props.isLoading && (
+        <>
+          <div className="loading-wrapper">
+            <LoadingSpinner Size={LoadingSpinnerSize.Large}></LoadingSpinner>
+          </div>
+        </>
+      )}
       {elements.map((elem) => (typeof elem !== "undefined" ? elem : <></>))}
       <div className="form-toolbar">
         {props.editable && (
