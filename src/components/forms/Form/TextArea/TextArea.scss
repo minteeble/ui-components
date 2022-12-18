@@ -49,6 +49,8 @@
     border-radius: 0.5rem 0.5rem 0 0;
     color: var(--normal-text-color);
     font-size: 1rem;
+    padding: 1rem;
+    line-height: 1.9rem;
 
     &::placeholder {
       color: var(--normal-text-color);
@@ -61,7 +63,9 @@
     }
 
     &.disabled {
-      background-color: transparent;
+      background-color: rgb(242, 242, 242);
+      font-style: italic;
+
       border-bottom: 2px solid transparent;
 
       &:focus {
