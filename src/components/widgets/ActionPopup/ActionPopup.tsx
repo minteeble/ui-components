@@ -9,8 +9,9 @@ const ActionPopup = (props: ActionPopupProps) => {
     <>
       <div className={`action-popup ${props.open ? "" : "closed"}`}>
         <div className="action-popup-toolbar">
+          <span className="title">{props.title ? props.title : " "}</span>
           <FontAwesomeIcon
-            className=".close"
+            className="close"
             icon={faXmark}
             onClick={() => {
               props.onClose();
@@ -25,7 +26,7 @@ const ActionPopup = (props: ActionPopupProps) => {
                 onClick={() => {
                   props.onClose();
                 }}
-                text={"Back"}
+                text={"Cancel"}
               />
             </>
           )}
@@ -77,6 +78,18 @@ const ActionPopup = (props: ActionPopupProps) => {
                   }
                 }}
                 text={"Save"}
+              />
+            </>
+          )}
+          {props.template && props.template === ActionPopupTemplate.Delete && (
+            <>
+              <Button
+                onClick={() => {
+                  if (props.onTemplateButtonClick) {
+                    props.onTemplateButtonClick();
+                  }
+                }}
+                text={"Delete"}
               />
             </>
           )}

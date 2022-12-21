@@ -27,6 +27,7 @@ const SimpleActionPopupArgs: ActionPopupProps = {
   message:
     "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto cupiditate similique iusto quis est saepe et, quibusdam ipsum autem placeat, pariatur velit labore! Perspiciatis ea provident in, officiis maiores asperiores?",
   open: true,
+  title: "lorem ipsum dolor sit amet",
   onClose: () => {
     console.log("closed");
   },

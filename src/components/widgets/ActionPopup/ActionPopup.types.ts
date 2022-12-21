@@ -6,6 +6,7 @@ export interface ActionPopupButton {
 export enum ActionPopupTemplate {
   Save = 1,
   Confirm,
+  Delete,
 }
 
 export interface ActionPopupProps {
@@ -13,6 +14,7 @@ export interface ActionPopupProps {
   open: boolean;
   items?: ActionPopupButton[];
   template?: ActionPopupTemplate;
+  title?: string;
   onTemplateButtonClick?: () => void;
   onClose: () => void;
 }
