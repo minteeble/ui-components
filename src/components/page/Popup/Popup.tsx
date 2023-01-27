@@ -20,7 +20,11 @@ const Popup = (props: PopupProps) => {
   };
 
   return props.popupLogic.isPopupOpen ? (
-    <div className="popup-wrapper" onClick={triggerClose}>
+    <div
+      className={"popup-wrapper " + (props.className || "")}
+      onClick={triggerClose}
+      style={props.style}
+    >
       <div
         className={
           "popup shadow-1" + (props.popupLogic.isPopupOpen ? " open" : "")

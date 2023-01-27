@@ -8,8 +8,10 @@
  * website:   https://minteeble.com
  */
 
+import { ClassExtensible, StylableComponent } from "../../../models";
+
 /**
- *
+ * PopupLogic interface
  */
 export interface PopupLogic {
   isPopupOpen: boolean;
@@ -20,7 +22,10 @@ export interface PopupLogic {
 
 export interface UsePopupProps {}
 
-export interface PopupProps {
+/**
+ * Props model for Popup component
+ */
+export interface PopupProps extends StylableComponent, ClassExtensible {
   popupLogic: PopupLogic;
   children: any;
 
