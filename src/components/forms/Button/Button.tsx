@@ -34,7 +34,7 @@ const Button = (props: ButtonProps) => {
     case ButtonActionType.Anchor:
       button = (
         <a {...commonButtonProps} href={url} target="_blank">
-         <button>{props.text}</button>
+       {props.text}
         </a>
       );
       break;
