@@ -1,0 +1,15 @@
+.powered-by-minteeble {
+  color: var(--light-text-color);
+  font-size: 0.8rem;
+  font-weight: 400;
+
+  a {
+    color: var(--light-text-color);
+    text-decoration: none;
+  }
+
+  .content {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
