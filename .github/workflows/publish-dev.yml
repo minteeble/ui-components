@@ -50,7 +50,7 @@ jobs:
           tag_name: "v%s-beta"
           tag_message: "v%s-beta"
           create_tag: "true"
-          commit_pattern: ".*"
+          commit_pattern: "^Release"
           workspace: "."
           publish_command: "yarn"
           publish_args: "--non-interactive"
