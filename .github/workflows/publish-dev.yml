@@ -29,15 +29,20 @@ jobs:
       - name: Build package
         run: yarn build
 
-      - name: Publish package
+      - name: Publish Package
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
-        run: |
-          if [ "${{ github.ref }}" = "refs/heads/dev" ]; then
-            PACKAGE_VERSION=$(node -p "require('./package.json').version")
-            echo "Publishing version $PACKAGE_VERSION to npm registry..."
-            yarn publish --new-version $PACKAGE_VERSION --tag dev --access public
-          fi
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npm publish --tag beta
+
+      # - name: Publish package
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+      #   run: |
+      #     if [ "${{ github.ref }}" = "refs/heads/dev" ]; then
+      #       PACKAGE_VERSION=$(node -p "require('./package.json').version")
+      #       echo "Publishing version $PACKAGE_VERSION to npm registry..."
+      #       yarn publish --new-version $PACKAGE_VERSION --tag dev --access public
+      #     fi
 
       # - name: Publish if version has been updated
       #   uses: pascalgn/npm-publish-action@1.3.9
