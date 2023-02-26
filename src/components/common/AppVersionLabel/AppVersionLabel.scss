@@ -1,4 +1,6 @@
 .app-version-label-wrapper {
+  display: flex;
+
   .version-label {
     color: var(--light-text-color);
     font-size: 0.7rem;
