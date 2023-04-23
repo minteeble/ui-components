@@ -36,6 +36,7 @@ const SimpleKeyValueBoxArgs: KeyValueBoxProps = {
     {
       key: "key 3:",
       value: "value 3",
+      copyable: true,
     },
     {
       key: "key 4:",
