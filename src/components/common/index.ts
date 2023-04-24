@@ -3,3 +3,4 @@ export * from "./LoadableComponent";
 export * from "./MinteebleLogo";
 export * from "./PoweredByMinteeble";
 export * from "./AppVersionLabel";
+export * from "./ChainIcon";

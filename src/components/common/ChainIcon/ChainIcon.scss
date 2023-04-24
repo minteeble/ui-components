@@ -1,0 +1,15 @@
+.chain-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  width: fit-content;
+  .icon {
+    font-size: 1.5rem;
+  }
+  .text {
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    opacity: 0.7;
+  }
+}
