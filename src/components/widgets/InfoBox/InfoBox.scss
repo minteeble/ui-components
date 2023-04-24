@@ -1,0 +1,27 @@
+.info-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: fit-content;
+  .title {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+  .value {
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 3.3rem;
+  }
+  .sub-title {
+    height: 1rem;
+    text-transform: capitalize;
+    font-size: 1.1rem;
+    transform: translateY(-0.5rem);
+    opacity: 0.5;
+  }
+  .button-section {
+    margin-top: 0.5rem;
+    height: 2.4rem;
+  }
+}

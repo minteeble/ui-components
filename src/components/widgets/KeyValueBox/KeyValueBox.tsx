@@ -6,7 +6,7 @@ import { faCheck, faCopy } from "@fortawesome/free-solid-svg-icons";
 const KeyValueBox = (props: KeyValueBoxProps) => {
   const type = props.type || KeyValueBoxType.Horizontal;
 
-  const [isCopied, setIsCopied] = useState<string>("");
+  const [isCopied, setIsCopied] = useState<number | null>(null);
 
   return (
     <>
@@ -36,14 +36,14 @@ const KeyValueBox = (props: KeyValueBoxProps) => {
                         className="copy"
                         onClick={() => {
                           navigator.clipboard.writeText(item.value);
-                          setIsCopied(item.value);
+                          setIsCopied(i);
                           setTimeout(() => {
-                            setIsCopied("");
+                            setIsCopied(null);
                           }, 3000);
                         }}
                       >
                         <FontAwesomeIcon
-                          icon={isCopied === item.value ? faCheck : faCopy}
+                          icon={isCopied === i ? faCheck : faCopy}
                         />
                       </div>
                     )}
@@ -65,14 +65,14 @@ const KeyValueBox = (props: KeyValueBoxProps) => {
                         className="copy"
                         onClick={() => {
                           navigator.clipboard.writeText(item.value);
-                          setIsCopied(item.value);
+                          setIsCopied(i);
                           setTimeout(() => {
-                            setIsCopied("");
+                            setIsCopied(null);
                           }, 3000);
                         }}
                       >
                         <FontAwesomeIcon
-                          icon={isCopied === item.value ? faCheck : faCopy}
+                          icon={isCopied === i ? faCheck : faCopy}
                         />
                       </div>
                     )}
