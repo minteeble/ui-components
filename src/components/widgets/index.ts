@@ -6,3 +6,4 @@ export * from "./Table/components/TableToolbar";
 export * from "./KeyValueBox";
 export * from "./ActionPopup";
 export * from "./InfoBox";
+export * from "./DropZone";
