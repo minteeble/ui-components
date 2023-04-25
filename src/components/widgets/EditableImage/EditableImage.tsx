@@ -14,7 +14,9 @@ const EditableImage = (props: EditableImageProps) => {
     <>
       <div className="editable-image">
         <Popup popupLogic={logic}>
-          <DropZone title="Set new Image" />
+          <div className="wrapper">
+            <DropZone title="Set new Image" />
+          </div>
         </Popup>
         <div
           className={`image-wrapper ${

@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DropZoneProps } from "./DropZone.types";
 import Dropzone from "react-dropzone";
 
 const DropZone = (props: DropZoneProps) => {
   const [error, setError] = useState<string>("");
+
+  const [allowedFiles, setAllowedFiles] = useState<string>("");
+
+  useEffect(() => {
+    if (props.allowedFiles) {
+      let hold = "Only ";
+      for (let i = 0; i < props.allowedFiles.length; i++) {
+        hold += props.allowedFiles[i] + " ";
+      }
+      setAllowedFiles(hold);
+    }
+  }, [props.allowedFiles]);
 
   const icon = (
     <svg
@@ -45,15 +57,35 @@ const DropZone = (props: DropZoneProps) => {
             <Dropzone
               onDrop={(acceptedFiles) => {
                 console.log(acceptedFiles);
-                if (
-                  (acceptedFiles[0].type === "image/png" ||
-                    acceptedFiles[0].type === "image/jpeg") &&
-                  acceptedFiles.length === 1
-                ) {
-                  setError("");
-                  console.log("accepted");
+                if (props.allowedFiles && props.allowedFiles.length > 0) {
+                  let allowed = false;
+                  for (let i = 0; i < props.allowedFiles.length; i++) {
+                    if (
+                      acceptedFiles[0].name.split(".")[
+                        acceptedFiles[0].name.split(".").length
+                      ] === props.allowedFiles[i]
+                    ) {
+                      allowed = true;
+                    }
+                  }
+                  if (allowed) {
+                    setError("");
+                    console.log("accepted");
+                  } else {
+                    setError("");
+                    setError(allowedFiles);
+                  }
                 } else {
-                  setError("error");
+                  if (
+                    (acceptedFiles[0].type === "image/png" ||
+                      acceptedFiles[0].type === "image/jpeg") &&
+                    acceptedFiles.length === 1
+                  ) {
+                    setError("");
+                    console.log("accepted");
+                  } else {
+                    setError("Only png or jpeg");
+                  }
                 }
               }}
             >
@@ -85,7 +117,7 @@ const DropZone = (props: DropZoneProps) => {
                           error !== "" && !isDragActive ? "block" : "none",
                       }}
                     >
-                      Only png or jpeg
+                      {error}
                     </p>
                   </div>
                 </section>

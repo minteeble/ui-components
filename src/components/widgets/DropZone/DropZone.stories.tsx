@@ -26,5 +26,6 @@ export const SimpleDropZone = Template.bind({});
 const SimpleDropZoneArgs: DropZoneProps = {
   title: "drop zone title",
   text: "drop zone text",
+  allowedFiles: ["exe"],
 };
 SimpleDropZone.args = SimpleDropZoneArgs;
