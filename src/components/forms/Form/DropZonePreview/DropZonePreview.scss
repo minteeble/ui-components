@@ -1,0 +1,28 @@
+.drop-zone-preview {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  .input-header {
+    width: 100%;
+    .drop-zone-preview-label {
+      width: 100%;
+      text-align: left;
+      display: block;
+    }
+  }
+  .image-wrapper {
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12rem;
+    .image {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
