@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import { DropZonePreviewProps } from "./DropZonePreview.types";
+import { DropZonePreviewProps } from "./";
 import { DropZone } from "../../../widgets";
+import { FormFieldAlignment } from "../Form.types";
 
 const DropZonePreview = (props: DropZonePreviewProps) => {
   const [currentImage, setCurrentImage] = useState<string>(props.value || "");
 
+  let alignment: FormFieldAlignment =
+    props.alignment || FormFieldAlignment.Vertical;
+
   return (
     <>
-      <div className="drop-zone-preview">
+      <div
+        className={`drop-zone-preview ${
+          alignment === FormFieldAlignment.Horizontal
+            ? "horizontal"
+            : "vertical"
+        }`}
+      >
         <div className="input-header">
           {props.label && (
             <label className="drop-zone-preview-label">{props.label}</label>
@@ -26,6 +36,11 @@ const DropZonePreview = (props: DropZonePreviewProps) => {
               reader.onload = () => {
                 console.log(reader.result?.toString());
                 setCurrentImage(reader.result?.toString() || currentImage);
+                if (typeof props.onValueChange !== "undefined") {
+                  props.onValueChange(
+                    reader.result?.toString() || currentImage
+                  );
+                }
               };
             }}
             allowedFiles={[]}

@@ -33,11 +33,17 @@ export interface TextAreaParams extends FormField {
   resizable: boolean;
 }
 
+export interface DropZoneParams extends FormField {
+  value: string;
+  onValueChange: (newValue: string) => void;
+}
+
 export enum FormFieldType {
   TextInput,
   Select,
   Toggle,
   TextArea,
+  DropZoneReview,
 }
 
 export enum FormFieldAlignment {
