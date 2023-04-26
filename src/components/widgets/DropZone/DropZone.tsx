@@ -70,7 +70,9 @@ const DropZone = (props: DropZoneProps) => {
                   }
                   if (allowed) {
                     setError("");
-                    console.log("accepted");
+                    if (typeof props.onDrop !== "undefined") {
+                      props.onDrop(acceptedFiles[0]);
+                    }
                   } else {
                     setError("");
                     setError(allowedFiles);
@@ -83,6 +85,9 @@ const DropZone = (props: DropZoneProps) => {
                   ) {
                     setError("");
                     console.log("accepted");
+                    if (typeof props.onDrop !== "undefined") {
+                      props.onDrop(acceptedFiles[0]);
+                    }
                   } else {
                     setError("Only png or jpeg");
                   }
