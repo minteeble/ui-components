@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import WalletConnectionDisplay from "./WalletConnectionDisplay";
-import { WalletConnectionDisplayProps } from "./WalletCOnnectionDisplay.types";
+import { WalletConnectionDisplayProps } from "./WalletConnectionDisplay.types";
 
 // import "./Navbar.scss"
 
@@ -25,5 +25,5 @@ WalletNotConnected.args = {
 export const WalletConnected = Template.bind({});
 WalletConnected.args = {
   address: "0xE53A10BeF39f00f11042c6E06ED1e4D79CEC352F",
-  avatarImageUrl: "",
+  avatarImage: true,
 };

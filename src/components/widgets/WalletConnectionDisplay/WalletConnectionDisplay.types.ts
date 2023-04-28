@@ -17,10 +17,7 @@ export interface WalletConnectionDisplayProps {
    */
   address: string;
 
-  /**
-   * Image URL of the wallet avatar
-   */
-  avatarImageUrl: string;
+  avatarImage: boolean;
 
   isLoading: boolean;
   buttonText?: string;

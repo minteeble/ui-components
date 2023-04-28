@@ -12,6 +12,7 @@ import React from "react";
 import LoadableComponent from "../../common/LoadableComponent/LoadableComponent";
 import Button from "../../forms/Button/Button";
 import { WalletConnectionDisplayProps } from "./WalletConnectionDisplay.types";
+import { AvatarHash } from "../../common";
 
 const WalletConnectionDisplay = (props: WalletConnectionDisplayProps) => {
   const evalWalletAbbreviation = (address: string): string => {
@@ -27,12 +28,8 @@ const WalletConnectionDisplay = (props: WalletConnectionDisplayProps) => {
           <>
             <div className="wallet-connection-wrapper">
               <div className="wallet-avatar-box">
-                {props.avatarImageUrl && (
-                  <img
-                    src={props.avatarImageUrl}
-                    alt=""
-                    className="wallet-avatar"
-                  />
+                {props.avatarImage && (
+                  <AvatarHash width={40} address={props.address} />
                 )}
               </div>
               <div className="wallet-address-box">

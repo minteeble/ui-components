@@ -12,7 +12,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import DropZonePreview from "./";
-import { DropZonePreviewProps } from "./DropZonePreview.types";
+import { DropZonePreviewProps } from "./";
 
 export default {
   title: "ui-components/forms/Form/DropZonePreview",

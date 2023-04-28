@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DropZonePreviewProps } from "./";
-import { DropZone } from "../../../widgets";
-import { FormFieldAlignment } from "../Form.types";
+import { DropZone } from "../../../";
+import { FormFieldAlignment } from "../";
 
 const DropZonePreview = (props: DropZonePreviewProps) => {
   const [currentImage, setCurrentImage] = useState<string>(props.value || "");
