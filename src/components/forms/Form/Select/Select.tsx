@@ -16,7 +16,7 @@ const Select = (props: SelectProps) => {
       <div className={`select ${props.readonlyField ? "disabled" : ""}`}>
         <ComboBox
           options={props.options}
-          // defaultValue={props.value}
+          defaultValue={props.options[props.value]}
           placeholder={props.placeHolder || ""}
           editable={false}
           onSelect={(newValue) => {
