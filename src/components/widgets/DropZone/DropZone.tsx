@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { DropZoneProps } from "./DropZone.types";
 import Dropzone from "react-dropzone";
+import { DropZoneProps } from "./DropZone.types";
 
 const DropZone = (props: DropZoneProps) => {
   const [error, setError] = useState<string>("");
@@ -24,13 +24,9 @@ const DropZone = (props: DropZoneProps) => {
       x="0px"
       y="0px"
       viewBox="0 0 1000 1000"
-      enable-background="new 0 0 1000 1000"
+      enableBackground="new 0 0 1000 1000"
       className="drag-icon"
     >
-      <metadata>
-        {" "}
-        Svg Vector Icons : http://www.onlinewebfonts.com/icon{" "}
-      </metadata>
       <g>
         <g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)">
           <path d="M860.8,5018.4c-292.1-77.7-534.7-285-668.9-567.6c-70.7-150.7-75.4-179-82.4-471.1l-9.4-313.3h355.6h355.6v223.8c0,365.1,82.4,459.3,407.5,459.3h181.4v353.3v353.3l-204.9-2.4C1079.8,5053.7,931.4,5037.3,860.8,5018.4z" />
@@ -62,7 +58,7 @@ const DropZone = (props: DropZoneProps) => {
                   for (let i = 0; i < props.allowedFiles.length; i++) {
                     if (
                       acceptedFiles[0].name.split(".")[
-                        acceptedFiles[0].name.split(".").length
+                        acceptedFiles[0].name.split(".").length - 1
                       ] === props.allowedFiles[i]
                     ) {
                       allowed = true;

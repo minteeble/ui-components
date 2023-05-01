@@ -38,4 +38,9 @@
       background-color: var(--primary-disabled);
     }
   }
+
+  &.btn-danger {
+    background-color: rgb(255, 76, 76);
+    color: white;
+  }
 }

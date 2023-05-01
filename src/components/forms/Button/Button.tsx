@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { ButtonActionType, ButtonProps } from "./Button.types";
+import { ButtonActionType, ButtonProps, ButtonStyleType } from "./Button.types";
 
 const Button = (props: ButtonProps) => {
   let button = <></>;
@@ -17,9 +17,12 @@ const Button = (props: ButtonProps) => {
   let url = props.url || "#";
   let disabled = props.disabled || false;
   let loading = props.loading || false;
+  let style = props.styleType || ButtonStyleType.Filled;
 
   let commonButtonProps = {
-    className: "button btn-primary",
+    className: `button ${
+      style === ButtonStyleType.Filled ? "btn-primary" : "btn-danger"
+    }`,
     disabled: disabled,
     onClick: props.onClick || (() => {}),
   };
@@ -34,7 +37,7 @@ const Button = (props: ButtonProps) => {
     case ButtonActionType.Anchor:
       button = (
         <a {...commonButtonProps} href={url} target="_blank">
-       {props.text}
+          {props.text}
         </a>
       );
       break;

@@ -1,0 +1,19 @@
+.delete-popup {
+  position: relative;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: none;
+  &.open {
+    display: block;
+  }
+  .title {
+    margin: 0 !important;
+  }
+  .button.btn-primary:nth-child(2) {
+    background-color: rgb(255, 76, 76);
+  }
+}

@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { ActionPopupProps, ActionPopupTemplate } from "./ActionPopup.types";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "../../forms";
+import { ActionPopupProps, ActionPopupTemplate } from "./ActionPopup.types";
+import Button from "../../forms/Button/Button";
 
 const ActionPopup = (props: ActionPopupProps) => {
   return (

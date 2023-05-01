@@ -5,3 +5,4 @@ export * from "./PoweredByMinteeble";
 export * from "./AppVersionLabel";
 export * from "./ChainIcon";
 export * from "./AvatarHash";
+export * from "./DeletePopup";

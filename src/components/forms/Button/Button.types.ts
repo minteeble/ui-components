@@ -22,7 +22,8 @@ export enum ButtonActionType {
 }
 
 export enum ButtonStyleType {
-  Filled,
+  Filled = 1,
+  Danger,
 }
 
 export interface ButtonProps

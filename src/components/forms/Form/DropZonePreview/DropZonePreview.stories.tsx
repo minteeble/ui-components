@@ -11,8 +11,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import DropZonePreview from "./";
-import { DropZonePreviewProps } from "./";
+import DropZonePreview from "./DropZonePreview";
+import { DropZonePreviewProps } from "./DropZonePreview.types";
 
 export default {
   title: "ui-components/forms/Form/DropZonePreview",
