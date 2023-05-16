@@ -30,8 +30,25 @@ const Template: Story<FormV2Props> = (args) => {
     formLogic.addField({
       type: "text-input",
       key: "name",
-      value: "Samuele",
+      value: "John",
+      label: "Name",
+      placeholder: "Enter name...",
+      attributes: {},
       fieldComponent: TextFormField,
+    });
+
+    formLogic.addField({
+      type: "text-input",
+      key: "surname",
+      value: "Doe",
+      label: "Surname",
+      placeholder: "Enter surname",
+      attributes: {},
+      fieldComponent: TextFormField,
+    });
+
+    formLogic.onFieldValueChange("name", (field) => {
+      console.log("Name changed", field.value);
     });
   }, []);
 

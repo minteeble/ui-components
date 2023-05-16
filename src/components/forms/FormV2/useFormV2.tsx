@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormFieldState, FormLogic, UseFormV2Props } from "./FormV2.types";
 import lodash from "lodash";
+import { FieldState } from "../Form/Form";
 
 /**
  * Custom hook for handling Form V2 logic
@@ -10,6 +11,12 @@ import lodash from "lodash";
  */
 export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   const [fieldsInfo, setFieldsInfo] = useState<Array<FormFieldState>>([]);
+  const [onValueChangeCallback, setOnValueChangeCallback] = useState<
+    (fields: Array<FormFieldState>) => void
+  >(() => {});
+  const [onKeyValueChangeCallback, setOnKeyValueChangeCallback] = useState<{
+    [key: string]: (field: FormFieldState) => void;
+  }>({});
 
   const addField = (newField: FormFieldState): void => {
     let fieldAlreadyPresent = fieldsInfo.find(
@@ -42,16 +49,55 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     });
   };
 
+  const internalOnValueChange = () => {
+    if (onValueChangeCallback) onValueChangeCallback(fieldsInfo);
+  };
+
+  const onValueChange = (
+    callback: (fields: Array<FormFieldState>) => void
+  ): void => {
+    setOnValueChangeCallback(callback);
+  };
+
+  const internalOnKeyValueChanged = (key: string, field: FormFieldState) => {
+    if (onKeyValueChangeCallback[key]) {
+      onKeyValueChangeCallback[key](field);
+    }
+  };
+
+  const onFieldValueChange = (
+    key: string,
+    callback: (field: FormFieldState) => void
+  ): void => {
+    setOnKeyValueChangeCallback((old) => {
+      old[key] = callback;
+      return { ...old };
+    });
+  };
+
+  useEffect(() => {
+    internalOnValueChange();
+  }, [fieldsInfo]);
+
   const setValue = (key: string, newValue: any): void => {
     setFieldsInfo((oldFields) => {
       let field = fieldsInfo.find((field) => field.key === key);
       if (field) {
         field.value = newValue;
+        internalOnKeyValueChanged(field.key, field);
+        return [...oldFields];
       } else throw new Error(`Error or removing field.`);
 
-      return [...oldFields];
+      // return oldFields;
     });
   };
 
-  return { addField, removeField, setValue, fields: fieldsInfo };
+  return {
+    addField,
+    removeField,
+    setValue,
+    fields: fieldsInfo,
+    onValueChange,
+    onFieldValueChange,
+  };
 };

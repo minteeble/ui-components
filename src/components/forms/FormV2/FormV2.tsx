@@ -2,11 +2,11 @@ import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import React from "react";
 
 export const FormV2 = (props: FormV2Props) => {
-  let formData: FormInjectedData = {
-    fields: props.formLogic.fields,
-  };
-
   let formLogic = props.formLogic;
+
+  let formData: FormInjectedData = {
+    fields: formLogic.fields,
+  };
 
   return (
     <div>
@@ -22,6 +22,9 @@ export const FormV2 = (props: FormV2Props) => {
                 formLogic.setValue(fieldInfo.key, newValue);
               }}
               key={fieldInfo.key}
+              placeholder={fieldInfo.placeholder}
+              label={fieldInfo.label}
+              attributes={fieldInfo.attributes}
               formData={formData}
             />
           );

@@ -1,5 +1,3 @@
-import { Component } from "react";
-
 /**
  * Form V2 Hook props object
  */
@@ -8,15 +6,25 @@ export interface UseFormV2Props {}
 export interface FieldComponentProps {
   value: any;
   key: string;
+  label: string;
   setValue: (newValue: any) => void;
   formData: FormInjectedData;
+  placeholder?: string;
+  attributes?: any;
+  transform?: (value: any) => any;
+  validate?: (value: any) => boolean;
 }
 
 export interface FormFieldState {
   key: string;
   value: any;
+  label: string;
+  placeholder?: string;
   type: string;
+  attributes?: any;
   fieldComponent?: React.FC<FieldComponentProps>;
+  transform?: (value: any) => any;
+  validate?: (value: any) => boolean;
 }
 
 export interface FormFieldInternalState extends FormFieldState {
@@ -38,6 +46,13 @@ export interface FormLogic {
   setValue: (key: string, newValue: any) => void;
 
   fields: Array<FormFieldState>;
+
+  onValueChange: (callback: (fields: Array<FormFieldState>) => void) => void;
+
+  onFieldValueChange: (
+    key: string,
+    callback: (field: FormFieldState) => void
+  ) => void;
 }
 
 /**
