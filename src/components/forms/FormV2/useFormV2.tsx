@@ -1,3 +1,13 @@
+/**
+ * Copyright Minteeble 2023. All Rights Reserved.
+ * Node module: @minteeble/ui-components
+ * This file is licensed under the MIT License.
+ * License text available at https://opensource.org/licenses/MIT
+ *
+ * email:     minteeble@gmail.com
+ * website:   https://minteeble.com
+ */
+
 import { useEffect, useState } from "react";
 import { FormFieldState, FormLogic, UseFormV2Props } from "./FormV2.types";
 import lodash from "lodash";
@@ -10,6 +20,7 @@ import { FieldState } from "../Form/Form";
  * @returns Form logic
  */
 export const useFormV2 = (props: UseFormV2Props): FormLogic => {
+  // States
   const [fieldsInfo, setFieldsInfo] = useState<Array<FormFieldState>>([]);
   const [onValueChangeCallback, setOnValueChangeCallback] = useState<
     (fields: Array<FormFieldState>) => void
