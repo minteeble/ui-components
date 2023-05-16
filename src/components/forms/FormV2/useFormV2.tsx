@@ -9,7 +9,12 @@
  */
 
 import { useEffect, useState } from "react";
-import { FormFieldState, FormLogic, UseFormV2Props } from "./FormV2.types";
+import {
+  FormFieldState,
+  FormInjectedData,
+  FormLogic,
+  UseFormV2Props,
+} from "./FormV2.types";
 import lodash from "lodash";
 import { FieldState } from "../Form/Form";
 
@@ -29,6 +34,10 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     [key: string]: (field: FormFieldState) => void;
   }>({});
   const [isSubmitEnabled, setIsSubmitEnabled] = useState<boolean>(true);
+  const [submitButtonText, setSubmitButtonText] = useState<string>("Submit");
+  const [onSubmit, setOnSubmitFunction] = useState<
+    (formData: FormInjectedData) => void
+  >(() => {});
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
@@ -139,6 +148,18 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     });
   };
 
+  const enableSubmit = (newValue: boolean) => {
+    setIsSubmitEnabled(newValue);
+  };
+
+  const setSubmitText = (newText: string) => {
+    setSubmitButtonText(newText);
+  };
+
+  const setOnSubmit = (newFunction: (formData: FormInjectedData) => void) => {
+    setOnSubmitFunction(newFunction);
+  };
+
   // Returns a FormLogic object
   return {
     addField,
@@ -147,5 +168,11 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     fields: fieldsInfo,
     onValueChange,
     onFieldValueChange,
+    isSubmitEnabled,
+    enableSubmit,
+    submitButtonText,
+    setSubmitText,
+    onSubmit,
+    setOnSubmit,
   };
 };

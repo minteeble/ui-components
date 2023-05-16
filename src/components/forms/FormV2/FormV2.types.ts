@@ -106,7 +106,7 @@ export interface FormFieldState {
   validate?: (value: any) => boolean | string;
 
   /**
-   * Sopecifies if invalid values should be displayed, even
+   * Specifies if invalid values should be displayed, even
    * if the validate predicate returns false/error.
    * True by default.
    */
@@ -182,6 +182,38 @@ export interface FormLogic {
     key: string,
     callback: (field: FormFieldState) => void
   ): void;
+  /**
+   * Specifies if submit is enabled or not
+   */
+  isSubmitEnabled: boolean;
+  /**
+   * Enable or disable submit
+   *
+   * @param newValue Specifies if submit is enable or not
+   */
+  enableSubmit: (newValue: boolean) => void;
+  /**
+   * Text of submit button
+   */
+  submitButtonText: string;
+  /**
+   * Edit text of submit button
+   *
+   * @param newText Specifies the new text of submit button
+   */
+  setSubmitText: (newText: string) => void;
+  /**
+   * Fuction that will be call at submit
+   *
+   * @param formData List of Form datas including fields
+   */
+  onSubmit: (formData: FormInjectedData) => void;
+  /**
+   * Set the submit fuction
+   *
+   * @param newFunction Fuction that will be call at submit
+   */
+  setOnSubmit: (newFunction: (formData: FormInjectedData) => void) => void;
 }
 
 /**
