@@ -88,7 +88,7 @@ export interface FormFieldState {
    */
   fieldComponent: React.FC<FieldComponentProps>;
 
-  enableCustomRendering: boolean;
+  enableCustomRendering?: boolean;
 
   /**
    * Useful predicate for transforming the value after calling `setValue`.

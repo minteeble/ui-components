@@ -28,6 +28,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   const [onKeyValueChangeCallback, setOnKeyValueChangeCallback] = useState<{
     [key: string]: (field: FormFieldState) => void;
   }>({});
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState<boolean>(true);
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
