@@ -32,6 +32,11 @@ const Template: Story<FormV2Props> = (args) => {
       key: "name",
       value: "John",
       label: "Name",
+      transform: (value) => value.toLowerCase(),
+      validate: (value) => {
+        console.log("Value", value, value.length < 15);
+        return value.length < 15;
+      },
       placeholder: "Enter name...",
       attributes: {},
       fieldComponent: TextFormField,

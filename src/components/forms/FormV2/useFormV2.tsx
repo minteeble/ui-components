@@ -83,12 +83,32 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     setFieldsInfo((oldFields) => {
       let field = fieldsInfo.find((field) => field.key === key);
       if (field) {
-        field.value = newValue;
-        internalOnKeyValueChanged(field.key, field);
-        return [...oldFields];
+        let validationResult: boolean | string = true;
+
+        if (field.validate) {
+          validationResult = field.validate(newValue);
+        }
+
+        if (validationResult === true) {
+          if (field.transform) {
+            field.value = field.transform(newValue);
+          } else {
+            field.value = newValue;
+          }
+
+          internalOnKeyValueChanged(field.key, field);
+          return [...oldFields];
+        } else if (typeof validationResult === "string") {
+          let errorMessage =
+            typeof validationResult === "string"
+              ? validationResult
+              : "Invalid value";
+
+          console.log("Validation error:", errorMessage);
+        }
       } else throw new Error(`Error or removing field.`);
 
-      // return oldFields;
+      return oldFields;
     });
   };
 

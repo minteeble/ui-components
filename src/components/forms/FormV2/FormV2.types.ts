@@ -11,8 +11,6 @@ export interface FieldComponentProps {
   formData: FormInjectedData;
   placeholder?: string;
   attributes?: any;
-  transform?: (value: any) => any;
-  validate?: (value: any) => boolean;
 }
 
 export interface FormFieldState {
@@ -24,7 +22,9 @@ export interface FormFieldState {
   attributes?: any;
   fieldComponent?: React.FC<FieldComponentProps>;
   transform?: (value: any) => any;
-  validate?: (value: any) => boolean;
+  validate?: (value: any) => boolean | string;
+  displayInvalidValue?: boolean;
+  readOnly?: boolean;
 }
 
 export interface FormFieldInternalState extends FormFieldState {
