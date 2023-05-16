@@ -8,6 +8,7 @@
  * website:   https://minteeble.com
  */
 
+import Button from "../Button";
 import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import React from "react";
 
@@ -72,6 +73,14 @@ export const FormV2 = (props: FormV2Props) => {
   return (
     <form noValidate className="form-v2">
       {fieldsComponentsList}
+      {props.formLogic.isSubmitEnabled && (
+        <Button
+          onClick={() => {
+            props.formLogic.onSubmit(formData);
+          }}
+          text={props.formLogic.submitButtonText}
+        />
+      )}
     </form>
   );
 };
