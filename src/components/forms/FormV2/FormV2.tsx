@@ -11,6 +11,12 @@
 import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import React from "react";
 
+/**
+ * Form V2
+ *
+ * @param props FormV2 props object
+ * @returns FormV2 React component
+ */
 export const FormV2 = (props: FormV2Props) => {
   let formLogic = props.formLogic;
 
@@ -18,28 +24,27 @@ export const FormV2 = (props: FormV2Props) => {
     fields: formLogic.fields,
   };
 
-  return (
-    <div>
-      {formLogic.fields.map((fieldInfo) => {
-        if (fieldInfo.fieldComponent) {
-          const FieldComponent = fieldInfo.fieldComponent;
+  // Creates a list of field components ready to be rendered
+  let fieldsComponentsList = formLogic.fields.map((fieldInfo) => {
+    if (fieldInfo.fieldComponent) {
+      // Mapping field component into a React component compliant variable (it should be capitalized)
+      const FieldComponent = fieldInfo.fieldComponent;
 
-          return (
-            <FieldComponent
-              value={fieldInfo.value}
-              setValue={(newValue: any) => {
-                console.log("Setting new value", newValue);
-                formLogic.setValue(fieldInfo.key, newValue);
-              }}
-              key={fieldInfo.key}
-              placeholder={fieldInfo.placeholder}
-              label={fieldInfo.label}
-              attributes={fieldInfo.attributes}
-              formData={formData}
-            />
-          );
-        }
-      })}
-    </div>
-  );
+      return (
+        <FieldComponent
+          value={fieldInfo.value}
+          setValue={(newValue: any) => {
+            formLogic.setValue(fieldInfo.key, newValue);
+          }}
+          key={fieldInfo.key}
+          placeholder={fieldInfo.placeholder}
+          label={fieldInfo.label}
+          attributes={fieldInfo.attributes}
+          formData={formData}
+        />
+      );
+    }
+  });
+
+  return <div className="form-v2">{fieldsComponentsList}</div>;
 };

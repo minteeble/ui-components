@@ -28,7 +28,6 @@ const Template: Story<FormV2Props> = (args) => {
 
   useEffect(() => {
     formLogic.addField({
-      type: "text-input",
       key: "name",
       value: "John",
       label: "Name",
@@ -43,7 +42,6 @@ const Template: Story<FormV2Props> = (args) => {
     });
 
     formLogic.addField({
-      type: "text-input",
       key: "surname",
       value: "Doe",
       label: "Surname",

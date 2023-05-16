@@ -30,6 +30,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   }>({});
 
   const addField = (newField: FormFieldState): void => {
+    // Checks if field exists
     let fieldAlreadyPresent = fieldsInfo.find(
       (field) => field.key === newField.key
     );
@@ -43,6 +44,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   };
 
   const removeField = (key: string): void => {
+    // Checks if field exists
     let field = fieldsInfo.find((field) => field.key === key);
 
     if (!field) {
@@ -54,6 +56,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     setFieldsInfo((oldFields) => {
       let hold = [...oldFields];
 
+      // Removes found element
       hold.splice(fieldIndex, 1);
 
       return hold;
@@ -87,29 +90,41 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   };
 
   useEffect(() => {
+    // Fires a `onValueChange` event, every time the fieldsInfo list changes
     internalOnValueChange();
   }, [fieldsInfo]);
 
   const setValue = (key: string, newValue: any): void => {
     setFieldsInfo((oldFields) => {
+      // Checks if field exists
       let field = fieldsInfo.find((field) => field.key === key);
+
       if (field) {
         let validationResult: boolean | string = true;
 
+        // If present, run validation
         if (field.validate) {
           validationResult = field.validate(newValue);
         }
 
         if (validationResult === true) {
+          // Value is valid
+
           if (field.transform) {
+            // If transform predicate is set, sanitizes the value through it
             field.value = field.transform(newValue);
           } else {
             field.value = newValue;
           }
 
+          // Fires onChaneg event for the updated field
           internalOnKeyValueChanged(field.key, field);
+
           return [...oldFields];
         } else if (typeof validationResult === "string") {
+          // Value is not valid.
+
+          // Determining if the default error message or a custom one has to be used
           let errorMessage =
             typeof validationResult === "string"
               ? validationResult
@@ -123,6 +138,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     });
   };
 
+  // Returns a FormLogic object
   return {
     addField,
     removeField,
