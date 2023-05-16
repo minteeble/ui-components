@@ -4,8 +4,8 @@ import { TextFormFieldProps } from "./TextFormField.types";
 export const TextFormField = (props: TextFormFieldProps) => {
   return (
     <div className="form-field text-form-field">
-      <p>{props.label}</p>
       <input
+        className="montserrat"
         value={props.value}
         onChange={(e) => {
           props.setValue(e.target.value);

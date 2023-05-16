@@ -30,7 +30,7 @@ export const FormV2 = (props: FormV2Props) => {
       // Mapping field component into a React component compliant variable (it should be capitalized)
       const FieldComponent = fieldInfo.fieldComponent;
 
-      return (
+      let fieldComponent = (
         <FieldComponent
           value={fieldInfo.value}
           setValue={(newValue: any) => {
@@ -43,8 +43,26 @@ export const FormV2 = (props: FormV2Props) => {
           formData={formData}
         />
       );
+
+      return fieldInfo.enableCustomRendering ? (
+        fieldComponent
+      ) : (
+        <div className="field-wrapper">
+          <div className="field-info">
+            <label htmlFor={fieldInfo.key} className="field-label">
+              {fieldInfo.label}
+            </label>
+            <p className="field-error">Error</p>
+          </div>
+          {fieldComponent}
+        </div>
+      );
     }
   });
 
-  return <div className="form-v2">{fieldsComponentsList}</div>;
+  return (
+    <form noValidate className="form-v2">
+      {fieldsComponentsList}
+    </form>
+  );
 };

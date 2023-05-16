@@ -1,3 +1,35 @@
-// .form-v2 {
+.form-v2 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.5rem;
+  .field-wrapper {
+    width: 100%;
+    margin-bottom: 1.5rem;
 
-// }
+    .field-info {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      .field-label,
+      .field-error {
+        max-width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .field-label {
+        opacity: 0.5;
+        font-weight: 500;
+      }
+      .field-error {
+        color: rgb(161, 0, 0);
+      }
+    }
+  }
+}
