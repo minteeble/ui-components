@@ -105,6 +105,8 @@ export interface FormFieldState {
    */
   validate?: (value: any) => boolean | string;
 
+  active?: ((value: any, fields: Array<FormFieldState>) => boolean) | boolean;
+
   /**
    * Sopecifies if invalid values should be displayed, even
    * if the validate predicate returns false/error.

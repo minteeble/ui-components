@@ -25,40 +25,49 @@ export const FormV2 = (props: FormV2Props) => {
   };
 
   // Creates a list of field components ready to be rendered
-  let fieldsComponentsList = formLogic.fields.map((fieldInfo) => {
-    if (fieldInfo.fieldComponent) {
-      // Mapping field component into a React component compliant variable (it should be capitalized)
-      const FieldComponent = fieldInfo.fieldComponent;
+  let fieldsComponentsList = formLogic.fields
+    .filter((fieldInfo) => {
+      if (typeof fieldInfo.active === "boolean") return fieldInfo.active;
 
-      let fieldComponent = (
-        <FieldComponent
-          value={fieldInfo.value}
-          setValue={(newValue: any) => {
-            formLogic.setValue(fieldInfo.key, newValue);
-          }}
-          key={fieldInfo.key}
-          placeholder={fieldInfo.placeholder}
-          label={fieldInfo.label}
-          attributes={fieldInfo.attributes}
-          formData={formData}
-        />
-      );
+      if (fieldInfo.active)
+        return fieldInfo.active(fieldInfo.value, formData.fields);
 
-      return fieldInfo.enableCustomRendering ? (
-        fieldComponent
-      ) : (
-        <div className="field-wrapper">
-          <div className="field-info">
-            <label htmlFor={fieldInfo.key} className="field-label">
-              {fieldInfo.label}
-            </label>
-            <p className="field-error">Error</p>
+      return true;
+    })
+    .map((fieldInfo) => {
+      if (fieldInfo.fieldComponent) {
+        // Mapping field component into a React component compliant variable (it should be capitalized)
+        const FieldComponent = fieldInfo.fieldComponent;
+
+        let fieldComponent = (
+          <FieldComponent
+            value={fieldInfo.value}
+            setValue={(newValue: any) => {
+              formLogic.setValue(fieldInfo.key, newValue);
+            }}
+            key={fieldInfo.key}
+            placeholder={fieldInfo.placeholder}
+            label={fieldInfo.label}
+            attributes={fieldInfo.attributes}
+            formData={formData}
+          />
+        );
+
+        return fieldInfo.enableCustomRendering ? (
+          fieldComponent
+        ) : (
+          <div className="field-wrapper">
+            <div className="field-info">
+              <label htmlFor={fieldInfo.key} className="field-label">
+                {fieldInfo.label}
+              </label>
+              <p className="field-error">Error</p>
+            </div>
+            {fieldComponent}
           </div>
-          {fieldComponent}
-        </div>
-      );
-    }
-  });
+        );
+      }
+    });
 
   return (
     <form noValidate className="form-v2">

@@ -8,7 +8,7 @@
  * website:   https://minteeble.com
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Story, Meta } from "@storybook/react";
 
 import { FormV2 } from "./FormV2";
@@ -25,8 +25,16 @@ export default {
 
 const Template: Story<FormV2Props> = (args) => {
   const formLogic = useFormV2({});
+  const [testInterval, setTestInterval] = useState<boolean>(true);
 
   useEffect(() => {
+    console.log(testInterval);
+  }, [testInterval]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setTestInterval((v) => !v);
+    }, 3000);
     formLogic.addField({
       key: "name",
       value: "John",
@@ -36,6 +44,7 @@ const Template: Story<FormV2Props> = (args) => {
         console.log("Value", value, value.length < 15);
         return value.length < 15;
       },
+      active: testInterval,
       placeholder: "Enter name...",
       attributes: {},
       fieldComponent: TextFormField,
@@ -47,6 +56,11 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Surname",
       placeholder: "Enter surname",
       attributes: {},
+      active: (value, fields) => {
+        let nameField = fields.find((field) => field.key === "name");
+
+        return nameField?.value?.length > 10;
+      },
       fieldComponent: TextFormField,
     });
 
