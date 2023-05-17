@@ -25,7 +25,6 @@ export default {
 
 const Template: Story<FormV2Props> = (args) => {
   const formLogic = useFormV2({});
-  const [testInterval, setTestInterval] = useState<number>(0);
 
   useEffect(() => {
     formLogic.addField({
@@ -50,10 +49,6 @@ const Template: Story<FormV2Props> = (args) => {
       fieldComponent: TextFormField,
     });
 
-    setInterval(() => {
-      setTestInterval((v) => v + 1);
-    }, 500);
-
     formLogic.onFieldValueChange("name", (field) => {
       console.log("Name changed", field.value);
     });
@@ -62,14 +57,6 @@ const Template: Story<FormV2Props> = (args) => {
     // });
     formLogic.setSubmitText("Ok");
   }, []);
-
-  useEffect(() => {
-    console.log(testInterval);
-    if (testInterval > 0)
-      formLogic.updateField("surname", {
-        active: testInterval % 2 == 0,
-      });
-  }, [testInterval]);
 
   return <FormV2 formLogic={formLogic} />;
 };
