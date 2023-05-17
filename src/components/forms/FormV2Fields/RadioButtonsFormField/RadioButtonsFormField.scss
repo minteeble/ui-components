@@ -1,17 +1,27 @@
 .form-field.radio-buttons-form-field {
   width: 100%;
-  input {
-    width: 100%;
-    border: 2px solid var(--border-color);
-    padding: 0.7rem;
-    border-radius: 5px;
-    outline: none;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
+  fieldset {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    .radio-wrapper {
+      width: calc(50% - 0.5rem);
 
-    &:focus {
-      border: 2px solid var(--primary-color);
-      background: #dee3ec31;
+      input {
+        border: 2px solid var(--border-color);
+        padding: 0.7rem;
+        border-radius: 5px;
+        outline: none;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+
+        &:focus {
+          border: 2px solid var(--primary-color);
+          background: #dee3ec31;
+        }
+      }
     }
   }
 }
