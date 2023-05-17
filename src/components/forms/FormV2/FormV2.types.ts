@@ -41,6 +41,11 @@ export interface FieldComponentProps {
   label: string;
 
   /**
+   * Displayed error
+   */
+  error: string;
+
+  /**
    * Reference to current form data.
    * Useful for accessing other fields data.
    */
@@ -72,6 +77,11 @@ export interface FormFieldState {
    * Displayed label
    */
   label: string;
+
+  /**
+   * Displayed error
+   */
+  error: string;
 
   /**
    * Field placeholder text. Default to empty string

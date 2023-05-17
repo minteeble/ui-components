@@ -8,7 +8,7 @@
  * website:   https://minteeble.com
  */
 
-import Button from "../Button";
+import Button, { ButtonActionType } from "../Button";
 import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import React from "react";
 
@@ -46,6 +46,7 @@ export const FormV2 = (props: FormV2Props) => {
             setValue={(newValue: any) => {
               formLogic.setValue(fieldInfo.key, newValue);
             }}
+            error={fieldInfo.error}
             key={fieldInfo.key}
             placeholder={fieldInfo.placeholder}
             label={fieldInfo.label}
@@ -62,7 +63,7 @@ export const FormV2 = (props: FormV2Props) => {
               <label htmlFor={fieldInfo.key} className="field-label">
                 {fieldInfo.label}
               </label>
-              <p className="field-error">Error</p>
+              <p className="field-error">{fieldInfo.error}</p>
             </div>
             {fieldComponent}
           </div>
@@ -75,7 +76,10 @@ export const FormV2 = (props: FormV2Props) => {
       {fieldsComponentsList}
       {props.formLogic.isSubmitEnabled && (
         <Button
-          onClick={() => {
+          actionType={ButtonActionType.Button}
+          onClick={(e) => {
+            e?.preventDefault();
+            console.log("Function:", props.formLogic.onSubmit);
             props.formLogic.onSubmit(formData);
           }}
           text={props.formLogic.submitButtonText}

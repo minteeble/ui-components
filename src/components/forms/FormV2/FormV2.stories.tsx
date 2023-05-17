@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import { Story, Meta } from "@storybook/react";
 
 import { FormV2 } from "./FormV2";
-import { FormV2Props } from "./FormV2.types";
+import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import { useFormV2 } from "./useFormV2";
 
 import { TextFormField } from "../FormV2Fields/TextFormField";
@@ -44,6 +44,7 @@ const Template: Story<FormV2Props> = (args) => {
         console.log("Value", value, value.length < 15);
         return value.length < 15;
       },
+      error: "",
       active: testInterval,
       placeholder: "Enter name...",
       attributes: {},
@@ -56,6 +57,8 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Surname",
       placeholder: "Enter surname",
       attributes: {},
+      error: "",
+
       active: (value, fields) => {
         let nameField = fields.find((field) => field.key === "name");
 
@@ -67,6 +70,10 @@ const Template: Story<FormV2Props> = (args) => {
     formLogic.onFieldValueChange("name", (field) => {
       console.log("Name changed", field.value);
     });
+    formLogic.setOnSubmit((formData: FormInjectedData): void => {
+      console.log("Click", formData);
+    });
+    formLogic.setSubmitText("Ok");
   }, []);
 
   return <FormV2 formLogic={formLogic} />;
