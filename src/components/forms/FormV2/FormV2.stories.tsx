@@ -114,6 +114,100 @@ const Template: Story<FormV2Props> = (args) => {
 
   return <FormV2 formLogic={formLogic} />;
 };
+const ReadOnlyTemplate: Story<FormV2Props> = (args) => {
+  const formLogic = useFormV2({});
+
+  useEffect(() => {
+    formLogic.addField({
+      key: "name",
+      value: "John",
+      label: "Name",
+      transform: (value) => value.toLowerCase(),
+      validate: (value) => {
+        console.log("Value", value, value.length < 15);
+        return value.length < 15;
+      },
+      placeholder: "Enter name...",
+      attributes: {},
+      fieldComponent: TextFormField,
+      readOnly: true,
+      copyable: true,
+    });
+
+    formLogic.addField({
+      key: "surname",
+      value: "Doe",
+      label: "Surname",
+      placeholder: "Enter surname",
+      fieldComponent: TextFormField,
+      readOnly: true,
+    });
+
+    formLogic.addField({
+      key: "textArea",
+      value: "John",
+      label: "Text area",
+      transform: (value) => value.toLowerCase(),
+
+      placeholder: "Enter name...",
+      attributes: {
+        enableResize: TextAreaFormFieldResizeOption.None,
+      },
+      fieldComponent: TextAreaFormField,
+      readOnly: true,
+    });
+
+    formLogic.addField({
+      key: "select",
+      value: "green",
+      label: "Color",
+
+      placeholder: "Select a color...",
+      attributes: {
+        options: ["blue", "green", "red", "yellow", "brown", "black", "white"],
+      },
+      fieldComponent: SelectFormField,
+      readOnly: true,
+    });
+
+    formLogic.addField({
+      key: "gender",
+      value: "Male",
+      label: "Select gender",
+      attributes: {
+        options: ["Male", "Female", "Other"],
+      },
+      fieldComponent: RadioButtonsFormField,
+      readOnly: true,
+    });
+
+    formLogic.addField({
+      key: "hobbies",
+      value: ["Music", "Books"],
+      label: "Select your hobbies",
+      attributes: {
+        options: ["Programming", "Music", "Books", "Other"],
+      },
+      fieldComponent: CheckboxButtonsFormField,
+      readOnly: true,
+      copyable: true,
+    });
+
+    formLogic.onFieldValueChange("name", (field) => {
+      console.log("Name changed", field.value);
+    });
+
+    formLogic.onSubmit((formData: FormInjectedData): void => {
+      console.log("Click", formData);
+    });
+
+    formLogic.setSubmitText("Ok");
+  }, []);
+
+  return <FormV2 formLogic={formLogic} />;
+};
 
 export const SimpleForm = Template.bind({});
 SimpleForm.args = {};
+export const ReadOnlyForm = ReadOnlyTemplate.bind({});
+ReadOnlyForm.args = {};

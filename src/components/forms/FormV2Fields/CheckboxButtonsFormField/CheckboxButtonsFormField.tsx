@@ -11,7 +11,11 @@ export const CheckboxButtonsFormField = (
   };
 
   return (
-    <div className="form-field checkbox-buttons-form-field">
+    <div
+      className={`form-field checkbox-buttons-form-field ${
+        props.disabled ? "disabled" : ""
+      }`}
+    >
       <fieldset>
         {options.map((option) => {
           let name = optionToInputName(option);

@@ -36,46 +36,51 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
   return (
     <div
       ref={field}
-      className={`form-field select-form-field ${isOpen ? "open" : ""}`}
+      className={`form-field select-form-field ${isOpen ? "open" : ""} ${
+        props.disabled ? "disabled" : ""
+      }`}
     >
       <div
         onClick={() => {
           setIsOpen(!isOpen);
         }}
         className={`montserrat select-field ${currentOption ? "" : "null"}`}
-        // onChange={(e) => {
-        //   props.setValue(e.target.value);
-        // }}
       >
-        {currentOption ? currentOption : props.placeholder || ""}
+        {currentOption
+          ? currentOption
+          : props.readOnly
+          ? "Unset"
+          : props.placeholder || ""}
         <FontAwesomeIcon icon={faChevronDown} />
       </div>
-      <div
-        className={`options`}
-        style={{
-          height: isOpen ? `${3 * options.length + 1}rem` : "0rem",
-          maxHeight: `${3 * 5 + 1}rem`,
-          overflowY: 3 * options.length + 1 > 3 * 5 + 1 ? "scroll" : "hidden",
-        }}
-      >
-        {options.map((option, i) => {
-          return (
-            <div
-              className={`montserrat option ${
-                currentOption === option ? "selected" : ""
-              }`}
-              key={i}
-              onClick={() => {
-                setCurrentOption(option);
-                setIsOpen(false);
-              }}
-            >
-              {option}
-              {currentOption === option && <FontAwesomeIcon icon={faCheck} />}
-            </div>
-          );
-        })}
-      </div>
+      {!props.disabled && !props.readOnly && (
+        <div
+          className={`options`}
+          style={{
+            height: isOpen ? `${3 * options.length + 1}rem` : "0rem",
+            maxHeight: `${3 * 5 + 1}rem`,
+            overflowY: 3 * options.length + 1 > 3 * 5 + 1 ? "scroll" : "hidden",
+          }}
+        >
+          {options.map((option, i) => {
+            return (
+              <div
+                className={`montserrat option ${
+                  currentOption === option ? "selected" : ""
+                }`}
+                key={i}
+                onClick={() => {
+                  setCurrentOption(option);
+                  setIsOpen(false);
+                }}
+              >
+                {option}
+                {currentOption === option && <FontAwesomeIcon icon={faCheck} />}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

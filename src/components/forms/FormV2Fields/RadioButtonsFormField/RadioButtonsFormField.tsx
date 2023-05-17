@@ -9,7 +9,11 @@ export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
   };
 
   return (
-    <div className="form-field radio-buttons-form-field">
+    <div
+      className={`form-field radio-buttons-form-field ${
+        props.disabled ? "disabled" : ""
+      }`}
+    >
       <fieldset>
         {options.map((option) => {
           let name = optionToInputName(option);

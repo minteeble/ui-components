@@ -60,6 +60,18 @@ export interface FieldComponentProps {
    * Other key-value
    */
   attributes?: any;
+  /**
+   * Specifies if field is read-only or not. False by default.
+   */
+  readOnly?: boolean;
+  /**
+   * Specifies if value can be copied in readonly mode. False by default
+   */
+  copyable?: boolean;
+  /**
+   * Specifies if the field can be edit or not. False by default
+   */
+  disabled?: boolean;
 }
 
 export interface FormFieldUpdateModel {
@@ -162,6 +174,14 @@ export interface FormFieldState {
    * Specifies if field is read-only or not. False by default.
    */
   readOnly?: boolean;
+  /**
+   * Specifies if value can be copied in readonly mode. False by default
+   */
+  copyable?: boolean;
+  /**
+   * Specifies if the field can be edit or not. False by default
+   */
+  disabled?: boolean;
 }
 
 // TODO fix/remove

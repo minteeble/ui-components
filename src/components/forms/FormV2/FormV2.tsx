@@ -9,6 +9,7 @@
  */
 
 import Button, { ButtonActionType } from "../Button";
+import { ReadOnlyField } from "../FormV2Fields";
 import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import React from "react";
 
@@ -52,11 +53,23 @@ export const FormV2 = (props: FormV2Props) => {
             label={fieldInfo.label}
             attributes={fieldInfo.attributes}
             formData={formData}
+            readOnly={fieldInfo.readOnly || false}
+            disabled={fieldInfo.disabled || false}
           />
         );
 
         return fieldInfo.enableCustomRendering ? (
           fieldComponent
+        ) : fieldInfo.readOnly ? (
+          <>
+            <div className="field-wrapper readonly">
+              <ReadOnlyField
+                copyable={fieldInfo.copyable}
+                label={fieldInfo.label}
+                value={fieldInfo.value}
+              />
+            </div>
+          </>
         ) : (
           <div className="field-wrapper">
             <div className="field-info">
