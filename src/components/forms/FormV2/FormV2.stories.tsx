@@ -16,6 +16,7 @@ import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import { useFormV2 } from "./useFormV2";
 
 import {
+  RadioButtonsFormField,
   SelectFormField,
   TextAreaFormField,
   TextAreaFormFieldResizeOption,
@@ -66,6 +67,7 @@ const Template: Story<FormV2Props> = (args) => {
       },
       fieldComponent: TextAreaFormField,
     });
+
     formLogic.addField({
       key: "select",
       value: "John",
@@ -77,6 +79,16 @@ const Template: Story<FormV2Props> = (args) => {
         enableResize: TextAreaFormFieldResizeOption.None,
       },
       fieldComponent: SelectFormField,
+    });
+
+    formLogic.addField({
+      key: "gender",
+      value: "Male",
+      label: "Select gander",
+      attributes: {
+        options: ["Male", "Female", "Other"],
+      },
+      fieldComponent: RadioButtonsFormField,
     });
 
     formLogic.onFieldValueChange("name", (field) => {
