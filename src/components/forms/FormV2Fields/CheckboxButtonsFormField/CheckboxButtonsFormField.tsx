@@ -11,35 +11,44 @@ export const CheckboxButtonsFormField = (
   };
 
   return (
-    <div className="form-field radio-buttons-form-field">
+    <div className="form-field checkbox-buttons-form-field">
       <fieldset>
         {options.map((option) => {
           let name = optionToInputName(option);
 
           return (
             <>
-              <input
-                type="checkbox"
-                name={name}
-                key={name}
-                value={option}
-                checked={(props.value || []).includes(option)}
-                onChange={(e) => {
-                  if (!e.target.checked) {
-                    let index = props.value.indexOf(option);
-                    if (index !== -1) {
-                      let valueCopy = [...props.value];
-                      valueCopy.splice(index, 1);
-                      props.setValue(valueCopy);
-                    } else {
-                      console.log("Could not find option ", option);
-                    }
-                  } else {
-                    props.setValue([...props.value, option]);
-                  }
+              <div
+                className={`checkbox-wrapper ${false ? "active" : ""}`}
+                onClick={() => {
+                  props.setValue(option);
                 }}
-              />
-              <label htmlFor={name}>{option}</label>
+              >
+                <input
+                  type="checkbox"
+                  name={name}
+                  key={name}
+                  value={option}
+                  checked={(props.value || []).includes(option)}
+                  onChange={(e) => {
+                    if (!e.target.checked) {
+                      let index = props.value.indexOf(option);
+                      if (index !== -1) {
+                        let valueCopy = [...props.value];
+                        valueCopy.splice(index, 1);
+                        props.setValue(valueCopy);
+                      } else {
+                        console.log("Could not find option ", option);
+                      }
+                    } else {
+                      props.setValue([...props.value, option]);
+                    }
+                  }}
+                />
+                <label className="checkbox-label" htmlFor={name}>
+                  {option}
+                </label>
+              </div>
             </>
           );
         })}
