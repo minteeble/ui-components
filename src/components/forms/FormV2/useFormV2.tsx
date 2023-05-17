@@ -44,7 +44,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
 
   // useEffect(() => {
   //   console.log("Submit", onSubmit);
-  //   onSubmit({ fields: [] });
+  //   // onSubmit({ fields: [] });
   // }, [onSubmit]);
 
   const addField = (newField: FormFieldState): void => {

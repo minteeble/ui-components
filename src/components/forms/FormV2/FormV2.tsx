@@ -18,6 +18,7 @@ import React from "react";
  * @param props FormV2 props object
  * @returns FormV2 React component
  */
+
 export const FormV2 = (props: FormV2Props) => {
   let formLogic = props.formLogic;
 
