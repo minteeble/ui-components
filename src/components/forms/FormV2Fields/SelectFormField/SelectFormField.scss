@@ -25,7 +25,7 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background: rgb(235, 242, 255);
+    background: rgb(255, 255, 255);
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -48,20 +48,20 @@
       transition: all 0.2s ease-in-out;
       border-radius: 5px;
       position: relative;
-
+      font-weight: 600;
       svg {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         right: 1rem;
       }
-
       &.selected {
-        border: 1px solid var(--primary-color);
+        // border: 1px solid var(--primary-color);
+        background: rgba(255, 255, 255, 0.5);
       }
 
       &:hover {
-        background: white;
+        background: rgba(232, 232, 232, 0.5);
       }
     }
   }
@@ -73,6 +73,11 @@
     .options {
       display: flex;
       padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      .selected {
+        // border: 1px solid var(--border-color);
+        background: rgba(205, 205, 205, 0.5);
+      }
     }
   }
 }

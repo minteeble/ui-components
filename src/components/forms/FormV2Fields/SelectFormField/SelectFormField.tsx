@@ -54,12 +54,16 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
         className={`options`}
         style={{
           height: isOpen ? `${3 * options.length + 1}rem` : "0rem",
+          maxHeight: `${3 * 5 + 1}rem`,
+          overflowY: 3 * options.length + 1 > 3 * 5 + 1 ? "scroll" : "hidden",
         }}
       >
         {options.map((option, i) => {
           return (
             <div
-              className={`option ${currentOption === option ? "selected" : ""}`}
+              className={`montserrat option ${
+                currentOption === option ? "selected" : ""
+              }`}
               key={i}
               onClick={() => {
                 setCurrentOption(option);
