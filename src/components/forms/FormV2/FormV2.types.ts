@@ -57,6 +57,33 @@ export interface FieldComponentProps {
   attributes?: any;
 }
 
+export interface FormFieldUpdateModel {
+  /**
+   * Displayed label
+   */
+  label?: string;
+
+  /**
+   * Field placeholder text. Default to empty string
+   */
+  placeholder?: string;
+
+  /**
+   * Other key-value
+   */
+  attributes?: any;
+
+  /**
+   * Specifies is field has to be rendered or not.
+   */
+  active?: ((value: any, fields: Array<FormFieldState>) => boolean) | boolean;
+
+  /**
+   * Specifies if field is read-only or not. False by default.
+   */
+  readOnly?: boolean;
+}
+
 export interface FormFieldState {
   /**
    * Field key (lowercase)
@@ -88,6 +115,10 @@ export interface FormFieldState {
    */
   fieldComponent: React.FC<FieldComponentProps>;
 
+  /**
+   * If set, the field is rendererd just as it is, without the form field wrapper (with label, alignment, error handling)
+   * By default it is set to false, so that every field will have the wrapper.
+   */
   enableCustomRendering?: boolean;
 
   /**
@@ -105,6 +136,9 @@ export interface FormFieldState {
    */
   validate?: (value: any) => boolean | string;
 
+  /**
+   * Specifies is field has to be rendered or not.
+   */
   active?: ((value: any, fields: Array<FormFieldState>) => boolean) | boolean;
 
   /**
@@ -161,6 +195,14 @@ export interface FormLogic {
    * @param newValue New value to be set
    */
   setValue(key: string, newValue: any): void;
+
+  /**
+   * Updates an existing an field.
+   *
+   * @param key Key of the field to be updated
+   * @param updateModel Object with new values to be set
+   */
+  updateField(key: string, updateModel: FormFieldUpdateModel): void;
 
   /**
    * List of field data
