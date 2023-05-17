@@ -236,38 +236,57 @@ export interface FormLogic {
     key: string,
     callback: (field: FormFieldState) => void
   ): void;
+
   /**
    * Specifies if submit is enabled or not
    */
   isSubmitEnabled: boolean;
+
   /**
    * Enable or disable submit
    *
    * @param newValue Specifies if submit is enable or not
    */
   enableSubmit: (newValue: boolean) => void;
+
   /**
    * Text of submit button
    */
   submitButtonText: string;
+
   /**
    * Edit text of submit button
    *
    * @param newText Specifies the new text of submit button
    */
   setSubmitText: (newText: string) => void;
-  /**
-   * Fuction that will be call at submit
-   *
-   * @param formData List of Form datas including fields
-   */
-  onSubmit: (formData: FormInjectedData) => void;
+
   /**
    * Set the submit fuction
    *
    * @param newFunction Fuction that will be call at submit
    */
-  setOnSubmit: (newFunction: (formData: FormInjectedData) => void) => void;
+  onSubmit: (callback: (formData: FormOnSubmitDataModel) => void) => void;
+
+  /**
+   * Submits form. It fires the onSubmit event
+   */
+  submit(): void;
+}
+
+/**
+ * Data model returned by onSubmit event
+ */
+export interface FormOnSubmitDataModel {
+  /**
+   * List of fields states
+   */
+  fields: Array<FormFieldState>;
+
+  /**
+   * key-value mapping for form fields
+   */
+  values: { [key: string]: any };
 }
 
 /**

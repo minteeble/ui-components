@@ -82,9 +82,11 @@ const Template: Story<FormV2Props> = (args) => {
     formLogic.onFieldValueChange("name", (field) => {
       console.log("Name changed", field.value);
     });
-    // formLogic.setOnSubmit((formData: FormInjectedData): void => {
-    //   console.log("Click", formData);
-    // });
+
+    formLogic.onSubmit((formData: FormInjectedData): void => {
+      console.log("Click", formData);
+    });
+
     formLogic.setSubmitText("Ok");
   }, []);
 

@@ -13,12 +13,11 @@ import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import React from "react";
 
 /**
- * Form V2
+ * Form V2 component
  *
  * @param props FormV2 props object
  * @returns FormV2 React component
  */
-
 export const FormV2 = (props: FormV2Props) => {
   let formLogic = props.formLogic;
 
@@ -80,8 +79,7 @@ export const FormV2 = (props: FormV2Props) => {
           actionType={ButtonActionType.Button}
           onClick={(e) => {
             e?.preventDefault();
-            console.log("Function:", props.formLogic.onSubmit);
-            props.formLogic.onSubmit(formData);
+            props.formLogic.submit();
           }}
           text={props.formLogic.submitButtonText}
         />
