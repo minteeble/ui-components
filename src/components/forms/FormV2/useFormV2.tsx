@@ -11,6 +11,7 @@
 import { useEffect, useState } from "react";
 import {
   FormFieldState,
+  FormFieldUpdateModel,
   FormInjectedData,
   FormLogic,
   UseFormV2Props,
@@ -109,7 +110,44 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   useEffect(() => {
     // Fires a `onValueChange` event, every time the fieldsInfo list changes
     internalOnValueChange();
+    console.log("Updated fields", fieldsInfo);
   }, [fieldsInfo]);
+
+  const updateField = (
+    key: string,
+    updateModel: FormFieldUpdateModel
+  ): void => {
+    setFieldsInfo((oldFields) => {
+      // Checks if field exists
+      let field = fieldsInfo.find((field) => field.key === key);
+
+      // console.log("Fields:", fieldsInfo);
+
+      if (field) {
+        if (field.active !== updateModel.active) {
+          field.active = updateModel.active ?? field.active;
+        }
+
+        if (field.label !== updateModel.label) {
+          field.label = updateModel.label ?? field.label;
+        }
+
+        if (field.placeholder !== updateModel.placeholder) {
+          field.placeholder = updateModel.placeholder ?? field.placeholder;
+        }
+
+        if (field.attributes !== updateModel.attributes) {
+          field.attributes = updateModel.attributes ?? field.attributes;
+        }
+
+        if (field.readOnly !== updateModel.readOnly) {
+          field.readOnly = updateModel.readOnly ?? field.readOnly;
+        }
+
+        return [...oldFields];
+      } else throw new Error(`Error or updating field "${key}"`);
+    });
+  };
 
   const setValue = (key: string, newValue: any): void => {
     setFieldsInfo((oldFields) => {
@@ -152,7 +190,8 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           field.error = errorMessage;
           console.log("Validation error:", errorMessage);
         }
-      } else throw new Error(`Error or removing field.`);
+      } else
+        throw new Error(`Error or setting new value field for key "${key}"`);
 
       return oldFields;
     });
@@ -176,6 +215,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     addField,
     removeField,
     setValue,
+    updateField,
     fields: fieldsInfo,
     onValueChange,
     onFieldValueChange,

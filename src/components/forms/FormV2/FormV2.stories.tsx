@@ -25,16 +25,9 @@ export default {
 
 const Template: Story<FormV2Props> = (args) => {
   const formLogic = useFormV2({});
-  const [testInterval, setTestInterval] = useState<boolean>(true);
+  const [testInterval, setTestInterval] = useState<number>(0);
 
   useEffect(() => {
-    console.log(testInterval);
-  }, [testInterval]);
-
-  useEffect(() => {
-    setInterval(() => {
-      setTestInterval((v) => !v);
-    }, 3000);
     formLogic.addField({
       key: "name",
       value: "John",
@@ -44,8 +37,6 @@ const Template: Story<FormV2Props> = (args) => {
         console.log("Value", value, value.length < 15);
         return value.length < 15;
       },
-      error: "",
-      active: testInterval,
       placeholder: "Enter name...",
       attributes: {},
       fieldComponent: TextFormField,
@@ -56,16 +47,12 @@ const Template: Story<FormV2Props> = (args) => {
       value: "Doe",
       label: "Surname",
       placeholder: "Enter surname",
-      attributes: {},
-      error: "",
-
-      active: (value, fields) => {
-        let nameField = fields.find((field) => field.key === "name");
-
-        return nameField?.value?.length > 10;
-      },
       fieldComponent: TextFormField,
     });
+
+    setInterval(() => {
+      setTestInterval((v) => v + 1);
+    }, 500);
 
     formLogic.onFieldValueChange("name", (field) => {
       console.log("Name changed", field.value);
@@ -75,6 +62,14 @@ const Template: Story<FormV2Props> = (args) => {
     // });
     formLogic.setSubmitText("Ok");
   }, []);
+
+  useEffect(() => {
+    console.log(testInterval);
+    if (testInterval > 0)
+      formLogic.updateField("surname", {
+        active: testInterval % 2 == 0,
+      });
+  }, [testInterval]);
 
   return <FormV2 formLogic={formLogic} />;
 };
