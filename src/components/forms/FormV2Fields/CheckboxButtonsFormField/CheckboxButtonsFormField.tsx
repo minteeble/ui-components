@@ -20,9 +20,9 @@ export const CheckboxButtonsFormField = (
             <>
               <div
                 className={`checkbox-wrapper ${false ? "active" : ""}`}
-                onClick={() => {
-                  props.setValue(option);
-                }}
+                // onClick={() => {
+                //   props.setValue(option);
+                // }}
               >
                 <input
                   type="checkbox"
@@ -45,7 +45,7 @@ export const CheckboxButtonsFormField = (
                     }
                   }}
                 />
-                <label className="checkbox-label" htmlFor={name}>
+                <label className="montserrat checkbox-label" htmlFor={name}>
                   {option}
                 </label>
               </div>

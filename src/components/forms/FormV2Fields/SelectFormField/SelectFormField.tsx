@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SelectFormFieldProps } from "./SelectFormField.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 export const SelectFormField = (props: SelectFormFieldProps) => {
   const options: string[] = props.attributes.options || [];
@@ -59,7 +59,7 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
         {options.map((option, i) => {
           return (
             <div
-              className="option"
+              className={`option ${currentOption === option ? "selected" : ""}`}
               key={i}
               onClick={() => {
                 setCurrentOption(option);
@@ -67,6 +67,7 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
               }}
             >
               {option}
+              {currentOption === option && <FontAwesomeIcon icon={faCheck} />}
             </div>
           );
         })}
