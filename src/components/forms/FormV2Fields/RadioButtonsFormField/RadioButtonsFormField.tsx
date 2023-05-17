@@ -15,7 +15,14 @@ export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
           let name = optionToInputName(option);
 
           return (
-            <div className="radio-wrapper">
+            <div
+              className={`radio-wrapper ${
+                props.value === option ? "active" : ""
+              }`}
+              onClick={() => {
+                props.setValue(option);
+              }}
+            >
               <input
                 type="radio"
                 name={name}
@@ -26,7 +33,9 @@ export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
                   props.setValue(option);
                 }}
               />
-              <label htmlFor={name}>{option}</label>
+              <label className="montserrat radio-label" htmlFor={name}>
+                {option}
+              </label>
             </div>
           );
         })}

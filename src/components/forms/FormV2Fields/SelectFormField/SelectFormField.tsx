@@ -7,10 +7,8 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
   const options: string[] = props.attributes.options || [];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [currentOption, setCurrentOption] = useState<number | null>(
-    typeof parseInt(props.value) === "number" && !isNaN(parseInt(props.value))
-      ? parseInt(props.value)
-      : null
+  const [currentOption, setCurrentOption] = useState<string | null>(
+    props.value ? props.value : null
   );
 
   const field = useRef<HTMLDivElement>(null);
@@ -44,16 +42,12 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
         onClick={() => {
           setIsOpen(!isOpen);
         }}
-        className={`montserrat select-field ${
-          typeof currentOption === "number" ? "" : "null"
-        }`}
+        className={`montserrat select-field ${currentOption ? "" : "null"}`}
         // onChange={(e) => {
         //   props.setValue(e.target.value);
         // }}
       >
-        {typeof currentOption === "number"
-          ? options[currentOption]
-          : props.placeholder || ""}
+        {currentOption ? currentOption : props.placeholder || ""}
         <FontAwesomeIcon icon={faChevronDown} />
       </div>
       <div
@@ -68,7 +62,7 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
               className="option"
               key={i}
               onClick={() => {
-                setCurrentOption(i);
+                setCurrentOption(option);
                 setIsOpen(false);
               }}
             >
