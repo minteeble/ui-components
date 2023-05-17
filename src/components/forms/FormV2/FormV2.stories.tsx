@@ -16,6 +16,7 @@ import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import { useFormV2 } from "./useFormV2";
 
 import {
+  CheckboxButtonsFormField,
   RadioButtonsFormField,
   SelectFormField,
   TextAreaFormField,
@@ -83,11 +84,21 @@ const Template: Story<FormV2Props> = (args) => {
     formLogic.addField({
       key: "gender",
       value: "Male",
-      label: "Select gander",
+      label: "Select gender",
       attributes: {
         options: ["Male", "Female", "Other"],
       },
       fieldComponent: RadioButtonsFormField,
+    });
+
+    formLogic.addField({
+      key: "hobbies",
+      value: [],
+      label: "Select your hobbies",
+      attributes: {
+        options: ["Programming", "Music", "Books", "Other"],
+      },
+      fieldComponent: CheckboxButtonsFormField,
     });
 
     formLogic.onFieldValueChange("name", (field) => {
