@@ -15,7 +15,7 @@ export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
           let name = optionToInputName(option);
 
           return (
-            <>
+            <div className="radio-wrapper">
               <input
                 type="radio"
                 name={name}
@@ -27,7 +27,7 @@ export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
                 }}
               />
               <label htmlFor={name}>{option}</label>
-            </>
+            </div>
           );
         })}
       </fieldset>

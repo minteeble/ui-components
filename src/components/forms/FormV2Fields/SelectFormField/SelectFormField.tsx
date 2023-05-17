@@ -56,7 +56,12 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
           : props.placeholder || ""}
         <FontAwesomeIcon icon={faChevronDown} />
       </div>
-      <div className={`options`}>
+      <div
+        className={`options`}
+        style={{
+          height: isOpen ? `${3 * options.length + 1}rem` : "0rem",
+        }}
+      >
         {options.map((option, i) => {
           return (
             <div
@@ -64,6 +69,7 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
               key={i}
               onClick={() => {
                 setCurrentOption(i);
+                setIsOpen(false);
               }}
             >
               {option}

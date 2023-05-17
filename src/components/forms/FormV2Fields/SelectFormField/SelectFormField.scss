@@ -31,9 +31,26 @@
     justify-content: flex-start;
     flex-direction: column;
     border-radius: 5px;
-    height: 0rem;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.7s cubic-bezier(0.215, 0.61, 0.355, 1);
     overflow: hidden;
+    cursor: pointer;
+    z-index: 5;
+    padding: 0 0.5rem;
+
+    .option {
+      width: 100%;
+      padding: 0 1rem;
+      height: 3rem;
+      min-height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      transition: all 0.2s ease-in-out;
+      border-radius: 5px;
+      &:hover {
+        background: white;
+      }
+    }
   }
   &.open {
     .select-field {
@@ -42,7 +59,7 @@
     }
     .options {
       display: flex;
-      height: 6rem;
+      padding: 0.5rem;
     }
   }
 }
