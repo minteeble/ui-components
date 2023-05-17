@@ -14,6 +14,7 @@ import {
   FormFieldUpdateModel,
   FormInjectedData,
   FormLogic,
+  FormOnSubmitDataModel,
   UseFormV2Props,
 } from "./FormV2.types";
 import lodash from "lodash";
@@ -36,16 +37,9 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   }>({});
   const [isSubmitEnabled, setIsSubmitEnabled] = useState<boolean>(true);
   const [submitButtonText, setSubmitButtonText] = useState<string>("Submit");
-  const [onSubmit, setOnSubmitFunction] = useState<
-    (formData: FormInjectedData) => void
-  >((formData: FormInjectedData) => {
-    console.log("HELLO");
-  });
-
-  // useEffect(() => {
-  //   console.log("Submit", onSubmit);
-  //   // onSubmit({ fields: [] });
-  // }, [onSubmit]);
+  const [onSubmitCallback, setOnSubmitCallback] = useState<
+    (formData: FormOnSubmitDataModel) => void
+  >(() => {});
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
@@ -88,7 +82,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   const onValueChange = (
     callback: (fields: Array<FormFieldState>) => void
   ): void => {
-    setOnValueChangeCallback(callback);
+    setOnValueChangeCallback(() => callback);
   };
 
   const internalOnKeyValueChanged = (key: string, field: FormFieldState) => {
@@ -110,7 +104,6 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   useEffect(() => {
     // Fires a `onValueChange` event, every time the fieldsInfo list changes
     internalOnValueChange();
-    console.log("Updated fields", fieldsInfo);
   }, [fieldsInfo]);
 
   const updateField = (
@@ -120,8 +113,6 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     setFieldsInfo((oldFields) => {
       // Checks if field exists
       let field = fieldsInfo.find((field) => field.key === key);
-
-      // console.log("Fields:", fieldsInfo);
 
       if (field) {
         if (field.active !== updateModel.active) {
@@ -205,9 +196,33 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     setSubmitButtonText(newText);
   };
 
-  const setOnSubmit = (newFunction: (formData: FormInjectedData) => void) => {
-    console.log("NEW", newFunction);
-    setOnSubmitFunction(newFunction);
+  // Creates the final data mapping object
+  const buildValesObject = (): { [key: string]: any } => {
+    let dataObject: { [key: string]: any } = {};
+
+    fieldsInfo
+      .filter((field) => {
+        if (typeof field.active === "boolean") return field.active;
+
+        if (field.active) return field.active(field.value, fieldsInfo);
+
+        return true;
+      })
+      .forEach((field) => {
+        dataObject[field.key] = field.value;
+      });
+
+    return dataObject;
+  };
+
+  const onSubmit = (callback: (formData: FormOnSubmitDataModel) => void) => {
+    setOnSubmitCallback(() => callback);
+  };
+
+  const submit = () => {
+    if (onSubmitCallback as any)
+      onSubmitCallback({ fields: fieldsInfo, values: buildValesObject() });
+    else console.log("Unhandled submit.");
   };
 
   // Returns a FormLogic object
@@ -223,7 +238,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     enableSubmit,
     submitButtonText,
     setSubmitText,
+    submit,
     onSubmit,
-    setOnSubmit,
   };
 };
