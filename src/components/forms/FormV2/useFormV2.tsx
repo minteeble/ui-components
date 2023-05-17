@@ -42,10 +42,10 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     console.log("HELLO");
   });
 
-  // useEffect(() => {
-  //   console.log("Submit", onSubmit);
-  //   // onSubmit({ fields: [] });
-  // }, [onSubmit]);
+  useEffect(() => {
+    console.log("Submit", onSubmit);
+    // onSubmit({ fields: [] });
+  }, [onSubmit]);
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
