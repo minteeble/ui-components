@@ -38,7 +38,11 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   const [submitButtonText, setSubmitButtonText] = useState<string>("Submit");
   const [onSubmit, setOnSubmitFunction] = useState<
     (formData: FormInjectedData) => void
-  >(() => {});
+  >((formData: FormInjectedData) => {});
+
+  useEffect(() => {
+    console.log("Submit", onSubmit);
+  }, [onSubmit]);
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
@@ -148,11 +152,18 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
       let field = fieldsInfo.find((field) => field.key === key);
 
       if (field) {
+        field.error = "";
+
         let validationResult: boolean | string = true;
 
         // If present, run validation
         if (field.validate) {
           validationResult = field.validate(newValue);
+          // if (typeof validationResult === "string") {
+          //   field.error = validationResult;
+          // } else {
+          //   field.error = "Invalid value";
+          // }
         }
 
         if (validationResult === true) {
@@ -169,7 +180,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           internalOnKeyValueChanged(field.key, field);
 
           return [...oldFields];
-        } else if (typeof validationResult === "string") {
+        } else {
           // Value is not valid.
 
           // Determining if the default error message or a custom one has to be used
@@ -178,6 +189,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
               ? validationResult
               : "Invalid value";
 
+          field.error = errorMessage;
           console.log("Validation error:", errorMessage);
         }
       } else
@@ -196,6 +208,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   };
 
   const setOnSubmit = (newFunction: (formData: FormInjectedData) => void) => {
+    console.log("NEW", newFunction);
     setOnSubmitFunction(newFunction);
   };
 

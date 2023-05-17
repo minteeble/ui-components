@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import { Story, Meta } from "@storybook/react";
 
 import { FormV2 } from "./FormV2";
-import { FormV2Props } from "./FormV2.types";
+import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import { useFormV2 } from "./useFormV2";
 
 import { TextFormField } from "../FormV2Fields/TextFormField";
@@ -57,6 +57,10 @@ const Template: Story<FormV2Props> = (args) => {
     formLogic.onFieldValueChange("name", (field) => {
       console.log("Name changed", field.value);
     });
+    formLogic.setOnSubmit((formData: FormInjectedData): void => {
+      console.log("Click", formData);
+    });
+    formLogic.setSubmitText("Ok");
   }, []);
 
   useEffect(() => {
