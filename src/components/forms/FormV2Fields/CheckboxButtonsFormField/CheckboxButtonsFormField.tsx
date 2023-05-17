@@ -19,10 +19,23 @@ export const CheckboxButtonsFormField = (
           return (
             <>
               <div
-                className={`checkbox-wrapper ${false ? "active" : ""}`}
-                // onClick={() => {
-                //   props.setValue(option);
-                // }}
+                className={`checkbox-wrapper ${
+                  (props.value || []).includes(option) ? "active" : ""
+                }`}
+                onClick={() => {
+                  if ((props.value || []).includes(option)) {
+                    let index = props.value.indexOf(option);
+                    if (index !== -1) {
+                      let valueCopy = [...props.value];
+                      valueCopy.splice(index, 1);
+                      props.setValue(valueCopy);
+                    } else {
+                      console.log("Could not find option ", option);
+                    }
+                  } else {
+                    props.setValue([...props.value, option]);
+                  }
+                }}
               >
                 <input
                   type="checkbox"
