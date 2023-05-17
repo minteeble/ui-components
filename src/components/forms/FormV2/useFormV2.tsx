@@ -37,11 +37,14 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   const [submitButtonText, setSubmitButtonText] = useState<string>("Submit");
   const [onSubmit, setOnSubmitFunction] = useState<
     (formData: FormInjectedData) => void
-  >((formData: FormInjectedData) => {});
+  >((formData: FormInjectedData) => {
+    console.log("HELLO");
+  });
 
-  useEffect(() => {
-    console.log("Submit", onSubmit);
-  }, [onSubmit]);
+  // useEffect(() => {
+  //   console.log("Submit", onSubmit);
+  //   onSubmit({ fields: [] });
+  // }, [onSubmit]);
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
@@ -121,11 +124,6 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
         // If present, run validation
         if (field.validate) {
           validationResult = field.validate(newValue);
-          // if (typeof validationResult === "string") {
-          //   field.error = validationResult;
-          // } else {
-          //   field.error = "Invalid value";
-          // }
         }
 
         if (validationResult === true) {

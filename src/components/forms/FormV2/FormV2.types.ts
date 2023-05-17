@@ -43,7 +43,7 @@ export interface FieldComponentProps {
   /**
    * Displayed error
    */
-  error: string;
+  error?: string;
 
   /**
    * Reference to current form data.
@@ -81,7 +81,7 @@ export interface FormFieldState {
   /**
    * Displayed error
    */
-  error: string;
+  error?: string;
 
   /**
    * Field placeholder text. Default to empty string
