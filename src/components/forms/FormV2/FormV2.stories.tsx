@@ -68,13 +68,12 @@ const Template: Story<FormV2Props> = (args) => {
     });
     formLogic.addField({
       key: "select",
-      value: "John",
-      label: "Select",
-      transform: (value) => value.toLowerCase(),
+      value: "",
+      label: "Color",
 
-      placeholder: "Enter name...",
+      placeholder: "Select a color...",
       attributes: {
-        enableResize: TextAreaFormFieldResizeOption.None,
+        options: ["blue", "green", "red", "yellow"],
       },
       fieldComponent: SelectFormField,
     });

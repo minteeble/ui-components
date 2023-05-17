@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SelectFormFieldProps } from "./SelectFormField.types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 export const SelectFormField = (props: SelectFormFieldProps) => {
   const options: string[] = props.attributes.options || [];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<number | null>(
-    parseInt(props.value) || null
+    typeof parseInt(props.value) === "number" && !isNaN(parseInt(props.value))
+      ? parseInt(props.value)
+      : null
   );
+
+  const field = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (currentOption) {
@@ -15,20 +21,42 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
     }
   }, [currentOption]);
 
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (field.current && !field.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [field]);
+
   return (
-    <div className="form-field select-form-field">
+    <div
+      ref={field}
+      className={`form-field select-form-field ${isOpen ? "open" : ""}`}
+    >
       <div
         onClick={() => {
           setIsOpen(!isOpen);
         }}
-        className={`montserrat select-field ${currentOption ? "" : "null"}`}
+        className={`montserrat select-field ${
+          typeof currentOption === "number" ? "" : "null"
+        }`}
         // onChange={(e) => {
         //   props.setValue(e.target.value);
         // }}
       >
-        {currentOption ? options[currentOption] : props.placeholder || ""}
+        {typeof currentOption === "number"
+          ? options[currentOption]
+          : props.placeholder || ""}
+        <FontAwesomeIcon icon={faChevronDown} />
       </div>
-      <div className={`options ${isOpen}`}>
+      <div className={`options`}>
         {options.map((option, i) => {
           return (
             <div

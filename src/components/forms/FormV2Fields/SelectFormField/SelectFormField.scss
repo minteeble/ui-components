@@ -1,6 +1,7 @@
 .form-field.select-form-field {
   width: 100%;
-  input {
+  position: relative;
+  .select-field {
     width: 100%;
     border: 2px solid var(--border-color);
     padding: 0.7rem;
@@ -8,10 +9,40 @@
     outline: none;
     font-weight: 600;
     transition: all 0.2s ease-in-out;
-
-    &:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    svg {
+      color: black;
+    }
+    &.null {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgb(235, 242, 255);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    border-radius: 5px;
+    height: 0rem;
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+  }
+  &.open {
+    .select-field {
       border: 2px solid var(--primary-color);
-      background: #dee3ec31;
+      background: rgba(222, 227, 236, 0.27);
+    }
+    .options {
+      display: flex;
+      height: 6rem;
     }
   }
 }
