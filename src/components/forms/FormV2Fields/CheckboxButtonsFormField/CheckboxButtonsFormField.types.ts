@@ -11,7 +11,7 @@ export interface CheckboxButtonsFormFieldAttributes {
 }
 
 /**
- * Props model for c3eheckbox form field
+ * Props model for checkbox form field
  */
 export interface CheckboxButtonsFormFieldProps extends FieldComponentProps {
   attributes?: CheckboxButtonsFormFieldAttributes;
