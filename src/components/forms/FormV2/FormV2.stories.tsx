@@ -15,11 +15,12 @@ import { FormV2 } from "./FormV2";
 import { FormInjectedData, FormV2Props } from "./FormV2.types";
 import { useFormV2 } from "./useFormV2";
 
-import { TextFormField } from "../FormV2Fields/TextFormField";
 import {
+  SelectFormField,
   TextAreaFormField,
   TextAreaFormFieldResizeOption,
-} from "../FormV2Fields/TextAreaFormField";
+  TextFormField,
+} from "./../FormV2Fields";
 
 export default {
   title: "ui-components/forms/FormV2",
@@ -54,7 +55,7 @@ const Template: Story<FormV2Props> = (args) => {
     });
 
     formLogic.addField({
-      key: "name",
+      key: "textArea",
       value: "John",
       label: "Text area",
       transform: (value) => value.toLowerCase(),
@@ -64,6 +65,18 @@ const Template: Story<FormV2Props> = (args) => {
         enableResize: TextAreaFormFieldResizeOption.None,
       },
       fieldComponent: TextAreaFormField,
+    });
+    formLogic.addField({
+      key: "select",
+      value: "John",
+      label: "Select",
+      transform: (value) => value.toLowerCase(),
+
+      placeholder: "Enter name...",
+      attributes: {
+        enableResize: TextAreaFormFieldResizeOption.None,
+      },
+      fieldComponent: SelectFormField,
     });
 
     formLogic.onFieldValueChange("name", (field) => {
