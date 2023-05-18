@@ -34,9 +34,24 @@
 
     &.readonly {
       display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 0.5rem;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid var(--border-color-trs);
+      border-radius: 10px;
+
+      .read-only-wrapper {
+        padding: 0.35rem 0.5rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--border-color-trs);
+        }
+      }
+
       .field-label {
         opacity: 0.5;
         font-weight: 500;

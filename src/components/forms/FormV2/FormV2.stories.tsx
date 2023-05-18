@@ -46,6 +46,7 @@ const Template: Story<FormV2Props> = (args) => {
       placeholder: "Enter name...",
       attributes: {},
       fieldComponent: TextFormField,
+      readOnly: true,
     });
 
     formLogic.addField({
@@ -54,6 +55,8 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Surname",
       placeholder: "Enter surname",
       fieldComponent: TextFormField,
+      readOnly: true,
+      copyable: true,
     });
 
     formLogic.addField({
@@ -89,6 +92,8 @@ const Template: Story<FormV2Props> = (args) => {
         options: ["Male", "Female", "Other"],
       },
       fieldComponent: RadioButtonsFormField,
+      readOnly: true,
+      copyable: true,
     });
 
     formLogic.addField({
@@ -99,6 +104,7 @@ const Template: Story<FormV2Props> = (args) => {
         options: ["Programming", "Music", "Books", "Other"],
       },
       fieldComponent: CheckboxButtonsFormField,
+      readOnly: true,
     });
 
     formLogic.onFieldValueChange("name", (field) => {

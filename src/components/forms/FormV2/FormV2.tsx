@@ -10,8 +10,8 @@
 
 import Button, { ButtonActionType } from "../Button";
 import { ReadOnlyField } from "../FormV2Fields";
-import { FormInjectedData, FormV2Props } from "./FormV2.types";
-import React from "react";
+import { FormFieldState, FormInjectedData, FormV2Props } from "./FormV2.types";
+import React, { useState } from "react";
 
 /**
  * Form V2 component
@@ -27,7 +27,9 @@ export const FormV2 = (props: FormV2Props) => {
   };
 
   // Creates a list of field components ready to be rendered
-  let fieldsComponentsList = formLogic.fields
+  let cachedReadOnly: FormFieldState[] = [];
+  let fieldsComponentsList: JSX.Element[] = [];
+  formLogic.fields
     .filter((fieldInfo) => {
       if (typeof fieldInfo.active === "boolean") return fieldInfo.active;
 
@@ -36,7 +38,7 @@ export const FormV2 = (props: FormV2Props) => {
 
       return true;
     })
-    .map((fieldInfo) => {
+    .forEach((fieldInfo) => {
       if (fieldInfo.fieldComponent) {
         // Mapping field component into a React component compliant variable (it should be capitalized)
         const FieldComponent = fieldInfo.fieldComponent;
@@ -58,31 +60,62 @@ export const FormV2 = (props: FormV2Props) => {
           />
         );
 
-        return fieldInfo.enableCustomRendering ? (
-          fieldComponent
-        ) : fieldInfo.readOnly ? (
-          <>
-            <div className="field-wrapper readonly">
-              <ReadOnlyField
-                copyable={fieldInfo.copyable}
-                label={fieldInfo.label}
-                value={fieldInfo.value}
-              />
+        if (fieldInfo.enableCustomRendering) {
+          fieldsComponentsList.push(fieldComponent);
+        } else if (fieldInfo.readOnly) {
+          cachedReadOnly.push(fieldInfo);
+        } else {
+          fieldsComponentsList.push(
+            <>
+              {cachedReadOnly.length > 0 && (
+                <div className="field-wrapper readonly">
+                  {cachedReadOnly.map((field, i) => {
+                    return (
+                      <div className="read-only-wrapper" key={i}>
+                        <ReadOnlyField
+                          copyable={field.copyable}
+                          label={field.label}
+                          value={field.value}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </>,
+            <div className="field-wrapper">
+              <div className="field-info">
+                <label htmlFor={fieldInfo.key} className="field-label">
+                  {fieldInfo.label}
+                </label>
+                <p className="field-error">{fieldInfo.error}</p>
+              </div>
+              {fieldComponent}
             </div>
-          </>
-        ) : (
-          <div className="field-wrapper">
-            <div className="field-info">
-              <label htmlFor={fieldInfo.key} className="field-label">
-                {fieldInfo.label}
-              </label>
-              <p className="field-error">{fieldInfo.error}</p>
-            </div>
-            {fieldComponent}
-          </div>
-        );
+          );
+          cachedReadOnly = [];
+        }
       }
     });
+
+  if (cachedReadOnly.length > 0) {
+    fieldsComponentsList.push(
+      <div className="field-wrapper readonly">
+        {cachedReadOnly.map((field, i) => {
+          return (
+            <div className="read-only-wrapper" key={i}>
+              <ReadOnlyField
+                copyable={field.copyable}
+                label={field.label}
+                value={field.value}
+              />
+            </div>
+          );
+        })}
+      </div>
+    );
+    cachedReadOnly = [];
+  }
 
   return (
     <form noValidate className="form-v2">
