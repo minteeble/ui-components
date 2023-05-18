@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   TextAreaFormFieldProps,
   TextAreaFormFieldResizeOption,
@@ -7,6 +7,19 @@ import {
 export const TextAreaFormField = (props: TextAreaFormFieldProps) => {
   const resizeOptions = ["none", "vertical", "horizontal", "both"];
 
+  const textArea = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textArea.current) {
+      textArea.current.style.height = "inherit";
+      textArea.current.style.height = `${textArea.current.scrollHeight}px`;
+      textArea.current.style.height = `${Math.min(
+        textArea.current.scrollHeight,
+        240
+      )}px`;
+    }
+  }, [textArea.current, props.value]);
+
   return (
     <div
       className={`form-field text-area-form-field ${
@@ -14,11 +27,7 @@ export const TextAreaFormField = (props: TextAreaFormFieldProps) => {
       }`}
     >
       <textarea
-        onKeyDown={(e) => {
-          e.target.style.height = "inherit";
-          e.target.style.height = `${e.target.scrollHeight}px`;
-          e.target.style.height = `${Math.min(e.target.scrollHeight, 240)}px`;
-        }}
+        ref={textArea}
         style={{
           resize: resizeOptions[
             props.readOnly || props.disabled || !props.attributes
