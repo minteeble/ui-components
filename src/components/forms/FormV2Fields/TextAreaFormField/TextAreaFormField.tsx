@@ -14,6 +14,11 @@ export const TextAreaFormField = (props: TextAreaFormFieldProps) => {
       }`}
     >
       <textarea
+        onKeyDown={(e) => {
+          e.target.style.height = "inherit";
+          e.target.style.height = `${e.target.scrollHeight}px`;
+          e.target.style.height = `${Math.min(e.target.scrollHeight, 240)}px`;
+        }}
         style={{
           resize: resizeOptions[
             props.readOnly || props.disabled || !props.attributes

@@ -24,16 +24,13 @@ class FormLogicHandler {
   public onSubmitCallback: (formData: FormOnSubmitDataModel) => void;
 
   constructor() {
-    this.onSubmitCallback = () => {
-      console.log("Empty handler");
-    };
+    this.onSubmitCallback = () => {};
   }
 
   public setOnSubmitCallback(
     callback: (formData: FormOnSubmitDataModel) => void
   ): void {
     this.onSubmitCallback = callback;
-    console.log("New callback set");
   }
 }
 
@@ -246,7 +243,6 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
         fields: fieldsInfo,
         values: buildValesObject(),
       });
-    else console.log("Unhandled submit.");
   };
 
   // Returns a FormLogic object
