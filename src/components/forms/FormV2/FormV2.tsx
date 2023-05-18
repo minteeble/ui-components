@@ -11,7 +11,7 @@
 import Button, { ButtonActionType } from "../Button";
 import { ReadOnlyField } from "../FormV2Fields";
 import { FormFieldState, FormInjectedData, FormV2Props } from "./FormV2.types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 /**
  * Form V2 component
@@ -25,6 +25,14 @@ export const FormV2 = (props: FormV2Props) => {
   let formData: FormInjectedData = {
     fields: formLogic.fields,
   };
+
+  useEffect(() => {
+    if (typeof props.onSubmit !== "undefined") {
+      console.log("Setting new onSubmit");
+      formLogic.onSubmit(props.onSubmit);
+    }
+    console.log("here");
+  }, [props.onSubmit]);
 
   // Creates a list of field components ready to be rendered
   let cachedReadOnly: FormFieldState[] = [];

@@ -16,7 +16,7 @@ export const TextAreaFormField = (props: TextAreaFormFieldProps) => {
       <textarea
         style={{
           resize: resizeOptions[
-            props.readOnly || props.disabled
+            props.readOnly || props.disabled || !props.attributes
               ? TextAreaFormFieldResizeOption.None
               : props.attributes.enableResize ||
                 TextAreaFormFieldResizeOption.None

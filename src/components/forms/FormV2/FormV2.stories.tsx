@@ -203,14 +203,21 @@ const ReadOnlyTemplate: Story<FormV2Props> = (args) => {
       console.log("Name changed", field.value);
     });
 
-    formLogic.onSubmit((formData: FormInjectedData): void => {
-      console.log("Click", formData);
-    });
+    // formLogic.onSubmit((formData: FormInjectedData): void => {
+    //   console.log("Click", formData);
+    // });
 
     formLogic.setSubmitText("Ok");
   }, []);
 
-  return <FormV2 formLogic={formLogic} />;
+  return (
+    <FormV2
+      onSubmit={() => {
+        console.log("HELLO WORLD");
+      }}
+      formLogic={formLogic}
+    />
+  );
 };
 
 export const SimpleForm = Template.bind({});

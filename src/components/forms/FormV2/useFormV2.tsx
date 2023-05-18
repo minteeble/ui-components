@@ -20,6 +20,23 @@ import {
 import lodash from "lodash";
 import { FieldState } from "../Form/Form";
 
+class FormLogicHandler {
+  public onSubmitCallback: (formData: FormOnSubmitDataModel) => void;
+
+  constructor() {
+    this.onSubmitCallback = () => {
+      console.log("Empty handler");
+    };
+  }
+
+  public setOnSubmitCallback(
+    callback: (formData: FormOnSubmitDataModel) => void
+  ): void {
+    this.onSubmitCallback = callback;
+    console.log("New callback set");
+  }
+}
+
 /**
  * Custom hook for handling Form V2 logic
  *
@@ -37,9 +54,13 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   }>({});
   const [isSubmitEnabled, setIsSubmitEnabled] = useState<boolean>(true);
   const [submitButtonText, setSubmitButtonText] = useState<string>("Submit");
-  const [onSubmitCallback, setOnSubmitCallback] = useState<
-    (formData: FormOnSubmitDataModel) => void
-  >(() => {});
+  // const [onSubmitCallback, setOnSubmitCallback] = useState<
+  //   (formData: FormOnSubmitDataModel) => void
+  // >(() => {});
+
+  const [logicHandler, setLogicHandler] = useState<FormLogicHandler>(
+    new FormLogicHandler()
+  );
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
@@ -216,12 +237,15 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   };
 
   const onSubmit = (callback: (formData: FormOnSubmitDataModel) => void) => {
-    setOnSubmitCallback(() => callback);
+    logicHandler.setOnSubmitCallback(callback);
   };
 
   const submit = () => {
-    if (onSubmitCallback as any)
-      onSubmitCallback({ fields: fieldsInfo, values: buildValesObject() });
+    if (logicHandler.onSubmitCallback as any)
+      logicHandler.onSubmitCallback({
+        fields: fieldsInfo,
+        values: buildValesObject(),
+      });
     else console.log("Unhandled submit.");
   };
 

@@ -314,4 +314,5 @@ export interface FormOnSubmitDataModel {
  */
 export interface FormV2Props {
   formLogic: FormLogic;
+  onSubmit?: (formData: FormOnSubmitDataModel) => void;
 }
