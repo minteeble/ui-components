@@ -45,6 +45,8 @@ const Template: Story<FormV2Props> = (args) => {
         console.log("Value", value, value.length < 15);
         return value.length < 15;
       },
+      showLiveError: true,
+      displayInvalidValue: true,
       placeholder: "Enter name...",
       attributes: {},
       fieldComponent: TextFormField,
@@ -56,7 +58,25 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Surname",
       placeholder: "Enter surname",
       fieldComponent: TextFormField,
+      transform: (value) => value.toUpperCase(),
       copyable: true,
+      required: true,
+      showLiveError: true,
+    });
+
+    formLogic.addField({
+      key: "age",
+      value: "18",
+      label: "Age",
+      placeholder: "Enter age...",
+      fieldComponent: TextFormField,
+      validate: (value) => {
+        return /^[0-9]+$/.test(value) || "Age is number";
+      },
+      required: true,
+      displayInvalidValue: true,
+
+      // showLiveError: true,
     });
 
     formLogic.addField({
@@ -157,6 +177,7 @@ const ReadOnlyTemplate: Story<FormV2Props> = (args) => {
       label: "Surname",
       placeholder: "Enter surname",
       fieldComponent: TextFormField,
+      required: true,
       readOnly: true,
     });
 

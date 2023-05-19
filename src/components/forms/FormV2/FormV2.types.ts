@@ -181,6 +181,13 @@ export interface FormFieldState {
   displayInvalidValue?: boolean;
 
   /**
+   * If set to true, than the errors appean every time they are fired. Instead,
+   * if set to false, it will be checked for errors just during the submit operation.
+   * False by default.
+   */
+  showLiveError?: boolean;
+
+  /**
    * Specifies if field is read-only or not. False by default.
    */
   readOnly?: boolean;

@@ -25,6 +25,8 @@ import React, { useEffect, useState } from "react";
  * @returns FormV2 React component
  */
 export const FormV2 = (props: FormV2Props) => {
+  const [submitted, setSubmitted] = useState<boolean>(false);
+
   let formLogic = props.formLogic;
 
   let formData: FormInjectedData = {
@@ -36,6 +38,14 @@ export const FormV2 = (props: FormV2Props) => {
       formLogic.onSubmit(props.onSubmit);
     }
   }, [props.onSubmit]);
+
+  useEffect(() => {
+    setSubmitted(false);
+  }, [formData.fields]);
+
+  let hasErrors = formData.fields.find(
+    (field) => field.showLiveError && field.error
+  );
 
   // Creates a list of field components ready to be rendered
   let cachedReadOnly: FormFieldState[] = [];
@@ -99,7 +109,9 @@ export const FormV2 = (props: FormV2Props) => {
                 <label htmlFor={fieldInfo.key} className="field-label">
                   {fieldInfo.label}
                 </label>
-                <p className="field-error">{fieldInfo.error}</p>
+                <p className="field-error">
+                  {fieldInfo.showLiveError || submitted ? fieldInfo.error : ""}
+                </p>
               </div>
               {fieldComponent}
             </div>
@@ -152,7 +164,9 @@ export const FormV2 = (props: FormV2Props) => {
             onClick={(e) => {
               e?.preventDefault();
               props.formLogic.submit();
+              setSubmitted(true);
             }}
+            disabled={hasErrors ? true : false}
             text={props.formLogic.submitButtonText}
           />
         </div>

@@ -194,7 +194,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           validationResult = field.validate(newValue);
         }
 
-        if (validationResult === true) {
+        if (validationResult === true || field.displayInvalidValue) {
           // Value is valid
 
           if (field.transform) {
@@ -207,10 +207,16 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           // Fires onChaneg event for the updated field
           internalOnKeyValueChanged(field.key, field);
 
-          return [...oldFields];
+          if (validationResult !== true) {
+            let errorMessage =
+              typeof validationResult === "string"
+                ? validationResult
+                : "Invalid value";
+
+            field.error = errorMessage;
+          }
         } else {
           // Value is not valid.
-
           // Determining if the default error message or a custom one has to be used
           let errorMessage =
             typeof validationResult === "string"
@@ -220,10 +226,12 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           field.error = errorMessage;
           console.log("Validation error:", errorMessage);
         }
+
+        return [...oldFields];
       } else
         throw new Error(`Error or setting new value field for key "${key}"`);
 
-      return [...oldFields];
+      // return [...oldFields];
     });
   };
 
@@ -236,7 +244,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   };
 
   // Creates the final data mapping object
-  const buildValesObject = (): { [key: string]: any } => {
+  const buildValuesObject = (): { [key: string]: any } => {
     let dataObject: { [key: string]: any } = {};
 
     fieldsInfo
@@ -259,11 +267,15 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   };
 
   const submit = () => {
-    if (logicHandler.onSubmitCallback as any)
-      logicHandler.onSubmitCallback({
-        fields: fieldsInfo,
-        values: buildValesObject(),
-      });
+    let hasErrors = fieldsInfo.find((field) => field.error);
+
+    if (!hasErrors) {
+      if (logicHandler.onSubmitCallback as any)
+        logicHandler.onSubmitCallback({
+          fields: fieldsInfo,
+          values: buildValuesObject(),
+        });
+    }
   };
 
   const setSubmitButtonAlignment = (value: SubmitButtonAlignment) => {
