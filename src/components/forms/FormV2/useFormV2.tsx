@@ -153,9 +153,24 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           field.readOnly = updateModel.readOnly ?? field.readOnly;
         }
 
+        if (field.required !== updateModel.required) {
+          field.required = updateModel.required ?? field.required;
+        }
+
         return [...oldFields];
       } else throw new Error(`Error or updating field "${key}"`);
     });
+  };
+
+  /**
+   * Determines if the provided field value can be considered as "emoty" or not.
+   */
+  const isEmpty = (value: any) => {
+    if (!value) return true;
+
+    if (Array.isArray(value) && value.length === 0) return true;
+
+    return false;
   };
 
   const setValue = (key: string, newValue: any): void => {
@@ -168,8 +183,14 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
 
         let validationResult: boolean | string = true;
 
+        console.log(field.required, field.key);
+        if (field.required && isEmpty(newValue)) {
+          validationResult = "Field is required";
+          console.log(field.key, "is empty");
+          field.value = newValue;
+        }
         // If present, run validation
-        if (field.validate) {
+        else if (field.validate) {
           validationResult = field.validate(newValue);
         }
 
@@ -202,7 +223,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
       } else
         throw new Error(`Error or setting new value field for key "${key}"`);
 
-      return oldFields;
+      return [...oldFields];
     });
   };
 

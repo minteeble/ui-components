@@ -38,6 +38,7 @@ const Template: Story<FormV2Props> = (args) => {
     formLogic.addField({
       key: "name",
       value: "John",
+      required: true,
       label: "Name",
       transform: (value) => value.toLowerCase(),
       validate: (value) => {
@@ -47,7 +48,6 @@ const Template: Story<FormV2Props> = (args) => {
       placeholder: "Enter name...",
       attributes: {},
       fieldComponent: TextFormField,
-      readOnly: true,
     });
 
     formLogic.addField({
@@ -56,15 +56,13 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Surname",
       placeholder: "Enter surname",
       fieldComponent: TextFormField,
-      readOnly: true,
       copyable: true,
     });
 
     formLogic.addField({
-      key: "textArea",
-      value: "John",
-      label: "Text area",
-      transform: (value) => value.toLowerCase(),
+      key: "description",
+      value: "",
+      label: "Description",
 
       placeholder: "Enter name...",
       attributes: {
@@ -89,12 +87,11 @@ const Template: Story<FormV2Props> = (args) => {
       key: "gender",
       value: "Male",
       label: "Select gender",
+
       attributes: {
         options: ["Male", "Female", "Other"],
       },
       fieldComponent: RadioButtonsFormField,
-      readOnly: true,
-      copyable: true,
     });
 
     formLogic.addField({
@@ -105,7 +102,6 @@ const Template: Story<FormV2Props> = (args) => {
         options: ["Programming", "Music", "Books", "Other"],
       },
       fieldComponent: CheckboxButtonsFormField,
-      readOnly: true,
     });
 
     formLogic.addField({
@@ -128,6 +124,10 @@ const Template: Story<FormV2Props> = (args) => {
 
     formLogic.setSubmitText("Ok");
   }, []);
+
+  useEffect(() => {
+    console.log("Fields", formLogic.fields);
+  }, [formLogic.fields]);
 
   return <FormV2 formLogic={formLogic} />;
 };
@@ -202,6 +202,7 @@ const ReadOnlyTemplate: Story<FormV2Props> = (args) => {
       key: "hobbies",
       value: ["Music", "Books"],
       label: "Select your hobbies",
+
       attributes: {
         options: ["Programming", "Music", "Books", "Other"],
       },

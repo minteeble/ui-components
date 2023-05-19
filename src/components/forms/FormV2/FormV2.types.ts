@@ -99,6 +99,11 @@ export interface FormFieldUpdateModel {
    * Specifies if field is read-only or not. False by default.
    */
   readOnly?: boolean;
+
+  /**
+   * Specifies if field is required or not.
+   */
+  required?: boolean;
 }
 
 export interface FormFieldState {
@@ -131,6 +136,11 @@ export interface FormFieldState {
    * Other key-value
    */
   attributes?: any;
+
+  /**
+   * Specifies if field is required or not.
+   */
+  required?: boolean;
 
   /**
    * Field component to be used.
