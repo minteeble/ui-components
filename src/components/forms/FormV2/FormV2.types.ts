@@ -292,6 +292,15 @@ export interface FormLogic {
    * Submits form. It fires the onSubmit event
    */
   submit(): void;
+  /**
+   * Specifies submit button alignment. Center by default
+   */
+  submitAlignment: SubmitButtonAlignment;
+  /**
+   * Allow to set submit button alignment
+   * @param value new alignment
+   */
+  setSubmitButtonAlignment: (value: SubmitButtonAlignment) => void;
 }
 
 /**
@@ -315,4 +324,12 @@ export interface FormOnSubmitDataModel {
 export interface FormV2Props {
   formLogic: FormLogic;
   onSubmit?: (formData: FormOnSubmitDataModel) => void;
+}
+/**
+ * Submit button alignment
+ */
+export enum SubmitButtonAlignment {
+  Left = 1,
+  Center,
+  Right,
 }

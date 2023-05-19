@@ -10,7 +10,12 @@
 
 import Button, { ButtonActionType } from "../Button";
 import { ReadOnlyField } from "../FormV2Fields";
-import { FormFieldState, FormInjectedData, FormV2Props } from "./FormV2.types";
+import {
+  FormFieldState,
+  FormInjectedData,
+  FormV2Props,
+  SubmitButtonAlignment,
+} from "./FormV2.types";
 import React, { useEffect, useState } from "react";
 
 /**
@@ -127,14 +132,30 @@ export const FormV2 = (props: FormV2Props) => {
     <form noValidate className="form-v2">
       {fieldsComponentsList}
       {props.formLogic.isSubmitEnabled && (
-        <Button
-          actionType={ButtonActionType.Button}
-          onClick={(e) => {
-            e?.preventDefault();
-            props.formLogic.submit();
+        <div
+          className="button-wrapper"
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent:
+              props.formLogic.submitAlignment === SubmitButtonAlignment.Center
+                ? "center"
+                : props.formLogic.submitAlignment ===
+                  SubmitButtonAlignment.Right
+                ? "flex-start"
+                : "flex-end",
           }}
-          text={props.formLogic.submitButtonText}
-        />
+        >
+          <Button
+            actionType={ButtonActionType.Button}
+            onClick={(e) => {
+              e?.preventDefault();
+              props.formLogic.submit();
+            }}
+            text={props.formLogic.submitButtonText}
+          />
+        </div>
       )}
     </form>
   );

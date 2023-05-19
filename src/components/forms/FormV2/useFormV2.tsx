@@ -15,6 +15,7 @@ import {
   FormInjectedData,
   FormLogic,
   FormOnSubmitDataModel,
+  SubmitButtonAlignment,
   UseFormV2Props,
 } from "./FormV2.types";
 import lodash from "lodash";
@@ -51,12 +52,11 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   }>({});
   const [isSubmitEnabled, setIsSubmitEnabled] = useState<boolean>(true);
   const [submitButtonText, setSubmitButtonText] = useState<string>("Submit");
-  // const [onSubmitCallback, setOnSubmitCallback] = useState<
-  //   (formData: FormOnSubmitDataModel) => void
-  // >(() => {});
-
   const [logicHandler, setLogicHandler] = useState<FormLogicHandler>(
     new FormLogicHandler()
+  );
+  const [submitAlignment, setSubmitAlignment] = useState<SubmitButtonAlignment>(
+    SubmitButtonAlignment.Center
   );
 
   const addField = (newField: FormFieldState): void => {
@@ -245,6 +245,10 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
       });
   };
 
+  const setSubmitButtonAlignment = (value: SubmitButtonAlignment) => {
+    setSubmitAlignment(value);
+  };
+
   // Returns a FormLogic object
   return {
     addField,
@@ -260,5 +264,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     setSubmitText,
     submit,
     onSubmit,
+    submitAlignment,
+    setSubmitButtonAlignment,
   };
 };
