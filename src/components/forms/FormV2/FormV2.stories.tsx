@@ -17,6 +17,7 @@ import { useFormV2 } from "./useFormV2";
 
 import {
   CheckboxButtonsFormField,
+  MultiSelectFormField,
   RadioButtonsFormField,
   SelectFormField,
   TextAreaFormField,
@@ -105,6 +106,16 @@ const Template: Story<FormV2Props> = (args) => {
       },
       fieldComponent: CheckboxButtonsFormField,
       readOnly: true,
+    });
+
+    formLogic.addField({
+      key: "Car brand",
+      value: [],
+      label: "Select your Car Brand",
+      attributes: {
+        options: ["BMW", "Audi", "Mercedes"],
+      },
+      fieldComponent: MultiSelectFormField,
     });
 
     formLogic.onFieldValueChange("name", (field) => {
