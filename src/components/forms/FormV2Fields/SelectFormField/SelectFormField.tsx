@@ -53,7 +53,7 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
           : props.placeholder || "Unset"}
         <FontAwesomeIcon icon={faChevronDown} />
       </div>
-      {!props.disabled && !props.readOnly && (
+      {!props.disabled && !props.readOnly && options.length > 0 && (
         <div
           className={`options`}
           style={{

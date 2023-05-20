@@ -25,6 +25,11 @@ import React, { useEffect, useState } from "react";
  * @returns FormV2 React component
  */
 export const FormV2 = (props: FormV2Props) => {
+  useEffect(() => {
+    if (typeof props.formLogic === "undefined")
+      throw new Error("FormLogic is undefined");
+  }, [props.formLogic]);
+
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   let formLogic = props.formLogic;
@@ -106,7 +111,10 @@ export const FormV2 = (props: FormV2Props) => {
             </>,
             <div className="field-wrapper">
               <div className="field-info">
-                <label htmlFor={fieldInfo.key} className="field-label">
+                <label
+                  htmlFor={fieldInfo.key}
+                  className="field-label montserrat"
+                >
                   {fieldInfo.label}
                 </label>
                 <p className="field-error">
