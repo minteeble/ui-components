@@ -6,6 +6,8 @@ import { faCheck, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 export const SelectFormField = (props: SelectFormFieldProps) => {
   const options: string[] = props.attributes.options || [];
 
+  const dropUp = props.attributes.dropUp || false;
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<string | null>(
     props.value ? props.value : null
@@ -60,6 +62,8 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
             height: isOpen ? `${3 * options.length + 1}rem` : "0rem",
             maxHeight: `${3 * 5 + 1}rem`,
             overflowY: 3 * options.length + 1 > 3 * 5 + 1 ? "scroll" : "hidden",
+            top: dropUp ? "uset" : "100%",
+            bottom: !dropUp ? "uset" : "100%",
           }}
         >
           {options.map((option, i) => {
