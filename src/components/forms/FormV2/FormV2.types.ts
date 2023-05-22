@@ -308,7 +308,7 @@ export interface FormLogic {
   /**
    * Submits form. It fires the onSubmit event
    */
-  submit(): void;
+  submit(): Promise<void>;
   /**
    * Specifies submit button alignment. Center by default
    */
@@ -340,7 +340,7 @@ export interface FormOnSubmitDataModel {
  */
 export interface FormV2Props {
   formLogic: FormLogic;
-  onSubmit?: (formData: FormOnSubmitDataModel) => void;
+  onSubmit?: (formData: FormOnSubmitDataModel) => void | Promise<void>;
 }
 /**
  * Submit button alignment

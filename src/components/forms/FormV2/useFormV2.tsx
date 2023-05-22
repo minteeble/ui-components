@@ -22,7 +22,9 @@ import lodash from "lodash";
 import { FieldState } from "../Form/Form";
 
 class FormLogicHandler {
-  public onSubmitCallback: (formData: FormOnSubmitDataModel) => void;
+  public onSubmitCallback: (
+    formData: FormOnSubmitDataModel
+  ) => void | Promise<void>;
 
   constructor() {
     this.onSubmitCallback = () => {};
@@ -262,16 +264,18 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     return dataObject;
   };
 
-  const onSubmit = (callback: (formData: FormOnSubmitDataModel) => void) => {
+  const onSubmit = (
+    callback: (formData: FormOnSubmitDataModel) => void | Promise<void>
+  ) => {
     logicHandler.setOnSubmitCallback(callback);
   };
 
-  const submit = () => {
+  const submit = async () => {
     let hasErrors = fieldsInfo.find((field) => field.error);
 
     if (!hasErrors) {
       if (logicHandler.onSubmitCallback as any)
-        logicHandler.onSubmitCallback({
+        await logicHandler.onSubmitCallback({
           fields: fieldsInfo,
           values: buildValuesObject(),
         });

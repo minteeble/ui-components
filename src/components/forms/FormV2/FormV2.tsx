@@ -17,6 +17,13 @@ import {
   SubmitButtonAlignment,
 } from "./FormV2.types";
 import React, { useEffect, useState } from "react";
+import { LoadingSpinner, LoadingSpinnerSize } from "../../common";
+
+export enum SubmisssionStatus {
+  None = "None",
+  Submitting = "Submitting",
+  Submitted = "Submitted",
+}
 
 /**
  * Form V2 component
@@ -30,7 +37,9 @@ export const FormV2 = (props: FormV2Props) => {
       throw new Error("FormLogic is undefined");
   }, [props.formLogic]);
 
-  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<SubmisssionStatus>(
+    SubmisssionStatus.None
+  );
 
   let formLogic = props.formLogic;
 
@@ -45,7 +54,7 @@ export const FormV2 = (props: FormV2Props) => {
   }, [props.onSubmit]);
 
   useEffect(() => {
-    setSubmitted(false);
+    setSubmitted(SubmisssionStatus.None);
   }, [formData.fields]);
 
   let hasErrors = formData.fields.find(
@@ -55,6 +64,7 @@ export const FormV2 = (props: FormV2Props) => {
   // Creates a list of field components ready to be rendered
   let cachedReadOnly: FormFieldState[] = [];
   let fieldsComponentsList: JSX.Element[] = [];
+
   formLogic.fields
     .filter((fieldInfo) => {
       if (typeof fieldInfo.active === "boolean") return fieldInfo.active;
@@ -118,7 +128,10 @@ export const FormV2 = (props: FormV2Props) => {
                   {fieldInfo.label}
                 </label>
                 <p className="field-error">
-                  {fieldInfo.showLiveError || submitted ? fieldInfo.error : ""}
+                  {fieldInfo.showLiveError ||
+                  submitted === SubmisssionStatus.Submitted
+                    ? fieldInfo.error
+                    : ""}
                 </p>
               </div>
               {fieldComponent}
@@ -148,6 +161,18 @@ export const FormV2 = (props: FormV2Props) => {
     cachedReadOnly = [];
   }
 
+  const handleSubmit = async () => {
+    setSubmitted(SubmisssionStatus.Submitting);
+
+    try {
+      await props.formLogic.submit();
+      setSubmitted(SubmisssionStatus.Submitted);
+    } catch (err) {
+      console.log("Error on submitting", err);
+      setSubmitted(SubmisssionStatus.None);
+    }
+  };
+
   return (
     <form noValidate className="form-v2">
       {fieldsComponentsList}
@@ -167,16 +192,20 @@ export const FormV2 = (props: FormV2Props) => {
                 : "flex-end",
           }}
         >
-          <Button
-            actionType={ButtonActionType.Button}
-            onClick={(e) => {
-              e?.preventDefault();
-              props.formLogic.submit();
-              setSubmitted(true);
-            }}
-            disabled={hasErrors ? true : false}
-            text={props.formLogic.submitButtonText}
-          />
+          {submitted === SubmisssionStatus.Submitting ? (
+            <LoadingSpinner Size={LoadingSpinnerSize.Medium} />
+          ) : (
+            <Button
+              actionType={ButtonActionType.Button}
+              onClick={(e) => {
+                e?.preventDefault();
+
+                handleSubmit();
+              }}
+              disabled={hasErrors ? true : false}
+              text={props.formLogic.submitButtonText}
+            />
+          )}
         </div>
       )}
     </form>

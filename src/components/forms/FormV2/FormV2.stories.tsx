@@ -151,6 +151,7 @@ const Template: Story<FormV2Props> = (args) => {
 
   return <FormV2 formLogic={formLogic} />;
 };
+
 const ReadOnlyTemplate: Story<FormV2Props> = (args) => {
   const formLogic = useFormV2({});
 
@@ -253,7 +254,41 @@ const ReadOnlyTemplate: Story<FormV2Props> = (args) => {
   );
 };
 
+const LongSubmitTemplate: Story<FormV2Props> = (args) => {
+  const formLogic = useFormV2({});
+
+  useEffect(() => {
+    formLogic.addField({
+      key: "name",
+      value: "John",
+      label: "Name",
+      placeholder: "Enter name...",
+      attributes: {},
+      fieldComponent: TextFormField,
+    });
+  }, []);
+
+  return (
+    <FormV2
+      onSubmit={async () => {
+        console.log("Triggered submit...");
+        await new Promise<void>((resolve) => {
+          setTimeout(() => {
+            console.log("Submit timeout completed");
+            resolve();
+          }, 2000);
+        });
+      }}
+      formLogic={formLogic}
+    />
+  );
+};
+
 export const SimpleForm = Template.bind({});
 SimpleForm.args = {};
-export const ReadOnlyForm = ReadOnlyTemplate.bind({});
+
+export const ReadOnlyForm = Template.bind({});
 ReadOnlyForm.args = {};
+
+export const LongSubmitForm = LongSubmitTemplate.bind({});
+LongSubmitForm.args = {};
