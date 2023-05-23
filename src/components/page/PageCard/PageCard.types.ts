@@ -10,4 +10,6 @@
 
 import { ParentComponent, StylableComponent } from "../../../models";
 
-export interface PageCardProps extends ParentComponent, StylableComponent {}
+export interface PageCardProps extends ParentComponent, StylableComponent {
+  className?: string;
+}
