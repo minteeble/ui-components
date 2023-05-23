@@ -339,8 +339,20 @@ export interface FormOnSubmitDataModel {
  * Form V2 props object
  */
 export interface FormV2Props {
+  /**
+   * For logic object
+   */
   formLogic: FormLogic;
+
+  /**
+   * On Submit callback.
+   */
   onSubmit?: (formData: FormOnSubmitDataModel) => void | Promise<void>;
+
+  /**
+   * Specifies if submit button has to be shown or not. True by default
+   */
+  showSubmitButton?: boolean;
 }
 /**
  * Submit button alignment

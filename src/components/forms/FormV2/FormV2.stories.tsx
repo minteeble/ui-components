@@ -284,6 +284,23 @@ const LongSubmitTemplate: Story<FormV2Props> = (args) => {
   );
 };
 
+const FormWithoutSubmitTemplate: Story<FormV2Props> = (args) => {
+  const formLogic = useFormV2({});
+
+  useEffect(() => {
+    formLogic.addField({
+      key: "name",
+      value: "John",
+      label: "Name",
+      placeholder: "Enter name...",
+      attributes: {},
+      fieldComponent: TextFormField,
+    });
+  }, []);
+
+  return <FormV2 showSubmitButton={false} formLogic={formLogic} />;
+};
+
 export const SimpleForm = Template.bind({});
 SimpleForm.args = {};
 
@@ -292,3 +309,6 @@ ReadOnlyForm.args = {};
 
 export const LongSubmitForm = LongSubmitTemplate.bind({});
 LongSubmitForm.args = {};
+
+export const WithoutSubmitForm = FormWithoutSubmitTemplate.bind({});
+WithoutSubmitForm.args = {};
