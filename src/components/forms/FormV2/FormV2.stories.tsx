@@ -296,9 +296,11 @@ const FormWithoutSubmitTemplate: Story<FormV2Props> = (args) => {
       attributes: {},
       fieldComponent: TextFormField,
     });
+
+    formLogic.enableSubmit(false);
   }, []);
 
-  return <FormV2 showSubmitButton={false} formLogic={formLogic} />;
+  return <FormV2 formLogic={formLogic} />;
 };
 
 export const SimpleForm = Template.bind({});

@@ -348,11 +348,6 @@ export interface FormV2Props {
    * On Submit callback.
    */
   onSubmit?: (formData: FormOnSubmitDataModel) => void | Promise<void>;
-
-  /**
-   * Specifies if submit button has to be shown or not. True by default
-   */
-  showSubmitButton?: boolean;
 }
 /**
  * Submit button alignment

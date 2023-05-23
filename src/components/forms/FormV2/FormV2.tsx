@@ -43,8 +43,6 @@ export const FormV2 = (props: FormV2Props) => {
 
   let formLogic = props.formLogic;
 
-  let showSubmitButton = props.showSubmitButton ?? true;
-
   let formData: FormInjectedData = {
     fields: formLogic.fields,
   };
@@ -197,18 +195,16 @@ export const FormV2 = (props: FormV2Props) => {
           {submitted === SubmisssionStatus.Submitting ? (
             <LoadingSpinner Size={LoadingSpinnerSize.Medium} />
           ) : (
-            showSubmitButton && (
-              <Button
-                actionType={ButtonActionType.Button}
-                onClick={(e) => {
-                  e?.preventDefault();
+            <Button
+              actionType={ButtonActionType.Button}
+              onClick={(e) => {
+                e?.preventDefault();
 
-                  handleSubmit();
-                }}
-                disabled={hasErrors ? true : false}
-                text={props.formLogic.submitButtonText}
-              />
-            )
+                handleSubmit();
+              }}
+              disabled={hasErrors ? true : false}
+              text={props.formLogic.submitButtonText}
+            />
           )}
         </div>
       )}

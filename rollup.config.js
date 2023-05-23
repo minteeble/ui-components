@@ -40,7 +40,7 @@ export default [
       terser(),
       svg(),
     ],
-    external: ["react", "react-dom", "styled-components"],
+    external: ["react", "react-dom", "react-router-dom", "styled-components"],
   },
   {
     input: "dist/esm/types/index.d.ts",
@@ -56,6 +56,6 @@ export default [
         include: "./src/**/*.scss",
       }),
     ],
-    external: ["react", "react-dom", "styled-components"],
+    external: ["react", "react-dom", "react-router-dom", "styled-components"],
   },
 ];
