@@ -12,11 +12,16 @@ import React, { useEffect, useState } from "react";
 import { Story, Meta } from "@storybook/react";
 
 import { FormV2 } from "./FormV2";
-import { FormInjectedData, FormV2Props } from "./FormV2.types";
+import {
+  FormInjectedData,
+  FormOnSubmitDataModel,
+  FormV2Props,
+} from "./FormV2.types";
 import { useFormV2 } from "./useFormV2";
 
 import {
   CheckboxButtonsFormField,
+  DropZoneFormField,
   MultiSelectFormField,
   RadioButtonsFormField,
   SelectFormField,
@@ -125,7 +130,7 @@ const Template: Story<FormV2Props> = (args) => {
     });
 
     formLogic.addField({
-      key: "Car brand",
+      key: "car",
       value: [],
       label: "Select your Car Brand",
       attributes: {
@@ -134,11 +139,19 @@ const Template: Story<FormV2Props> = (args) => {
       fieldComponent: MultiSelectFormField,
     });
 
+    // formLogic.addField({
+    //   key: "image",
+    //   value: [],
+    //   label: "Set image",
+
+    //   fieldComponent: DropZoneFormField,
+    // });
+
     formLogic.onFieldValueChange("name", (field) => {
       console.log("Name changed", field.value);
     });
 
-    formLogic.onSubmit((formData: FormInjectedData): void => {
+    formLogic.onSubmit((formData: FormOnSubmitDataModel): void => {
       console.log("Click", formData);
     });
 
@@ -302,6 +315,26 @@ const FormWithoutSubmitTemplate: Story<FormV2Props> = (args) => {
 
   return <FormV2 formLogic={formLogic} />;
 };
+const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
+  const formLogic = useFormV2({});
+
+  useEffect(() => {
+    formLogic.addField({
+      key: "image",
+      value: "",
+      label: "Set image",
+      fieldComponent: DropZoneFormField,
+    });
+
+    formLogic.onSubmit((formData: FormOnSubmitDataModel) => {
+      console.log("DATA", formData);
+    });
+
+    formLogic.enableSubmit(true);
+  }, []);
+
+  return <FormV2 formLogic={formLogic} />;
+};
 
 export const SimpleForm = Template.bind({});
 SimpleForm.args = {};
@@ -314,3 +347,6 @@ LongSubmitForm.args = {};
 
 export const WithoutSubmitForm = FormWithoutSubmitTemplate.bind({});
 WithoutSubmitForm.args = {};
+
+export const DropZoneForm = FormDropZoneTemplate.bind({});
+DropZoneForm.args = {};
