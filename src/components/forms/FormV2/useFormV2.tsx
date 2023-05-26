@@ -60,6 +60,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   const [submitAlignment, setSubmitAlignment] = useState<SubmitButtonAlignment>(
     SubmitButtonAlignment.Center
   );
+  const [formInitialized, setForminitialized] = useState<boolean>(false);
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
@@ -126,6 +127,12 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     internalOnValueChange();
   }, [fieldsInfo]);
 
+  useEffect(() => {
+    if (fieldsInfo.length !== 0 && !formInitialized) {
+      setForminitialized(true);
+    }
+  }, [fieldsInfo]);
+
   const updateField = (
     key: string,
     updateModel: FormFieldUpdateModel
@@ -179,6 +186,8 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     setFieldsInfo((oldFields) => {
       // Checks if field exists
       let field = fieldsInfo.find((field) => field.key === key);
+
+      console.log("Fields", fieldsInfo);
 
       if (field) {
         field.error = "";
@@ -302,6 +311,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     submit,
     onSubmit,
     submitAlignment,
+    formInitialized,
     setSubmitButtonAlignment,
   };
 };

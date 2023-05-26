@@ -318,6 +318,11 @@ export interface FormLogic {
    * @param value new alignment
    */
   setSubmitButtonAlignment: (value: SubmitButtonAlignment) => void;
+
+  /**
+   * Specififes if form has been already initialized or not.
+   */
+  formInitialized: boolean;
 }
 
 /**
