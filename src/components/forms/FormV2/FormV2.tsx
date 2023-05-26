@@ -198,7 +198,6 @@ export const FormV2 = (props: FormV2Props) => {
             <Button
               actionType={ButtonActionType.Button}
               onClick={(e) => {
-                console.log("CLICK");
                 e?.preventDefault();
 
                 handleSubmit();
