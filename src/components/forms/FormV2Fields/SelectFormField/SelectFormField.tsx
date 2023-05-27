@@ -5,9 +5,9 @@ import { faCheck, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { internalValue } from "../../FormV2/FormV2.types";
 
 export const SelectFormField = (props: SelectFormFieldProps) => {
-  const options: string[] | internalValue[] = props.attributes.options || [];
+  const options: string[] | internalValue[] = props.attributes?.options || [];
 
-  const dropUp = props.attributes.dropUp || false;
+  const dropUp = props.attributes?.dropUp || false;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentOption, setCurrentOption] = useState<string | null>(
@@ -80,7 +80,10 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
             return (
               <div
                 className={`montserrat option ${
-                  currentOption === option ? "selected" : ""
+                  (typeof option === "string" && currentOption === option) ||
+                  (typeof option === "object" && currentOption === option.text)
+                    ? "selected"
+                    : ""
                 }`}
                 key={i}
                 onClick={() => {

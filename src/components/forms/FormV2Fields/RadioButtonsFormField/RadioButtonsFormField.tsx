@@ -1,11 +1,14 @@
 import React from "react";
 import { RadioButtonsFormFieldProps } from "./RadioButtonsFormField.types";
+import { internalValue } from "../../FormV2/FormV2.types";
 
 export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
-  let options = props.attributes?.options || [];
+  const options: string[] | internalValue[] = props.attributes?.options || [];
 
-  const optionToInputName = (optionString: string) => {
-    return optionString.replaceAll(/\s/g, "-").toLowerCase();
+  const optionToInputName = (optionString: string | internalValue) => {
+    return (typeof optionString === "string" ? optionString : optionString.text)
+      .replaceAll(/\s/g, "-")
+      .toLowerCase();
   };
 
   return (
@@ -31,14 +34,19 @@ export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
                 type="radio"
                 name={name}
                 key={name}
-                value={option}
-                checked={props.value === option}
+                value={typeof option === "string" ? option : option.text}
+                checked={
+                  (typeof option === "string" && props.value === option) ||
+                  (typeof option === "object" && props.value === option.text)
+                }
                 onChange={(e) => {
-                  props.setValue(option);
+                  props.setValue(
+                    typeof option === "string" ? option : option.value
+                  );
                 }}
               />
               <label className="montserrat radio-label" htmlFor={name}>
-                {option}
+                {typeof option === "string" ? option : option.text}
               </label>
             </div>
           );
