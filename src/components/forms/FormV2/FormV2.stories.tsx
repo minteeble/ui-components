@@ -103,7 +103,13 @@ const Template: Story<FormV2Props> = (args) => {
 
       placeholder: "Select a color...",
       attributes: {
-        options: ["blue", "green", "red", "yellow", "brown", "black", "white"],
+        options: [
+          {
+            text: "collection",
+            value: "address",
+          },
+          "red",
+        ],
       },
       fieldComponent: SelectFormField,
     });

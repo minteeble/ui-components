@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { SelectFormFieldProps } from "./SelectFormField.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { internalValue } from "../../FormV2/FormV2.types";
 
 export const SelectFormField = (props: SelectFormFieldProps) => {
-  const options: string[] = props.attributes.options || [];
+  const options: string[] | internalValue[] = props.attributes.options || [];
 
   const dropUp = props.attributes.dropUp || false;
 
@@ -17,7 +18,16 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
 
   useEffect(() => {
     if (currentOption) {
-      props.setValue(currentOption);
+      let value =
+        // @ts-ignore
+        options.find((val: any) => {
+          return typeof val === "string" && val === currentOption;
+        }) ||
+        // @ts-ignore
+        options.find((val: any) => {
+          return typeof val !== "string" && val.text === currentOption;
+        }).value;
+      props.setValue(value);
     }
   }, [currentOption]);
 
@@ -74,12 +84,18 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
                 }`}
                 key={i}
                 onClick={() => {
-                  setCurrentOption(option);
+                  setCurrentOption(
+                    typeof option === "string" ? option : option.text
+                  );
                   setIsOpen(false);
                 }}
               >
-                {option}
-                {currentOption === option && <FontAwesomeIcon icon={faCheck} />}
+                {typeof option === "string" ? option : option.text}
+                {((typeof option === "string" && currentOption === option) ||
+                  (typeof option === "object" &&
+                    currentOption === option.text)) && (
+                  <FontAwesomeIcon icon={faCheck} />
+                )}
               </div>
             );
           })}
