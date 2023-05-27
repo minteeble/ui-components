@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MultiSelectFormFieldProps } from "./MultiSelectFormField.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faChevronDown,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import ContentEditable from "react-contenteditable";
 
 export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
@@ -9,7 +13,7 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedValues, setSelectedValues] = useState<string[]>(
-    props.value || []
+    props.value && props.value.length > 0 ? props.value : [""]
   );
   const [placeholder, setPlaceholder] = useState<string>(
     props.placeholder || "Unset"
@@ -18,6 +22,7 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
   const field = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log("VALUES", selectedValues);
     props.setValue(selectedValues);
   }, [selectedValues]);
 
@@ -36,14 +41,17 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
   }, [field]);
 
   const handleOnChange = (e: any) => {
-    const text = e.target.textContent || e.target.value;
-    console.log(e);
+    const text = e.target.textContent || e.target.value || "";
     if (text.length > 0) {
       setPlaceholder("");
     } else {
       setPlaceholder(props.placeholder || "Unset");
     }
-    setSelectedValues(text.split(",") || []);
+    setSelectedValues(
+      text.replace(/,$/, "").split(",").length > 0
+        ? text.replace(/,$/, "").split(",")
+        : [text]
+    );
   };
 
   return (
@@ -63,20 +71,33 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
             icon={faChevronDown}
           />
         )}
-        <ContentEditable
+        <div
           className={`montserrat select-field ${
             selectedValues.length > 0 ? "" : "null"
           }`}
-          onChange={(e) => {
+          onInput={(e) => {
             handleOnChange(e);
           }}
-          onBlur={(e) => {
-            handleOnChange(e);
-          }}
-          html={selectedValues.length > 0 ? selectedValues.join(",") : ""}
           contentEditable={true}
-          data-placeholder={placeholder}
-        />
+          suppressContentEditableWarning={true}
+          placeholder={placeholder}
+        >
+          {/* {selectedValues.length > 0
+            ? selectedValues.map((selection, i) => {
+                if (i === selectedValues.length - 1) return <>{selection}</>;
+                return (
+                  <div className="selection-box" key={i}>
+                    {selection}
+                    <FontAwesomeIcon icon={faXmark} />
+                  </div>
+                  );
+                })
+              : ""} */}
+          <div className="selection-box">
+            selection
+            <FontAwesomeIcon icon={faXmark} />
+          </div>
+        </div>
       </div>
       {!props.disabled && !props.readOnly && options.length > 0 && (
         <div

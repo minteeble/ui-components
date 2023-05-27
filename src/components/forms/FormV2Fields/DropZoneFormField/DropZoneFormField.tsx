@@ -2,24 +2,23 @@ import React, { useState } from "react";
 import DropZone from "../../../widgets/DropZone/DropZone";
 import Button from "../../Button";
 import { DropZoneFormFieldProps } from "./DropZoneFormField.types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   const [currentImage, setCurrentImage] = useState<string>(props.value || "");
 
   const [edit, setEdit] = useState<boolean>(false);
 
+  const [fileName, setFileName] = useState<string>("None");
+
   return (
     <>
       <div
-        className={`drop-zone-preview 
+        className={`drop-zone-form-field
         
         `}
       >
-        <div className="input-header">
-          {props.label && (
-            <label className="drop-zone-preview-label">{props.label}</label>
-          )}
-        </div>
         <div className="content">
           {edit ? (
             <>
@@ -35,7 +34,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                         reader.result?.toString() || currentImage
                       );
                       props.setValue(reader.result?.toString() || currentImage);
-
+                      setFileName(file.name.replace(/.[a-z]*$/, ""));
                       setEdit(false);
                     };
                   }}
@@ -46,16 +45,21 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
             </>
           ) : (
             <>
-              <div className="image-wrapper">
-                <img src={currentImage} alt="" className="image" />
-              </div>
-              <div className="edit-button">
-                <Button
-                  text={"New image"}
-                  onClick={() => {
-                    setEdit(true);
-                  }}
-                />
+              <div className="preview">
+                <div className="image-wrapper">
+                  <div
+                    className="upload"
+                    onClick={() => {
+                      setEdit(true);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faUpload} />
+                  </div>
+                  <img src={currentImage} alt="" className="image" />
+                </div>
+                <div className="info">
+                  <p className="file-name montserrat">{fileName}</p>
+                </div>
               </div>
             </>
           )}

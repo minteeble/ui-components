@@ -17,15 +17,15 @@
       cursor: pointer;
       position: relative;
       min-height: 46.4833px;
-      &:before {
-        content: attr(data-placeholder);
-        display: block;
-        color: #555;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 1rem;
-      }
+      // &:before {
+      //   content: attr(data-placeholder);
+      //   display: block;
+      //   color: #555;
+      //   position: absolute;
+      //   top: 50%;
+      //   transform: translateY(-50%);
+      //   left: 1rem;
+      // }
       &.null {
         color: rgba(0, 0, 0, 0.5);
       }
@@ -36,6 +36,7 @@
       top: 50%;
       transform: translateY(-50%);
       right: 1rem;
+      z-index: 5;
     }
   }
   .options {
