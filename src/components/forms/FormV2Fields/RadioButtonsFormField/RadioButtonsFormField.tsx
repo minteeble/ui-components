@@ -27,7 +27,11 @@ export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
                 props.value === option ? "active" : ""
               }`}
               onClick={() => {
-                props.setValue(option);
+                if (typeof option === "string") {
+                  props.setValue(option);
+                } else {
+                  props.setValue(option.value);
+                }
               }}
             >
               <input
@@ -37,7 +41,7 @@ export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
                 value={typeof option === "string" ? option : option.text}
                 checked={
                   (typeof option === "string" && props.value === option) ||
-                  (typeof option === "object" && props.value === option.text)
+                  (typeof option !== "string" && props.value === option.value)
                 }
                 onChange={(e) => {
                   props.setValue(

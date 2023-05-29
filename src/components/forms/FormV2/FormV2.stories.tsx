@@ -115,7 +115,15 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Select gender",
 
       attributes: {
-        options: ["Male", "Female", "Other"],
+        options: [
+          "Male",
+          "Female",
+          "Other",
+          {
+            text: "collection",
+            value: "address",
+          },
+        ],
       },
       fieldComponent: RadioButtonsFormField,
     });
