@@ -6,23 +6,23 @@ import {
   faChevronDown,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import ContentEditable from "react-contenteditable";
 
 export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
-  const options: string[] = props.attributes.options || [];
+  const options: string[] = props.attributes?.options || [];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedValues, setSelectedValues] = useState<string[]>(
-    props.value && props.value.length > 0 ? props.value : [""]
+    props.value && props.value.length > 0 ? props.value : []
   );
   const [placeholder, setPlaceholder] = useState<string>(
     props.placeholder || "Unset"
   );
 
+  const [input, setInput] = useState<string>("");
+
   const field = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log("VALUES", selectedValues);
     props.setValue(selectedValues);
   }, [selectedValues]);
 
@@ -39,20 +39,6 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [field]);
-
-  const handleOnChange = (e: any) => {
-    const text = e.target.textContent || e.target.value || "";
-    if (text.length > 0) {
-      setPlaceholder("");
-    } else {
-      setPlaceholder(props.placeholder || "Unset");
-    }
-    setSelectedValues(
-      text.replace(/,$/, "").split(",").length > 0
-        ? text.replace(/,$/, "").split(",")
-        : [text]
-    );
-  };
 
   return (
     <div
@@ -75,28 +61,55 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
           className={`montserrat select-field ${
             selectedValues.length > 0 ? "" : "null"
           }`}
-          onInput={(e) => {
-            handleOnChange(e);
-          }}
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          placeholder={placeholder}
         >
-          {/* {selectedValues.length > 0
+          {selectedValues.length > 0
             ? selectedValues.map((selection, i) => {
-                if (i === selectedValues.length - 1) return <>{selection}</>;
                 return (
                   <div className="selection-box" key={i}>
                     {selection}
-                    <FontAwesomeIcon icon={faXmark} />
+                    <div
+                      className="remove"
+                      onClick={() => {
+                        setSelectedValues((current) => {
+                          current.splice(current.indexOf(selection), 1);
+
+                          return [...current];
+                        });
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faXmark} />
+                    </div>
                   </div>
-                  );
-                })
-              : ""} */}
-          <div className="selection-box">
-            selection
-            <FontAwesomeIcon icon={faXmark} />
-          </div>
+                );
+              })
+            : ""}
+          <input
+            type="text"
+            className="selection-input montserrat"
+            placeholder={placeholder}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value.replaceAll(",", ""));
+              if (selectedValues.length > 0) {
+                setPlaceholder("Add...");
+              } else {
+                setPlaceholder(props.placeholder || "Unset");
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === ",") {
+                selectedValues.push(input.trim().replaceAll(",", ""));
+                setInput("");
+              }
+              if (e.key === "Backspace" && input.length === 0) {
+                setInput(selectedValues[selectedValues.length - 1]);
+                setSelectedValues((current) => {
+                  current.pop();
+                  return [...current];
+                });
+              }
+            }}
+          />
         </div>
       </div>
       {!props.disabled && !props.readOnly && options.length > 0 && (
@@ -118,14 +131,8 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
                 onClick={() => {
                   if (selectedValues.includes(option)) {
                     setSelectedValues((current) => {
-                      if (current.length === 1) {
-                        current = [];
-                      } else {
-                        current = current.splice(
-                          current.indexOf(option) - 1,
-                          1
-                        );
-                      }
+                      current.splice(current.indexOf(option), 1);
+
                       return [...current];
                     });
                   } else {
