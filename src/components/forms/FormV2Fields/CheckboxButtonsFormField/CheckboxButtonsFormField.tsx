@@ -18,17 +18,29 @@ export const CheckboxButtonsFormField = (
     >
       <fieldset>
         {options.map((option) => {
-          let name = optionToInputName(option);
+          let name = optionToInputName(
+            typeof option === "string" ? option : option.text
+          );
 
           return (
             <>
               <div
                 className={`checkbox-wrapper ${
-                  (props.value || []).includes(option) ? "active" : ""
+                  (props.value || []).includes(
+                    typeof option === "string" ? option : option.value
+                  )
+                    ? "active"
+                    : ""
                 }`}
                 onClick={() => {
-                  if ((props.value || []).includes(option)) {
-                    let index = props.value.indexOf(option);
+                  if (
+                    (props.value || []).includes(
+                      typeof option === "string" ? option : option.value
+                    )
+                  ) {
+                    let index = props.value.indexOf(
+                      typeof option === "string" ? option : option.value
+                    );
                     if (index !== -1) {
                       let valueCopy = [...props.value];
                       valueCopy.splice(index, 1);
@@ -37,7 +49,10 @@ export const CheckboxButtonsFormField = (
                       console.log("Could not find option ", option);
                     }
                   } else {
-                    props.setValue([...props.value, option]);
+                    props.setValue([
+                      ...props.value,
+                      typeof option === "string" ? option : option.value,
+                    ]);
                   }
                 }}
               >
@@ -45,11 +60,15 @@ export const CheckboxButtonsFormField = (
                   type="checkbox"
                   name={name}
                   key={name}
-                  value={option}
-                  checked={(props.value || []).includes(option)}
+                  value={typeof option === "string" ? option : option.value}
+                  checked={(props.value || []).includes(
+                    typeof option === "string" ? option : option.value
+                  )}
                   onChange={(e) => {
                     if (!e.target.checked) {
-                      let index = props.value.indexOf(option);
+                      let index = props.value.indexOf(
+                        typeof option === "string" ? option : option.value
+                      );
                       if (index !== -1) {
                         let valueCopy = [...props.value];
                         valueCopy.splice(index, 1);
@@ -58,12 +77,15 @@ export const CheckboxButtonsFormField = (
                         console.log("Could not find option ", option);
                       }
                     } else {
-                      props.setValue([...props.value, option]);
+                      props.setValue([
+                        ...props.value,
+                        typeof option === "string" ? option : option.value,
+                      ]);
                     }
                   }}
                 />
                 <label className="montserrat checkbox-label" htmlFor={name}>
-                  {option}
+                  {typeof option === "string" ? option : option.text}
                 </label>
               </div>
             </>

@@ -1,4 +1,4 @@
-import { FieldComponentProps } from "../../FormV2/FormV2.types";
+import { FieldComponentProps, internalValue } from "../../FormV2/FormV2.types";
 
 /**
  * Custom attributes model for checkbox field
@@ -7,7 +7,7 @@ export interface CheckboxButtonsFormFieldAttributes {
   /**
    * Checkbox options list
    */
-  options: Array<string>;
+  options: Array<string> | internalValue[];
 }
 
 /**

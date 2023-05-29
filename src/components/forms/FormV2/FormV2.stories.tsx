@@ -133,7 +133,16 @@ const Template: Story<FormV2Props> = (args) => {
       value: [],
       label: "Select your hobbies",
       attributes: {
-        options: ["Programming", "Music", "Books", "Other"],
+        options: [
+          "Programming",
+          "Music",
+          "Books",
+          "Other",
+          {
+            text: "collection",
+            value: "address",
+          },
+        ],
       },
       fieldComponent: CheckboxButtonsFormField,
     });
