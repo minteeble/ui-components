@@ -424,6 +424,7 @@ const MultiSelectFormTemplate: Story<FormV2Props> = (args) => {
       fieldComponent: MultiSelectFormField,
       attributes: {
         options: ["One", "Two", "Three", "Four", "Five"],
+        customSelectEnabled: false,
       },
     });
 

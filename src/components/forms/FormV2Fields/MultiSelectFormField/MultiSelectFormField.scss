@@ -16,10 +16,10 @@
       align-items: flex-start;
       justify-content: flex-start;
       flex-wrap: wrap;
-      cursor: pointer;
       position: relative;
       min-height: 46.4833px;
       gap: 0.5rem;
+      cursor: pointer;
 
       .selection-box {
         display: flex;
@@ -46,6 +46,7 @@
         padding: 0.2rem 0;
         padding-left: 0.5rem;
         transition: all 0.2s ease-in-out;
+        cursor: pointer;
       }
 
       &.null {

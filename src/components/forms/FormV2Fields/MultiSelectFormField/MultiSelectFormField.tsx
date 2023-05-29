@@ -40,6 +40,14 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
     };
   }, [field]);
 
+  useEffect(() => {
+    if (selectedValues.length > 0) {
+      setPlaceholder("Add...");
+    } else {
+      setPlaceholder(props.placeholder || "Unset");
+    }
+  }, [selectedValues]);
+
   return (
     <div
       ref={field}
@@ -61,7 +69,15 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
           className={`montserrat select-field ${
             selectedValues.length > 0 ? "" : "null"
           }`}
+          onClick={() => {
+            if (!props.attributes?.customSelectEnabled) {
+              setIsOpen(!isOpen);
+            }
+          }}
         >
+          {selectedValues.length === 0 &&
+            !props.attributes?.customSelectEnabled &&
+            (props.placeholder || "Unset")}
           {selectedValues.length > 0
             ? selectedValues.map((selection, i) => {
                 return (
@@ -83,33 +99,30 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
                 );
               })
             : ""}
-          <input
-            type="text"
-            className="selection-input montserrat"
-            placeholder={placeholder}
-            value={input}
-            onChange={(e) => {
-              setInput(e.target.value.replaceAll(",", ""));
-              if (selectedValues.length > 0) {
-                setPlaceholder("Add...");
-              } else {
-                setPlaceholder(props.placeholder || "Unset");
-              }
-            }}
-            onKeyDown={(e) => {
-              if (e.key === ",") {
-                selectedValues.push(input.trim().replaceAll(",", ""));
-                setInput("");
-              }
-              if (e.key === "Backspace" && input.length === 0) {
-                setInput(selectedValues[selectedValues.length - 1]);
-                setSelectedValues((current) => {
-                  current.pop();
-                  return [...current];
-                });
-              }
-            }}
-          />
+          {props.attributes && props.attributes.customSelectEnabled && (
+            <input
+              type="text"
+              className="selection-input montserrat"
+              placeholder={placeholder}
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value.replaceAll(",", ""));
+              }}
+              onKeyDown={(e) => {
+                if (e.key === ",") {
+                  selectedValues.push(input.trim().replaceAll(",", ""));
+                  setInput("");
+                }
+                if (e.key === "Backspace" && input.length === 0) {
+                  setInput(selectedValues[selectedValues.length - 1]);
+                  setSelectedValues((current) => {
+                    current.pop();
+                    return [...current];
+                  });
+                }
+              }}
+            />
+          )}
         </div>
       </div>
       {!props.disabled && !props.readOnly && options.length > 0 && (
