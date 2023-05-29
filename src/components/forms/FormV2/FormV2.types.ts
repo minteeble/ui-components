@@ -362,3 +362,16 @@ export enum SubmitButtonAlignment {
   Center,
   Right,
 }
+/**
+ * Internal value option
+ */
+export interface internalValue {
+  /**
+   * Displayed value
+   */
+  text: string;
+  /**
+   * Real value
+   */
+  value: string;
+}

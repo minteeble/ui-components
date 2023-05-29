@@ -13,6 +13,7 @@ import { Story, Meta } from "@storybook/react";
 
 import { FormV2 } from "./FormV2";
 import {
+  FormFieldState,
   FormInjectedData,
   FormOnSubmitDataModel,
   FormV2Props,
@@ -114,7 +115,15 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Select gender",
 
       attributes: {
-        options: ["Male", "Female", "Other"],
+        options: [
+          "Male",
+          "Female",
+          "Other",
+          {
+            text: "collection",
+            value: "address",
+          },
+        ],
       },
       fieldComponent: RadioButtonsFormField,
     });
@@ -124,7 +133,16 @@ const Template: Story<FormV2Props> = (args) => {
       value: [],
       label: "Select your hobbies",
       attributes: {
-        options: ["Programming", "Music", "Books", "Other"],
+        options: [
+          "Programming",
+          "Music",
+          "Books",
+          "Other",
+          {
+            text: "collection",
+            value: "address",
+          },
+        ],
       },
       fieldComponent: CheckboxButtonsFormField,
     });
@@ -336,10 +354,124 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
   return <FormV2 formLogic={formLogic} />;
 };
 
+const ProgressiveFormTemplate: Story<FormV2Props> = (args) => {
+  const formLogic = useFormV2({});
+
+  useEffect(() => {
+    formLogic.addField({
+      key: "name",
+      value: "John",
+      required: true,
+      label: "Name",
+      transform: (value) => value.toLowerCase(),
+      validate: (value) => {
+        console.log("Value", value, value.length < 15);
+        return value.length < 15;
+      },
+      showLiveError: false,
+      displayInvalidValue: true,
+      placeholder: "Enter name...",
+      attributes: {},
+      fieldComponent: TextFormField,
+    });
+
+    formLogic.addField({
+      key: "surname",
+      value: "Doe",
+      label: "Surname",
+      placeholder: "Enter surname",
+      fieldComponent: TextFormField,
+      transform: (value) => value.toUpperCase(),
+      copyable: true,
+      required: true,
+      showLiveError: false,
+      active: (value: any, formData: FormFieldState[]) => {
+        return (
+          formData.find((field: FormFieldState) => field.key === "name")?.value
+            .length > 15
+        );
+      },
+    });
+
+    formLogic.addField({
+      key: "age",
+      value: "18",
+      label: "Age",
+      placeholder: "Enter age...",
+      fieldComponent: TextFormField,
+      validate: (value) => {
+        return /^[0-9]+$/.test(value) || "Age is number";
+      },
+      required: true,
+      displayInvalidValue: true,
+      active: (value: any, formData: FormFieldState[]) => {
+        return (
+          formData.find((field: FormFieldState) => field.key === "surname")
+            ?.value.length > 3
+        );
+      },
+    });
+
+    formLogic.onFieldValueChange("name", (field) => {
+      console.log("Name changed", field.value);
+    });
+
+    formLogic.onSubmit((formData: FormOnSubmitDataModel): void => {
+      console.log("Click", formData);
+    });
+
+    formLogic.setSubmitText("Ok");
+  }, []);
+
+  useEffect(() => {
+    console.log("Fields", formLogic.fields);
+  }, [formLogic.fields]);
+
+  return <FormV2 formLogic={formLogic} />;
+};
+
+const MultiSelectFormTemplate: Story<FormV2Props> = (args) => {
+  const formLogic = useFormV2({});
+
+  useEffect(() => {
+    formLogic.addField({
+      key: "tags",
+      value: "",
+      label: "Add tags",
+      fieldComponent: MultiSelectFormField,
+      attributes: {
+        options: [
+          "One",
+          "Two",
+          "Three",
+          "Four",
+          "Five",
+          {
+            text: "collection",
+            value: "address",
+          },
+        ],
+        customSelectEnabled: false,
+      },
+    });
+
+    formLogic.enableSubmit(true);
+  }, []);
+
+  return (
+    <FormV2
+      onSubmit={(formData: FormOnSubmitDataModel) => {
+        console.log("DATA", formData.values.tags);
+      }}
+      formLogic={formLogic}
+    />
+  );
+};
+
 export const SimpleForm = Template.bind({});
 SimpleForm.args = {};
 
-export const ReadOnlyForm = Template.bind({});
+export const ReadOnlyForm = ReadOnlyTemplate.bind({});
 ReadOnlyForm.args = {};
 
 export const LongSubmitForm = LongSubmitTemplate.bind({});
@@ -350,3 +482,9 @@ WithoutSubmitForm.args = {};
 
 export const DropZoneForm = FormDropZoneTemplate.bind({});
 DropZoneForm.args = {};
+
+export const ProgressiveForm = ProgressiveFormTemplate.bind({});
+ProgressiveForm.args = {};
+
+export const MultiSelectForm = MultiSelectFormTemplate.bind({});
+MultiSelectForm.args = {};

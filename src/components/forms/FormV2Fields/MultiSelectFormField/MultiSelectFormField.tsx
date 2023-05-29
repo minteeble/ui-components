@@ -6,23 +6,24 @@ import {
   faChevronDown,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import ContentEditable from "react-contenteditable";
+import { internalValue } from "../../FormV2/FormV2.types";
 
 export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
-  const options: string[] = props.attributes.options || [];
+  const options: string[] | internalValue[] = props.attributes?.options || [];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedValues, setSelectedValues] = useState<string[]>(
-    props.value && props.value.length > 0 ? props.value : [""]
+    props.value && props.value.length > 0 ? props.value : []
   );
   const [placeholder, setPlaceholder] = useState<string>(
     props.placeholder || "Unset"
   );
 
+  const [input, setInput] = useState<string>("");
+
   const field = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log("VALUES", selectedValues);
     props.setValue(selectedValues);
   }, [selectedValues]);
 
@@ -40,19 +41,13 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
     };
   }, [field]);
 
-  const handleOnChange = (e: any) => {
-    const text = e.target.textContent || e.target.value || "";
-    if (text.length > 0) {
-      setPlaceholder("");
+  useEffect(() => {
+    if (selectedValues.length > 0) {
+      setPlaceholder("Add...");
     } else {
       setPlaceholder(props.placeholder || "Unset");
     }
-    setSelectedValues(
-      text.replace(/,$/, "").split(",").length > 0
-        ? text.replace(/,$/, "").split(",")
-        : [text]
-    );
-  };
+  }, [selectedValues]);
 
   return (
     <div
@@ -75,28 +70,75 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
           className={`montserrat select-field ${
             selectedValues.length > 0 ? "" : "null"
           }`}
-          onInput={(e) => {
-            handleOnChange(e);
+          onClick={() => {
+            if (!props.attributes?.customSelectEnabled) {
+              setIsOpen(!isOpen);
+            }
           }}
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          placeholder={placeholder}
         >
-          {/* {selectedValues.length > 0
+          {selectedValues.length === 0 &&
+            !props.attributes?.customSelectEnabled &&
+            (props.placeholder || "Unset")}
+          {selectedValues.length > 0
             ? selectedValues.map((selection, i) => {
-                if (i === selectedValues.length - 1) return <>{selection}</>;
                 return (
                   <div className="selection-box" key={i}>
-                    {selection}
-                    <FontAwesomeIcon icon={faXmark} />
+                    {props.attributes &&
+                    props.attributes.options &&
+                    // @ts-ignore
+                    props.attributes.options.find((option: any) => {
+                      return (
+                        typeof option !== "string" && option.value === selection
+                      );
+                    })
+                      ? // @ts-ignore
+                        props.attributes.options.find((option: any) => {
+                          return (
+                            typeof option !== "string" &&
+                            option.value === selection
+                          );
+                        }).text
+                      : selection}
+                    <div
+                      className="remove"
+                      onClick={() => {
+                        setSelectedValues((current) => {
+                          current.splice(current.indexOf(selection), 1);
+
+                          return [...current];
+                        });
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faXmark} />
+                    </div>
                   </div>
-                  );
-                })
-              : ""} */}
-          <div className="selection-box">
-            selection
-            <FontAwesomeIcon icon={faXmark} />
-          </div>
+                );
+              })
+            : ""}
+          {props.attributes && props.attributes.customSelectEnabled && (
+            <input
+              type="text"
+              className="selection-input montserrat"
+              placeholder={placeholder}
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value.replaceAll(",", ""));
+              }}
+              onKeyDown={(e) => {
+                if (e.key === ",") {
+                  selectedValues.push(input.trim().replaceAll(",", ""));
+                  setInput("");
+                }
+                if (e.key === "Backspace" && input.length === 0) {
+                  setInput(selectedValues[selectedValues.length - 1]);
+                  setSelectedValues((current) => {
+                    current.pop();
+                    return [...current];
+                  });
+                }
+              }}
+            />
+          )}
         </div>
       </div>
       {!props.disabled && !props.readOnly && options.length > 0 && (
@@ -112,36 +154,50 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
             return (
               <div
                 className={`montserrat option ${
-                  selectedValues.includes(option) ? "selected" : ""
+                  typeof option === "string"
+                    ? selectedValues.includes(option)
+                      ? "selected"
+                      : ""
+                    : selectedValues.includes(option.value)
                 }`}
                 key={i}
                 onClick={() => {
-                  if (selectedValues.includes(option)) {
-                    setSelectedValues((current) => {
-                      if (current.length === 1) {
-                        current = [];
-                      } else {
-                        current = current.splice(
-                          current.indexOf(option) - 1,
-                          1
-                        );
-                      }
-                      return [...current];
-                    });
-                  } else {
-                    setSelectedValues((current) => {
-                      current.push(option);
+                  if (typeof option === "string") {
+                    if (selectedValues.includes(option)) {
+                      setSelectedValues((current) => {
+                        current.splice(current.indexOf(option), 1);
 
-                      return [...current];
-                    });
+                        return [...current];
+                      });
+                    } else {
+                      setSelectedValues((current) => {
+                        current.push(option);
+
+                        return [...current];
+                      });
+                    }
+                  } else {
+                    if (selectedValues.includes(option.value)) {
+                      setSelectedValues((current) => {
+                        current.splice(current.indexOf(option.value), 1);
+
+                        return [...current];
+                      });
+                    } else {
+                      setSelectedValues((current) => {
+                        current.push(option.value);
+
+                        return [...current];
+                      });
+                    }
                   }
                   setIsOpen(false);
                 }}
               >
-                {option}
-                {selectedValues.includes(option) && (
-                  <FontAwesomeIcon icon={faCheck} />
-                )}
+                {typeof option === "string" ? option : option.text}
+                {selectedValues.includes(
+                  typeof option === "string" ? option : option.value
+                ) && <FontAwesomeIcon icon={faCheck} />}
               </div>
             );
           })}
