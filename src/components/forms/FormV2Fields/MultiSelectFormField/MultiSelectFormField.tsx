@@ -6,9 +6,10 @@ import {
   faChevronDown,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { internalValue } from "../../FormV2/FormV2.types";
 
 export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
-  const options: string[] = props.attributes?.options || [];
+  const options: string[] | internalValue[] = props.attributes?.options || [];
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedValues, setSelectedValues] = useState<string[]>(
@@ -82,7 +83,22 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
             ? selectedValues.map((selection, i) => {
                 return (
                   <div className="selection-box" key={i}>
-                    {selection}
+                    {props.attributes &&
+                    props.attributes.options &&
+                    // @ts-ignore
+                    props.attributes.options.find((option: any) => {
+                      return (
+                        typeof option !== "string" && option.value === selection
+                      );
+                    })
+                      ? // @ts-ignore
+                        props.attributes.options.find((option: any) => {
+                          return (
+                            typeof option !== "string" &&
+                            option.value === selection
+                          );
+                        }).text
+                      : selection}
                     <div
                       className="remove"
                       onClick={() => {
@@ -138,30 +154,50 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
             return (
               <div
                 className={`montserrat option ${
-                  selectedValues.includes(option) ? "selected" : ""
+                  typeof option === "string"
+                    ? selectedValues.includes(option)
+                      ? "selected"
+                      : ""
+                    : selectedValues.includes(option.value)
                 }`}
                 key={i}
                 onClick={() => {
-                  if (selectedValues.includes(option)) {
-                    setSelectedValues((current) => {
-                      current.splice(current.indexOf(option), 1);
+                  if (typeof option === "string") {
+                    if (selectedValues.includes(option)) {
+                      setSelectedValues((current) => {
+                        current.splice(current.indexOf(option), 1);
 
-                      return [...current];
-                    });
+                        return [...current];
+                      });
+                    } else {
+                      setSelectedValues((current) => {
+                        current.push(option);
+
+                        return [...current];
+                      });
+                    }
                   } else {
-                    setSelectedValues((current) => {
-                      current.push(option);
+                    if (selectedValues.includes(option.value)) {
+                      setSelectedValues((current) => {
+                        current.splice(current.indexOf(option.value), 1);
 
-                      return [...current];
-                    });
+                        return [...current];
+                      });
+                    } else {
+                      setSelectedValues((current) => {
+                        current.push(option.value);
+
+                        return [...current];
+                      });
+                    }
                   }
                   setIsOpen(false);
                 }}
               >
-                {option}
-                {selectedValues.includes(option) && (
-                  <FontAwesomeIcon icon={faCheck} />
-                )}
+                {typeof option === "string" ? option : option.text}
+                {selectedValues.includes(
+                  typeof option === "string" ? option : option.value
+                ) && <FontAwesomeIcon icon={faCheck} />}
               </div>
             );
           })}

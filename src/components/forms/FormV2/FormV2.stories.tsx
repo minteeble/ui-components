@@ -431,7 +431,17 @@ const MultiSelectFormTemplate: Story<FormV2Props> = (args) => {
       label: "Add tags",
       fieldComponent: MultiSelectFormField,
       attributes: {
-        options: ["One", "Two", "Three", "Four", "Five"],
+        options: [
+          "One",
+          "Two",
+          "Three",
+          "Four",
+          "Five",
+          {
+            text: "collection",
+            value: "address",
+          },
+        ],
         customSelectEnabled: false,
       },
     });

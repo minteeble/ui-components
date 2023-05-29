@@ -1,4 +1,4 @@
-import { FieldComponentProps } from "../../FormV2/FormV2.types";
+import { FieldComponentProps, internalValue } from "../../FormV2/FormV2.types";
 
 export interface MultiSelectFormFieldProps extends FieldComponentProps {
   /**
@@ -8,7 +8,7 @@ export interface MultiSelectFormFieldProps extends FieldComponentProps {
     /**
      * Multi Select Options
      */
-    options?: any[];
+    options?: string[] | internalValue[];
     /**
      * Allow to write custom values. False by default
      */
