@@ -21,6 +21,7 @@ import {
 import { useFormV2 } from "./useFormV2";
 
 import {
+  BooleanCheckboxFormField,
   CheckboxButtonsFormField,
   DropZoneFormField,
   MultiSelectFormField,
@@ -157,13 +158,15 @@ const Template: Story<FormV2Props> = (args) => {
       fieldComponent: MultiSelectFormField,
     });
 
-    // formLogic.addField({
-    //   key: "image",
-    //   value: [],
-    //   label: "Set image",
-
-    //   fieldComponent: DropZoneFormField,
-    // });
+    formLogic.addField({
+      key: "agree",
+      value: false,
+      label: "Accept condition",
+      attributes: {
+        checkboxText: "Accept our conditions",
+      },
+      fieldComponent: BooleanCheckboxFormField,
+    });
 
     formLogic.onFieldValueChange("name", (field) => {
       console.log("Name changed", field.value);

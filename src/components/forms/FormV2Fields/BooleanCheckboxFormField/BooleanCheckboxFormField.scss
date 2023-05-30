@@ -1,0 +1,36 @@
+.form-field.boolean-checkbox-form-field {
+  width: 100%;
+  fieldset {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border: none;
+    .checkbox-wrapper {
+      width: calc(50% - 0.5rem);
+      border: 2px solid var(--border-color);
+      padding: 0.7rem;
+      border-radius: 5px;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+
+      input {
+        outline: none;
+        margin-right: 0.3rem;
+        &:checked {
+          accent-color: #009ac1;
+        }
+      }
+
+      .checkbox-label {
+        font-weight: 600;
+      }
+
+      &.active {
+        border: 2px solid var(--primary-color);
+        background: rgba(222, 227, 236, 0.27);
+      }
+    }
+  }
+}
