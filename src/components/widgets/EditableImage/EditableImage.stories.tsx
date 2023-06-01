@@ -25,6 +25,6 @@ const Template: Story<EditableImageProps> = (args) => (
 
 export const SimpleEditableImage = Template.bind({});
 const SimpleEditableImageArgs: EditableImageProps = {
-  image: "https://picsum.photos/200",
+  image: "https://pics",
 };
 SimpleEditableImage.args = SimpleEditableImageArgs;

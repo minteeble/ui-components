@@ -19,6 +19,9 @@
     overflow: hidden;
     position: relative;
     background: var(--secondary-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &.small {
       width: 4rem;
