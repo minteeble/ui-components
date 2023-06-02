@@ -5,6 +5,9 @@ export enum EditableImagesSize {
 }
 
 export interface EditableImageProps {
-  image: string;
+  image: string | null;
   size?: EditableImagesSize;
+  iconString?: string;
+  onSubmit?: (image: string) => void;
+  onError?: () => void;
 }

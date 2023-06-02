@@ -1,4 +1,4 @@
-.form-field.radio-buttons-form-field {
+.form-field.checkbox-buttons-form-field {
   width: 100%;
   fieldset {
     display: flex;
@@ -7,7 +7,7 @@
     flex-wrap: wrap;
     gap: 1rem;
     border: none;
-    .radio-wrapper {
+    .checkbox-wrapper {
       width: calc(50% - 0.5rem);
       border: 2px solid var(--border-color);
       padding: 0.7rem;
@@ -23,7 +23,7 @@
         }
       }
 
-      .radio-label {
+      .checkbox-label {
         font-weight: 600;
       }
 

@@ -60,6 +60,18 @@ export interface FieldComponentProps {
    * Other key-value
    */
   attributes?: any;
+  /**
+   * Specifies if field is read-only or not. False by default.
+   */
+  readOnly?: boolean;
+  /**
+   * Specifies if value can be copied in readonly mode. False by default
+   */
+  copyable?: boolean;
+  /**
+   * Specifies if the field can be edit or not. False by default
+   */
+  disabled?: boolean;
 }
 
 export interface FormFieldUpdateModel {
@@ -87,6 +99,11 @@ export interface FormFieldUpdateModel {
    * Specifies if field is read-only or not. False by default.
    */
   readOnly?: boolean;
+
+  /**
+   * Specifies if field is required or not.
+   */
+  required?: boolean;
 }
 
 export interface FormFieldState {
@@ -119,6 +136,11 @@ export interface FormFieldState {
    * Other key-value
    */
   attributes?: any;
+
+  /**
+   * Specifies if field is required or not.
+   */
+  required?: boolean;
 
   /**
    * Field component to be used.
@@ -159,9 +181,24 @@ export interface FormFieldState {
   displayInvalidValue?: boolean;
 
   /**
+   * If set to true, than the errors appean every time they are fired. Instead,
+   * if set to false, it will be checked for errors just during the submit operation.
+   * False by default.
+   */
+  showLiveError?: boolean;
+
+  /**
    * Specifies if field is read-only or not. False by default.
    */
   readOnly?: boolean;
+  /**
+   * Specifies if value can be copied in readonly mode. False by default
+   */
+  copyable?: boolean;
+  /**
+   * Specifies if the field can be edit or not. False by default
+   */
+  disabled?: boolean;
 }
 
 // TODO fix/remove
@@ -271,7 +308,21 @@ export interface FormLogic {
   /**
    * Submits form. It fires the onSubmit event
    */
-  submit(): void;
+  submit(): Promise<void>;
+  /**
+   * Specifies submit button alignment. Center by default
+   */
+  submitAlignment: SubmitButtonAlignment;
+  /**
+   * Allow to set submit button alignment
+   * @param value new alignment
+   */
+  setSubmitButtonAlignment: (value: SubmitButtonAlignment) => void;
+
+  /**
+   * Specififes if form has been already initialized or not.
+   */
+  formInitialized: boolean;
 }
 
 /**
@@ -293,5 +344,34 @@ export interface FormOnSubmitDataModel {
  * Form V2 props object
  */
 export interface FormV2Props {
+  /**
+   * For logic object
+   */
   formLogic: FormLogic;
+
+  /**
+   * On Submit callback.
+   */
+  onSubmit?: (formData: FormOnSubmitDataModel) => void | Promise<void>;
+}
+/**
+ * Submit button alignment
+ */
+export enum SubmitButtonAlignment {
+  Left = 1,
+  Center,
+  Right,
+}
+/**
+ * Internal value option
+ */
+export interface internalValue {
+  /**
+   * Displayed value
+   */
+  text: string;
+  /**
+   * Real value
+   */
+  value: string;
 }

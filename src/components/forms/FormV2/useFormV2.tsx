@@ -15,10 +15,27 @@ import {
   FormInjectedData,
   FormLogic,
   FormOnSubmitDataModel,
+  SubmitButtonAlignment,
   UseFormV2Props,
 } from "./FormV2.types";
 import lodash from "lodash";
 import { FieldState } from "../Form/Form";
+
+class FormLogicHandler {
+  public onSubmitCallback: (
+    formData: FormOnSubmitDataModel
+  ) => void | Promise<void>;
+
+  constructor() {
+    this.onSubmitCallback = () => {};
+  }
+
+  public setOnSubmitCallback(
+    callback: (formData: FormOnSubmitDataModel) => void
+  ): void {
+    this.onSubmitCallback = callback;
+  }
+}
 
 /**
  * Custom hook for handling Form V2 logic
@@ -37,9 +54,13 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   }>({});
   const [isSubmitEnabled, setIsSubmitEnabled] = useState<boolean>(true);
   const [submitButtonText, setSubmitButtonText] = useState<string>("Submit");
-  const [onSubmitCallback, setOnSubmitCallback] = useState<
-    (formData: FormOnSubmitDataModel) => void
-  >(() => {});
+  const [logicHandler, setLogicHandler] = useState<FormLogicHandler>(
+    new FormLogicHandler()
+  );
+  const [submitAlignment, setSubmitAlignment] = useState<SubmitButtonAlignment>(
+    SubmitButtonAlignment.Center
+  );
+  const [formInitialized, setForminitialized] = useState<boolean>(false);
 
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
@@ -106,6 +127,12 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     internalOnValueChange();
   }, [fieldsInfo]);
 
+  useEffect(() => {
+    if (fieldsInfo.length !== 0 && !formInitialized) {
+      setForminitialized(true);
+    }
+  }, [fieldsInfo]);
+
   const updateField = (
     key: string,
     updateModel: FormFieldUpdateModel
@@ -135,9 +162,24 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           field.readOnly = updateModel.readOnly ?? field.readOnly;
         }
 
+        if (field.required !== updateModel.required) {
+          field.required = updateModel.required ?? field.required;
+        }
+
         return [...oldFields];
       } else throw new Error(`Error or updating field "${key}"`);
     });
+  };
+
+  /**
+   * Determines if the provided field value can be considered as "emoty" or not.
+   */
+  const isEmpty = (value: any) => {
+    if (!value) return true;
+
+    if (Array.isArray(value) && value.length === 0) return true;
+
+    return false;
   };
 
   const setValue = (key: string, newValue: any): void => {
@@ -145,17 +187,25 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
       // Checks if field exists
       let field = fieldsInfo.find((field) => field.key === key);
 
+      console.log("Fields", fieldsInfo);
+
       if (field) {
         field.error = "";
 
         let validationResult: boolean | string = true;
 
+        console.log(field.required, field.key);
+        if (field.required && isEmpty(newValue)) {
+          validationResult = "Field is required";
+          console.log(field.key, "is empty");
+          field.value = newValue;
+        }
         // If present, run validation
-        if (field.validate) {
+        else if (field.validate) {
           validationResult = field.validate(newValue);
         }
 
-        if (validationResult === true) {
+        if (validationResult === true || field.displayInvalidValue) {
           // Value is valid
 
           if (field.transform) {
@@ -168,10 +218,16 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           // Fires onChaneg event for the updated field
           internalOnKeyValueChanged(field.key, field);
 
-          return [...oldFields];
+          if (validationResult !== true) {
+            let errorMessage =
+              typeof validationResult === "string"
+                ? validationResult
+                : "Invalid value";
+
+            field.error = errorMessage;
+          }
         } else {
           // Value is not valid.
-
           // Determining if the default error message or a custom one has to be used
           let errorMessage =
             typeof validationResult === "string"
@@ -181,10 +237,12 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           field.error = errorMessage;
           console.log("Validation error:", errorMessage);
         }
+
+        return [...oldFields];
       } else
         throw new Error(`Error or setting new value field for key "${key}"`);
 
-      return oldFields;
+      // return [...oldFields];
     });
   };
 
@@ -197,7 +255,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   };
 
   // Creates the final data mapping object
-  const buildValesObject = (): { [key: string]: any } => {
+  const buildValuesObject = (): { [key: string]: any } => {
     let dataObject: { [key: string]: any } = {};
 
     fieldsInfo
@@ -215,14 +273,26 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     return dataObject;
   };
 
-  const onSubmit = (callback: (formData: FormOnSubmitDataModel) => void) => {
-    setOnSubmitCallback(() => callback);
+  const onSubmit = (
+    callback: (formData: FormOnSubmitDataModel) => void | Promise<void>
+  ) => {
+    logicHandler.setOnSubmitCallback(callback);
   };
 
-  const submit = () => {
-    if (onSubmitCallback as any)
-      onSubmitCallback({ fields: fieldsInfo, values: buildValesObject() });
-    else console.log("Unhandled submit.");
+  const submit = async () => {
+    let hasErrors = fieldsInfo.find((field) => field.error);
+
+    if (!hasErrors) {
+      if (logicHandler.onSubmitCallback as any)
+        await logicHandler.onSubmitCallback({
+          fields: fieldsInfo,
+          values: buildValuesObject(),
+        });
+    }
+  };
+
+  const setSubmitButtonAlignment = (value: SubmitButtonAlignment) => {
+    setSubmitAlignment(value);
   };
 
   // Returns a FormLogic object
@@ -240,5 +310,8 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     setSubmitText,
     submit,
     onSubmit,
+    submitAlignment,
+    formInitialized,
+    setSubmitButtonAlignment,
   };
 };

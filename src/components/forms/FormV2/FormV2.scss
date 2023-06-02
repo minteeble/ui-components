@@ -5,9 +5,9 @@
   flex-direction: column;
   width: 100%;
   padding: 1.5rem;
+  gap: 1.5rem;
   .field-wrapper {
     width: 100%;
-    margin-bottom: 1.5rem;
 
     .field-info {
       width: 100%;
@@ -29,6 +29,33 @@
       }
       .field-error {
         color: rgb(161, 0, 0);
+      }
+    }
+
+    &.readonly {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+      border: 1px solid var(--border-color-trs);
+      border-radius: 10px;
+
+      .read-only-wrapper {
+        padding: 0.35rem 0.5rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--border-color-trs);
+        }
+      }
+
+      .field-label {
+        opacity: 0.5;
+        font-weight: 500;
+        white-space: nowrap;
       }
     }
   }

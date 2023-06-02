@@ -1,33 +1,58 @@
 import React from "react";
 import { RadioButtonsFormFieldProps } from "./RadioButtonsFormField.types";
+import { internalValue } from "../../FormV2/FormV2.types";
 
 export const RadioButtonsFormField = (props: RadioButtonsFormFieldProps) => {
-  let options = props.attributes?.options || [];
+  const options: string[] | internalValue[] = props.attributes?.options || [];
 
-  const optionToInputName = (optionString: string) => {
-    return optionString.replaceAll(/\s/g, "-").toLowerCase();
+  const optionToInputName = (optionString: string | internalValue) => {
+    return (typeof optionString === "string" ? optionString : optionString.text)
+      .replaceAll(/\s/g, "-")
+      .toLowerCase();
   };
 
   return (
-    <div className="form-field radio-buttons-form-field">
+    <div
+      className={`form-field radio-buttons-form-field ${
+        props.disabled ? "disabled" : ""
+      }`}
+    >
       <fieldset>
         {options.map((option) => {
           let name = optionToInputName(option);
 
           return (
-            <>
+            <div
+              className={`radio-wrapper ${
+                props.value === option ? "active" : ""
+              }`}
+              onClick={() => {
+                if (typeof option === "string") {
+                  props.setValue(option);
+                } else {
+                  props.setValue(option.value);
+                }
+              }}
+            >
               <input
                 type="radio"
                 name={name}
                 key={name}
-                value={option}
-                checked={props.value === option}
+                value={typeof option === "string" ? option : option.text}
+                checked={
+                  (typeof option === "string" && props.value === option) ||
+                  (typeof option !== "string" && props.value === option.value)
+                }
                 onChange={(e) => {
-                  props.setValue(option);
+                  props.setValue(
+                    typeof option === "string" ? option : option.value
+                  );
                 }}
               />
-              <label htmlFor={name}>{option}</label>
-            </>
+              <label className="montserrat radio-label" htmlFor={name}>
+                {typeof option === "string" ? option : option.text}
+              </label>
+            </div>
           );
         })}
       </fieldset>

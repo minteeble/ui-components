@@ -17,7 +17,12 @@ const PageRow = (props: PageRowProps) => {
   let pageAlignmentClass = alignmentClasses[props.alignment || 0];
 
   return (
-    <div className={"page-row " + pageAlignmentClass} style={props.style}>
+    <div
+      className={`page-column ${pageAlignmentClass} ${
+        props.className ? props.className : ""
+      }`}
+      style={props.style}
+    >
       {props.children}
     </div>
   );
