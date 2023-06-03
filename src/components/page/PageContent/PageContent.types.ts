@@ -10,4 +10,6 @@
 
 import { ParentComponent } from "../../../models";
 
-export interface PageContentProps extends ParentComponent {}
+export interface PageContentProps extends ParentComponent {
+  className?: string;
+}

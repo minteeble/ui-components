@@ -12,7 +12,11 @@ import React from "react";
 import { PageContentProps } from "./PageContent.types";
 
 const PageContent = (props: PageContentProps) => {
-  return <div className="page-content">{props.children}</div>;
+  return (
+    <div className={`page-content ${props.className ? props.className : ""}`}>
+      {props.children}
+    </div>
+  );
 };
 
 export default PageContent;
