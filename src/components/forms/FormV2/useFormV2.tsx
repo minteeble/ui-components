@@ -96,6 +96,10 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
     });
   };
 
+  const clearForm = () => {
+    setFieldsInfo([]);
+  };
+
   const internalOnValueChange = () => {
     if (onValueChangeCallback) onValueChangeCallback(fieldsInfo);
   };
@@ -299,6 +303,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   return {
     addField,
     removeField,
+    clearForm,
     setValue,
     updateField,
     fields: fieldsInfo,

@@ -28,6 +28,8 @@
     transform: translate(-50%) scale(0);
     background-color: var(--primary-bg);
     border-radius: 0.4rem;
+    min-width: 25rem;
+    max-width: 95vw;
 
     .popup-cross {
       position: absolute;

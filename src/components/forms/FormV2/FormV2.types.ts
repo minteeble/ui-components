@@ -236,6 +236,10 @@ export interface FormLogic {
   removeField(key: string): void;
 
   /**
+   * Allow to clear all form fields
+   */
+  clearForm: () => void;
+  /**
    * Sets a new value for an existing field.
    *
    * @param key Key of the field to be updated
