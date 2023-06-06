@@ -6,3 +6,4 @@ export * from "./CheckboxButtonsFormField";
 export * from "./ReadOnlyField";
 export * from "./MultiSelectFormField";
 export * from "./DropZoneFormField";
+export * from "./BooleanCheckboxFormField";

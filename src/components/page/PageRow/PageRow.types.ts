@@ -19,4 +19,5 @@ export enum PageRowAlignment {
 
 export interface PageRowProps extends ParentComponent, StylableComponent {
   alignment?: PageRowAlignment;
+  className?: string;
 }
