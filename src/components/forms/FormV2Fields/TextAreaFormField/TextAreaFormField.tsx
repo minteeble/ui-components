@@ -36,7 +36,7 @@ export const TextAreaFormField = (props: TextAreaFormFieldProps) => {
                 TextAreaFormFieldResizeOption.None
           ] as any,
         }}
-        className="montserrat"
+        className="montserrat form-textarea"
         value={props.value}
         onChange={(e) => {
           props.setValue(e.target.value);
