@@ -19,7 +19,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { LoadingSpinner, LoadingSpinnerSize } from "../../common";
 
-export enum SubmisssionStatus {
+export enum SubmissionStatus {
   None = "None",
   Submitting = "Submitting",
   Submitted = "Submitted",
@@ -37,8 +37,8 @@ export const FormV2 = (props: FormV2Props) => {
       throw new Error("FormLogic is undefined");
   }, [props.formLogic]);
 
-  const [submitted, setSubmitted] = useState<SubmisssionStatus>(
-    SubmisssionStatus.None
+  const [submitted, setSubmitted] = useState<SubmissionStatus>(
+    SubmissionStatus.None
   );
 
   let formLogic = props.formLogic;
@@ -54,7 +54,7 @@ export const FormV2 = (props: FormV2Props) => {
   }, [props.onSubmit]);
 
   useEffect(() => {
-    setSubmitted(SubmisssionStatus.None);
+    setSubmitted(SubmissionStatus.None);
   }, [formData.fields]);
 
   let hasErrors = formData.fields.find(
@@ -96,6 +96,8 @@ export const FormV2 = (props: FormV2Props) => {
           />
         );
 
+        console.log("Errors for field", fieldInfo.key, ":", fieldInfo.error);
+
         if (fieldInfo.enableCustomRendering) {
           fieldsComponentsList.push(fieldComponent);
         } else if (fieldInfo.readOnly) {
@@ -129,7 +131,7 @@ export const FormV2 = (props: FormV2Props) => {
                 </label>
                 <p className="field-error">
                   {fieldInfo.showLiveError ||
-                  submitted === SubmisssionStatus.Submitted
+                  submitted === SubmissionStatus.Submitted
                     ? fieldInfo.error
                     : ""}
                 </p>
@@ -162,14 +164,14 @@ export const FormV2 = (props: FormV2Props) => {
   }
 
   const handleSubmit = async () => {
-    setSubmitted(SubmisssionStatus.Submitting);
+    setSubmitted(SubmissionStatus.Submitting);
 
     try {
       await props.formLogic.submit();
-      setSubmitted(SubmisssionStatus.Submitted);
+      setSubmitted(SubmissionStatus.Submitted);
     } catch (err) {
       console.log("Error on submitting", err);
-      setSubmitted(SubmisssionStatus.None);
+      setSubmitted(SubmissionStatus.None);
     }
   };
 
@@ -192,7 +194,7 @@ export const FormV2 = (props: FormV2Props) => {
                 : "flex-end",
           }}
         >
-          {submitted === SubmisssionStatus.Submitting ? (
+          {submitted === SubmissionStatus.Submitting ? (
             <LoadingSpinner Size={LoadingSpinnerSize.Medium} />
           ) : (
             <Button

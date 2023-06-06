@@ -62,6 +62,55 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
   );
   const [formInitialized, setForminitialized] = useState<boolean>(false);
 
+  const fieldValidation = (field: FormFieldState) => {
+    if (field) {
+      field.error = "";
+
+      let validationResult: boolean | string = true;
+
+      console.log(field.required, field.key);
+      if (field.required && isEmpty(field.value)) {
+        validationResult = "Field is required";
+        console.log(field.key, "is empty");
+      }
+      // If present, run validation
+      else if (field.validate) {
+        validationResult = field.validate(field.value);
+      }
+
+      if (validationResult === true || field.displayInvalidValue) {
+        // Value is valid
+
+        if (field.transform) {
+          // If transform predicate is set, sanitizes the value through it
+          field.value = field.transform(field.value);
+        }
+
+        // Fires onChange event for the updated field
+        internalOnKeyValueChanged(field.key, field);
+
+        if (validationResult !== true) {
+          let errorMessage =
+            typeof validationResult === "string"
+              ? validationResult
+              : "Invalid value";
+
+          field.error = errorMessage;
+        }
+      } else {
+        // Value is not valid.
+        // Determining if the default error message or a custom one has to be used
+        let errorMessage =
+          typeof validationResult === "string"
+            ? validationResult
+            : "Invalid value";
+
+        field.error = errorMessage;
+        console.log("Validation error:", errorMessage);
+      }
+    }
+  };
+
   const addField = (newField: FormFieldState): void => {
     // Checks if field exists
     let fieldAlreadyPresent = fieldsInfo.find(
@@ -72,6 +121,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
       throw new Error("Error on adding new field: Field key already present.");
 
     setFieldsInfo((oldFields) => {
+      fieldValidation(newField);
       return [...oldFields, newField];
     });
   };
@@ -219,7 +269,7 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
             field.value = newValue;
           }
 
-          // Fires onChaneg event for the updated field
+          // Fires onChange event for the updated field
           internalOnKeyValueChanged(field.key, field);
 
           if (validationResult !== true) {
@@ -241,6 +291,8 @@ export const useFormV2 = (props: UseFormV2Props): FormLogic => {
           field.error = errorMessage;
           console.log("Validation error:", errorMessage);
         }
+
+        console.log(oldFields);
 
         return [...oldFields];
       } else

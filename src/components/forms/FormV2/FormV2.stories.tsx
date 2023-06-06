@@ -44,7 +44,7 @@ const Template: Story<FormV2Props> = (args) => {
   useEffect(() => {
     formLogic.addField({
       key: "name",
-      value: "John",
+      value: "",
       required: true,
       label: "Name",
       transform: (value) => value.toLowerCase(),
@@ -52,7 +52,6 @@ const Template: Story<FormV2Props> = (args) => {
         console.log("Value", value, value.length < 15);
         return value.length < 15;
       },
-      showLiveError: true,
       displayInvalidValue: true,
       placeholder: "Enter name...",
       attributes: {},
@@ -68,7 +67,6 @@ const Template: Story<FormV2Props> = (args) => {
       transform: (value) => value.toUpperCase(),
       copyable: true,
       required: true,
-      showLiveError: true,
     });
 
     formLogic.addField({
@@ -102,7 +100,7 @@ const Template: Story<FormV2Props> = (args) => {
       key: "select",
       value: "",
       label: "Color",
-
+      required: true,
       placeholder: "Select a color...",
       attributes: {
         options: ["blue", "green", "red", "yellow", "brown", "black", "white"],
