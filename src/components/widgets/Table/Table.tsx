@@ -2,13 +2,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import TablePaginator, { usePaginator } from "./components/TablePaginator";
 import { RecordItem, TableProps, TableRecord } from "./Table.types";
-import { faCircleExclamation, faCopy } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faCircleExclamation,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
 import TableToolbar, {
   TableToolbarItems,
   TableToolbarItemsPosition,
 } from "./components/TableToolbar";
 import { Button } from "../../forms";
 import { LoadingSpinner, LoadingSpinnerSize } from "../../common";
+
+export interface CopiedValue {
+  row: number;
+  fieldName: string;
+}
 
 const Table = (props: TableProps) => {
   const header = props.header || [];
@@ -19,6 +28,8 @@ const Table = (props: TableProps) => {
   const [currentToolbarItems, setCurrentToolbarItems] = useState<
     Array<TableToolbarItems>
   >([]);
+
+  const [copiedValue, setCopiedValue] = useState<CopiedValue | null>(null);
 
   let fieldNames: Array<string> = [];
 
@@ -129,13 +140,23 @@ const Table = (props: TableProps) => {
                     </div>
                   )}
                   {paginatorLogic.currentRecords.length > 0 ? (
-                    paginatorLogic.currentRecords.map((record) => {
+                    paginatorLogic.currentRecords.map((record, rowIndex) => {
                       return (
                         <div className="table-record-wrapper">
                           <div
                             onClick={() => {
                               if (props.rowsClickable && props.onRowClick) {
                                 props.onRowClick(record);
+                              }
+                            }}
+                            onMouseDown={(e: any) => {
+                              if (props.rowsClickable) {
+                                e.target.classList.add("click");
+                              }
+                            }}
+                            onMouseUp={(e: any) => {
+                              if (props.rowsClickable) {
+                                e.target.classList.remove("click");
                               }
                             }}
                             className={`table-record ${
@@ -155,10 +176,30 @@ const Table = (props: TableProps) => {
                                         onClick={(e) => {
                                           e.preventDefault();
                                           e.stopPropagation();
-                                          console.log("Copy");
+
+                                          window.navigator.clipboard.writeText(
+                                            item.value
+                                          );
+
+                                          setCopiedValue({
+                                            row: rowIndex,
+                                            fieldName: item.fieldName,
+                                          });
+                                          setTimeout(() => {
+                                            setCopiedValue(null);
+                                          }, 2000);
                                         }}
                                       >
-                                        <FontAwesomeIcon icon={faCopy} />
+                                        <FontAwesomeIcon
+                                          icon={
+                                            copiedValue &&
+                                            copiedValue.fieldName ===
+                                              item.fieldName &&
+                                            copiedValue.row === rowIndex
+                                              ? faCheck
+                                              : faCopy
+                                          }
+                                        />
                                       </div>
                                     )}
                                     {item.value}

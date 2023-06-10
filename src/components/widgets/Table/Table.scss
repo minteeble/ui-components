@@ -141,7 +141,7 @@
                     }
                   }
 
-                  &:active {
+                  &.click {
                     &::after,
                     &::before {
                       width: calc(100% - 1.3rem);
