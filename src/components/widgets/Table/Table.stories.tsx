@@ -89,6 +89,7 @@ const SimpleTableArgs: TableProps = {
   header: [
     {
       fieldName: "book name",
+      copyable: true,
     },
     {
       fieldName: "ordered amount",
@@ -921,6 +922,7 @@ const PaginableTableArgs: TableProps = {
   header: [
     {
       fieldName: "book name",
+      copyable: true,
     },
     {
       fieldName: "ordered amount",

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import TablePaginator, { usePaginator } from "./components/TablePaginator";
 import { RecordItem, TableProps, TableRecord } from "./Table.types";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation, faCopy } from "@fortawesome/free-solid-svg-icons";
 import TableToolbar, {
   TableToolbarItems,
   TableToolbarItemsPosition,
@@ -146,6 +146,21 @@ const Table = (props: TableProps) => {
                               return (
                                 <div className="table-record-item" key={index}>
                                   <span className="table-record-item-text">
+                                    {header.find(
+                                      (head) =>
+                                        head.fieldName === item.fieldName
+                                    )?.copyable && (
+                                      <div
+                                        className="copy"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          e.stopPropagation();
+                                          console.log("Copy");
+                                        }}
+                                      >
+                                        <FontAwesomeIcon icon={faCopy} />
+                                      </div>
+                                    )}
                                     {item.value}
                                   </span>
                                 </div>

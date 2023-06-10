@@ -14,6 +14,11 @@ export interface HeaderItem {
   fieldName: string;
 
   /**
+   * Specifies if column values are copyable
+   */
+  copyable?: boolean;
+
+  /**
    * Column max width (optional).
    */
   maxWidth?: string;
