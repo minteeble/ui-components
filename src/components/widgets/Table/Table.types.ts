@@ -48,6 +48,10 @@ export interface TableRecord {
    * Record data.
    */
   items: Array<RecordItem>;
+  /**
+   * Record link
+   */
+  link?: string;
 }
 
 /**

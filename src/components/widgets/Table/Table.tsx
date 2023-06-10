@@ -57,9 +57,14 @@ const Table = (props: TableProps) => {
       let sorted: TableRecord[] = [];
 
       for (let i = 0; i < records.length; i++) {
-        let sortedRecordItems: TableRecord = {
-          items: [],
-        };
+        let sortedRecordItems: TableRecord = records[i].link
+          ? {
+              items: [],
+              link: records[i].link,
+            }
+          : {
+              items: [],
+            };
 
         for (let z = 0; z < fieldNames.length; z++) {
           sortedRecordItems.items.push({
@@ -143,8 +148,16 @@ const Table = (props: TableProps) => {
                     paginatorLogic.currentRecords.map((record, rowIndex) => {
                       return (
                         <div className="table-record-wrapper">
-                          <div
-                            onClick={() => {
+                          <a
+                            href={record.link}
+                            style={{
+                              cursor:
+                                record.link && props.rowsClickable
+                                  ? "cursor"
+                                  : "unset",
+                            }}
+                            onClick={(e) => {
+                              e.preventDefault();
                               if (props.rowsClickable && props.onRowClick) {
                                 props.onRowClick(record);
                               }
@@ -207,7 +220,7 @@ const Table = (props: TableProps) => {
                                 </div>
                               );
                             })}
-                          </div>
+                          </a>
                         </div>
                       );
                     })

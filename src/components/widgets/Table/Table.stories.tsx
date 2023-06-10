@@ -44,6 +44,7 @@ const SimpleTableArgs: TableProps = {
           fieldName: "book discount",
         },
       ],
+      link: "https://google.com",
     },
     {
       items: [
@@ -237,6 +238,7 @@ const PaginableTableArgs: TableProps = {
           fieldName: "book price",
         },
       ],
+      link: "https://google.com",
     },
     {
       items: [
