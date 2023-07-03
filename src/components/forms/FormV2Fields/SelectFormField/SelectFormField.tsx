@@ -10,26 +10,45 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
   const dropUp = props.attributes?.dropUp || false;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const [defaultVal, setDefaultVal] = useState<internalValue | null>(null);
+
   const [currentOption, setCurrentOption] = useState<string | null>(
-    props.value ? props.value : null
+    props.value && options ? (defaultVal ? defaultVal.text : props.value) : null
   );
+
+  useEffect(() => {
+    if (options.length > 0 && props.value) {
+      // @ts-ignore
+      const res = options.find(
+        // @ts-ignore
+        (item) => {
+          return typeof item !== "string" && item.value == props.value;
+        }
+      );
+
+      if (res) {
+        setDefaultVal(res);
+      }
+    }
+  }, [options, props.value]);
 
   const field = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (currentOption) {
-      let value =
+    if (props.value) {
+      let text =
         // @ts-ignore
         options.find((val: any) => {
-          return typeof val === "string" && val === currentOption;
+          return typeof val === "string" && val === props.value;
         }) ||
         // @ts-ignore
         options.find((val: any) => {
-          return typeof val !== "string" && val.text === currentOption;
-        }).value;
-      props.setValue(value);
+          return typeof val !== "string" && val.value === props.value;
+        }).text;
+      setCurrentOption(text);
     }
-  }, [currentOption]);
+  }, [props.value]);
 
   useEffect(() => {
     function handleClickOutside(event: any) {
@@ -87,8 +106,8 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
                 }`}
                 key={i}
                 onClick={() => {
-                  setCurrentOption(
-                    typeof option === "string" ? option : option.text
+                  props.setValue(
+                    typeof option === "string" ? option : option.value
                   );
                   setIsOpen(false);
                 }}
