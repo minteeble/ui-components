@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DropZone from "../../../widgets/DropZone/DropZone";
 import Button from "../../Button";
 import { DropZoneFormFieldProps } from "./DropZoneFormField.types";
@@ -11,6 +11,10 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   const [edit, setEdit] = useState<boolean>(false);
 
   const [fileName, setFileName] = useState<string>("None");
+
+  useEffect(() => {
+    setCurrentImage(props.value);
+  }, [props.value]);
 
   return (
     <>
@@ -30,9 +34,6 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                     let reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = () => {
-                      setCurrentImage(
-                        reader.result?.toString() || currentImage
-                      );
                       props.setValue(reader.result?.toString() || currentImage);
                       setFileName(file.name.replace(/.[a-z]*$/, ""));
                       setEdit(false);

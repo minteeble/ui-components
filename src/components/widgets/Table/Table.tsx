@@ -49,8 +49,7 @@ const Table = (props: TableProps) => {
       }
       setCurrentToolbarItems(newItems);
     }
-  }),
-    [props.toolbarProps];
+  }, [props.toolbarProps]);
 
   useEffect(() => {
     if (records) {
