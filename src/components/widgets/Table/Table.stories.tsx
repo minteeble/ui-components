@@ -44,6 +44,7 @@ const SimpleTableArgs: TableProps = {
           fieldName: "book discount",
         },
       ],
+      link: "https://google.com",
     },
     {
       items: [
@@ -89,6 +90,7 @@ const SimpleTableArgs: TableProps = {
   header: [
     {
       fieldName: "book name",
+      copyable: true,
     },
     {
       fieldName: "ordered amount",
@@ -236,6 +238,7 @@ const PaginableTableArgs: TableProps = {
           fieldName: "book price",
         },
       ],
+      link: "https://google.com",
     },
     {
       items: [
@@ -921,6 +924,7 @@ const PaginableTableArgs: TableProps = {
   header: [
     {
       fieldName: "book name",
+      copyable: true,
     },
     {
       fieldName: "ordered amount",

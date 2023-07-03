@@ -1,6 +1,6 @@
 {
   "name": "@minteeble/ui-components",
-  "version": "1.0.63",
+  "version": "1.0.64",
   "description": "Minteeble UI components package",
   "repository": "https://github.com/minteeble/ui-components.git",
   "author": "Samuele Girgenti <samuele.girgenti458@gmail.com>",
@@ -15,7 +15,8 @@
     "build": "rollup -c",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "set-dev": "./scripts/set-dev-env.sh"
+    "set-dev": "./scripts/set-dev-env.sh",
+    "pub": "yarn build && yarn publish"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
