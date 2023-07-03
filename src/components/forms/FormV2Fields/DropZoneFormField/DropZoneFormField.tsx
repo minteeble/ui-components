@@ -10,7 +10,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
 
   const [edit, setEdit] = useState<boolean>(false);
 
-  const [fileName, setFileName] = useState<string>("None");
+  const [fileName, setFileName] = useState<string>("");
 
   useEffect(() => {
     setCurrentImage(props.value);
