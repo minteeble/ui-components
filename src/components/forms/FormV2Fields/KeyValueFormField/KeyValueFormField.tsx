@@ -46,7 +46,7 @@ const KeyValueFormField = (props: KeyValueFormFieldProps) => {
                 <div className="item">
                   <input
                     type="text"
-                    className="key"
+                    className="key montserrat"
                     placeholder="key"
                     value={item.key}
                     onChange={(e) => {
@@ -65,7 +65,7 @@ const KeyValueFormField = (props: KeyValueFormFieldProps) => {
                   />
                   <input
                     type="text"
-                    className="value"
+                    className="value montserrat"
                     value={item.value}
                     placeholder="value"
                     onChange={(e) => {

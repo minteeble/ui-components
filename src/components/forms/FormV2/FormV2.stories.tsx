@@ -160,7 +160,7 @@ const Template: Story<FormV2Props> = (args) => {
     formLogic.addField({
       key: "option",
       value: {
-        value: "ciao",
+        key: "value",
       },
       fieldComponent: KeyValueFormField,
       label: "Options",
