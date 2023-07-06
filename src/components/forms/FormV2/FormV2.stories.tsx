@@ -24,6 +24,7 @@ import {
   BooleanCheckboxFormField,
   CheckboxButtonsFormField,
   DropZoneFormField,
+  KeyValueFormField,
   MultiSelectFormField,
   RadioButtonsFormField,
   SelectFormField,
@@ -154,6 +155,15 @@ const Template: Story<FormV2Props> = (args) => {
         options: ["BMW", "Audi", "Mercedes"],
       },
       fieldComponent: MultiSelectFormField,
+    });
+
+    formLogic.addField({
+      key: "option",
+      value: {
+        value: "ciao",
+      },
+      fieldComponent: KeyValueFormField,
+      label: "Options",
     });
 
     formLogic.addField({
