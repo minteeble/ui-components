@@ -126,8 +126,12 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
               }}
               onKeyDown={(e) => {
                 if (e.key === ",") {
-                  selectedValues.push(input.trim().replaceAll(",", ""));
-                  setInput("");
+                  setSelectedValues((current) => {
+                    current.push(input.trim().replaceAll(",", ""));
+                    setInput("");
+                    props.setValue(current);
+                    return [...current];
+                  });
                 }
                 if (e.key === "Backspace" && input.length === 0) {
                   setInput(selectedValues[selectedValues.length - 1]);

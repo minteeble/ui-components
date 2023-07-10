@@ -153,8 +153,10 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Select your Car Brand",
       attributes: {
         options: ["BMW", "Audi", "Mercedes"],
+        customSelectEnabled: true,
       },
       fieldComponent: MultiSelectFormField,
+      required: true,
     });
 
     formLogic.addField({
