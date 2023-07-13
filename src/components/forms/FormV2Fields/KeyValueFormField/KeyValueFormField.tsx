@@ -9,28 +9,24 @@ import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 const KeyValueFormField = (props: KeyValueFormFieldProps) => {
   const [items, setItems] = useState<Array<KeyValueItem>>([]);
 
-  useEffect(() => {
-    if (typeof props.value === "object") {
-      setItems(
-        Object.keys(props.value).map((item) => {
-          return {
-            key: item,
-            value: props.value[item],
-          };
-        })
-      );
-    }
-  }, []);
-
-  useEffect(() => {
+  const setValueFromItems = (newItems: KeyValueItem[]) => {
     let res: { [key: string]: string } = {};
 
-    items.forEach((item) => {
+    newItems.forEach((item) => {
       res[item.key] = item.value;
     });
 
     props.setValue(res);
-  }, [items]);
+  };
+
+  useEffect(() => {
+    setItems(
+      Object.keys(props.value).map((item) => ({
+        key: item,
+        value: props.value[item],
+      }))
+    );
+  }, [props.value]);
 
   return (
     <>
@@ -59,6 +55,8 @@ const KeyValueFormField = (props: KeyValueFormFieldProps) => {
                           element.key = e.target.value;
                         }
 
+                        setValueFromItems(current);
+
                         return [...current];
                       });
                     }}
@@ -78,6 +76,8 @@ const KeyValueFormField = (props: KeyValueFormFieldProps) => {
                           element.value = e.target.value;
                         }
 
+                        setValueFromItems(current);
+
                         return [...current];
                       });
                     }}
@@ -87,6 +87,8 @@ const KeyValueFormField = (props: KeyValueFormFieldProps) => {
                     onClick={() => {
                       setItems((current) => {
                         current.splice(i, 1);
+                        setValueFromItems(current);
+
                         return [...current];
                       });
                     }}
@@ -105,6 +107,7 @@ const KeyValueFormField = (props: KeyValueFormFieldProps) => {
           onClick={() => {
             setItems((current) => {
               current.push({ key: "", value: "" });
+              setValueFromItems(current);
 
               return [...current];
             });
