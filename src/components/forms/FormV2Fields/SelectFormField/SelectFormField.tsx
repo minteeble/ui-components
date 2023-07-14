@@ -5,50 +5,64 @@ import { faCheck, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { internalValue } from "../../FormV2/FormV2.types";
 
 export const SelectFormField = (props: SelectFormFieldProps) => {
-  const options: string[] | internalValue[] = props.attributes?.options || [];
-
   const dropUp = props.attributes?.dropUp || false;
+
+  const [options, setOptions] = useState<Array<string> | Array<internalValue>>(
+    props.attributes?.options || []
+  );
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const [defaultVal, setDefaultVal] = useState<internalValue | null>(null);
-
   const [currentOption, setCurrentOption] = useState<string | null>(
-    props.value && options ? (defaultVal ? defaultVal.text : props.value) : null
+    props.value && options.length > 0
+      ? // @ts-ignore
+        options.find(
+          (item: any) =>
+            typeof item !== "string" && item.value === props.value.value
+        ) || props.value
+      : null
   );
 
   useEffect(() => {
-    if (options.length > 0 && props.value) {
-      // @ts-ignore
-      const res = options.find(
-        // @ts-ignore
-        (item) => {
-          return typeof item !== "string" && item.value == props.value;
-        }
-      );
-
-      if (res) {
-        setDefaultVal(res);
-      }
-    }
-  }, [options, props.value]);
+    setOptions(props.attributes?.options || []);
+  }, [props.attributes?.options]);
 
   const field = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (props.value) {
-      let text =
+    let text;
+    if (props.value && options.length > 0) {
+      console.log(
+        "VALUE",
+        props.value,
+        typeof props.value !== "string",
+        props.value.text === "",
+        props.value.value !== ""
+      );
+      if (
+        typeof props.value !== "string" &&
+        props.value.text === "" &&
+        props.value.value !== ""
+      ) {
         // @ts-ignore
-        options.find((val: any) => {
-          return typeof val === "string" && val === props.value;
-        }) ||
-        // @ts-ignore
-        options.find((val: any) => {
-          return typeof val !== "string" && val.value === props.value;
-        }).text;
-      setCurrentOption(text);
+        text = options.find(
+          (item: any) =>
+            typeof item !== "string" && item.value === props.value.value
+        ).text;
+      } else {
+        text =
+          // @ts-ignore
+          options.find((val: any) => {
+            return typeof val === "string" && val === props.value;
+          }) ||
+          // @ts-ignore
+          options.find((val: any) => {
+            return typeof val !== "string" && val.value === props.value;
+          }).text;
+      }
+      if (typeof text !== "undefined") setCurrentOption(text);
     }
-  }, [props.value]);
+  }, [props.value, options]);
 
   useEffect(() => {
     function handleClickOutside(event: any) {
