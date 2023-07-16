@@ -7,7 +7,7 @@ import { internalValue } from "../../FormV2/FormV2.types";
 export const SelectFormField = (props: SelectFormFieldProps) => {
   const dropUp = props.attributes?.dropUp || false;
 
-  const [options, setOptions] = useState<Array<string> | Array<internalValue>>(
+  const [options, setOptions] = useState<Array<string | internalValue>>(
     props.attributes?.options || []
   );
 
@@ -48,6 +48,7 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
         text = options.find(
           (item: any) =>
             typeof item !== "string" && item.value === props.value.value
+          // @ts-ignore
         ).text;
       } else {
         text =
@@ -57,7 +58,11 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
           }) ||
           // @ts-ignore
           options.find((val: any) => {
-            return typeof val !== "string" && val.value === props.value;
+            return (
+              typeof val !== "string" &&
+              (val.value === props.value || val.value === props.value.value)
+            );
+            // @ts-ignore
           }).text;
       }
       if (typeof text !== "undefined") setCurrentOption(text);
