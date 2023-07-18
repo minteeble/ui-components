@@ -128,6 +128,7 @@ export const FormV2 = (props: FormV2Props) => {
                   className="field-label montserrat"
                 >
                   {fieldInfo.label}
+                  {fieldInfo.required && <span className="required">*</span>}
                 </label>
                 <p className="field-error">
                   {fieldInfo.showLiveError ||
