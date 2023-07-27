@@ -491,21 +491,25 @@ const ConfigurableValuesTemplate: Story<FormV2Props> = (args) => {
       label: "Configure",
       fieldComponent: ConfigurableKeyValueFormField,
       attributes: {
+        header: ["name", "value", "stage"],
         subFields: [
           {
             key: "key",
             value: "",
             formFieldComponent: TextFormField,
+            placeholder: "name",
           },
           {
             key: "value",
             value: "",
             formFieldComponent: TextFormField,
+            placeholder: "value",
           },
           {
             key: "stage",
             value: "",
             formFieldComponent: SelectFormField,
+            placeholder: "stage",
             attributes: {
               options: ["A", "B", "C"],
             },

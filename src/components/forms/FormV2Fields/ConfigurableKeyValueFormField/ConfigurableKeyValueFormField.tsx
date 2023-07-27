@@ -9,10 +9,6 @@ import {
 const ConfigurableKeyValueFormField = (
   props: ConfigurableKeyValueFormFieldProps
 ) => {
-  useEffect(() => {
-    console.log("VALUE", props.value);
-  }, [props.value]);
-
   return (
     <>
       <div
@@ -20,38 +16,43 @@ const ConfigurableKeyValueFormField = (
           props.disabled ? "disabled" : ""
         }`}
       >
+        {props.attributes.header && props.value.length > 0 && (
+          <div className="header">
+            {props.attributes.header.map((col) => {
+              return <div className="col-name montserrat">{col}</div>;
+            })}
+          </div>
+        )}
         {props.value.length > 0 ? (
-          props.value.map((item: any, i: number) => {
+          props.value.map((row: any, i: number) => {
             return (
               <>
                 <div className="item">
-                  {props.value.map((row: any, i: number) => {
-                    console.log("Row", row);
-                    return row.map((field: any, j: number) => {
-                      const SubComponent =
-                        props.attributes.subFields[j].formFieldComponent;
-                      console.log("Field", field, "COMP", SubComponent);
+                  {row.map((field: any, j: number) => {
+                    const SubComponent =
+                      props.attributes.subFields[j].formFieldComponent;
 
-                      return (
-                        <SubComponent
-                          key={field.key}
-                          value={field.value}
-                          label=""
-                          setValue={(newVal: any) => {
-                            const newValues = props.value;
+                    return (
+                      <SubComponent
+                        key={field.key}
+                        value={field.value}
+                        label=""
+                        placeholder={
+                          props.attributes.subFields[j].placeholder || ""
+                        }
+                        setValue={(newVal: any) => {
+                          const newValues = props.value;
 
-                            newValues[i][j].value = newVal;
+                          newValues[i][j].value = newVal;
 
-                            props.setValue(newValues);
-                            console.log(field.value, newVal);
-                          }}
-                          formData={{ fields: [] }}
-                          attributes={
-                            props.attributes.subFields[j].attributes || {}
-                          }
-                        />
-                      );
-                    });
+                          props.setValue(newValues);
+                        }}
+                        formData={{ fields: [] }}
+                        attributes={
+                          props.attributes.subFields[j].attributes || {}
+                        }
+                      />
+                    );
                   })}
                   <div
                     className="remove"
