@@ -24,6 +24,18 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
   );
 
   useEffect(() => {
+    setCurrentOption(
+      props.value && options.length > 0
+        ? // @ts-ignore
+          options.find(
+            (item: any) =>
+              typeof item !== "string" && item.value === props.value.value
+          ) || props.value
+        : null
+    );
+  }, [props.value]);
+
+  useEffect(() => {
     setOptions(props.attributes?.options || []);
   }, [props.attributes?.options]);
 
@@ -32,13 +44,6 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
   useEffect(() => {
     let text;
     if (props.value && options.length > 0) {
-      console.log(
-        "VALUE",
-        props.value,
-        typeof props.value !== "string",
-        props.value.text === "",
-        props.value.value !== ""
-      );
       if (
         typeof props.value !== "string" &&
         props.value.text === "" &&

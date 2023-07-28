@@ -28,14 +28,14 @@ const ConfigurableKeyValueFormField = (
             return (
               <>
                 <div className="item">
-                  {row.map((field: any, j: number) => {
+                  {Object.keys(row).map((field: any, j: number) => {
                     const SubComponent =
                       props.attributes.subFields[j].formFieldComponent;
-
+                    console.log(field, row[field]);
                     return (
                       <SubComponent
-                        key={field.key}
-                        value={field.value}
+                        key={field}
+                        value={row[field]}
                         label=""
                         placeholder={
                           props.attributes.subFields[j].placeholder || ""
@@ -43,7 +43,7 @@ const ConfigurableKeyValueFormField = (
                         setValue={(newVal: any) => {
                           const newValues = props.value;
 
-                          newValues[i][j].value = newVal;
+                          newValues[i][field] = newVal;
 
                           props.setValue(newValues);
                         }}
@@ -58,6 +58,7 @@ const ConfigurableKeyValueFormField = (
                     className="remove"
                     onClick={() => {
                       const newValue = props.value;
+
                       newValue.splice(i, 1);
 
                       props.setValue(newValue);
@@ -76,12 +77,12 @@ const ConfigurableKeyValueFormField = (
           className="add-row"
           onClick={() => {
             const newValue = props.value;
-            newValue.push(
-              props.attributes.subFields.map((field) => ({
-                key: field.key,
-                value: "",
-              }))
-            );
+            const newRow = {};
+            props.attributes.subFields.forEach((field) => {
+              // @ts-ignore
+              newRow[field.key] = "";
+            });
+            newValue.push(newRow);
 
             props.setValue(newValue);
           }}
