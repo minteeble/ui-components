@@ -28,29 +28,23 @@ const ConfigurableKeyValueFormField = (
             return (
               <>
                 <div className="item">
-                  {Object.keys(row).map((field: any, j: number) => {
-                    const SubComponent =
-                      props.attributes.subFields[j].formFieldComponent;
-                    console.log(field, row[field]);
+                  {props.attributes.subFields.map((field, j) => {
+                    const SubComponent = field.formFieldComponent;
                     return (
                       <SubComponent
-                        key={field}
-                        value={row[field]}
+                        key={field.key}
+                        value={row[field.key]}
                         label=""
-                        placeholder={
-                          props.attributes.subFields[j].placeholder || ""
-                        }
+                        placeholder={field.placeholder || ""}
                         setValue={(newVal: any) => {
                           const newValues = props.value;
 
-                          newValues[i][field] = newVal;
+                          newValues[i][field.key] = newVal;
 
                           props.setValue(newValues);
                         }}
                         formData={{ fields: [] }}
-                        attributes={
-                          props.attributes.subFields[j].attributes || {}
-                        }
+                        attributes={field.attributes || {}}
                       />
                     );
                   })}
