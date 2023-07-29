@@ -22,14 +22,16 @@
 
   .popup {
     position: absolute;
-    padding: 3.5rem 1rem 2rem;
+    padding: 2rem 1rem;
     left: 50%;
-    margin-top: 2rem;
-    transform: translate(-50%) scale(0);
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
     background-color: var(--primary-bg);
     border-radius: 0.4rem;
     min-width: 25rem;
     max-width: 95vw;
+    max-height: 80vh;
+    overflow-y: scroll;
 
     .popup-cross {
       position: absolute;
@@ -39,7 +41,7 @@
     }
 
     &.open {
-      transform: translate(-50%) scale(1);
+      transform: translate(-50%, -50%) scale(1);
     }
 
     .popup-content-wrapper {

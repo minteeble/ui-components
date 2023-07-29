@@ -16,6 +16,7 @@ import {
   TableToolbarItemsPosition,
   TableToolbarProps,
 } from "./TableToolbar.types";
+import { Button } from "./../../../../forms";
 
 export default {
   title: "ui-components/widgets/TableToolbar",
@@ -29,7 +30,7 @@ const SimpleTableToolbarArgs: TableToolbarProps = {
   items: [
     {
       position: TableToolbarItemsPosition.Left,
-      content: <span>left</span>,
+      content: <Button text={"Left"} />,
     },
     {
       position: TableToolbarItemsPosition.Center,

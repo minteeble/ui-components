@@ -24,8 +24,8 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
   const field = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    props.setValue(selectedValues);
-  }, [selectedValues]);
+    setSelectedValues(props.value);
+  }, [props.value]);
 
   useEffect(() => {
     function handleClickOutside(event: any) {
@@ -104,7 +104,7 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
                       onClick={() => {
                         setSelectedValues((current) => {
                           current.splice(current.indexOf(selection), 1);
-
+                          props.setValue(current);
                           return [...current];
                         });
                       }}
@@ -126,13 +126,18 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
               }}
               onKeyDown={(e) => {
                 if (e.key === ",") {
-                  selectedValues.push(input.trim().replaceAll(",", ""));
-                  setInput("");
+                  setSelectedValues((current) => {
+                    current.push(input.trim().replaceAll(",", ""));
+                    setInput("");
+                    props.setValue(current);
+                    return [...current];
+                  });
                 }
                 if (e.key === "Backspace" && input.length === 0) {
                   setInput(selectedValues[selectedValues.length - 1]);
                   setSelectedValues((current) => {
                     current.pop();
+                    props.setValue(current);
                     return [...current];
                   });
                 }
@@ -166,13 +171,13 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
                     if (selectedValues.includes(option)) {
                       setSelectedValues((current) => {
                         current.splice(current.indexOf(option), 1);
-
+                        props.setValue(current);
                         return [...current];
                       });
                     } else {
                       setSelectedValues((current) => {
                         current.push(option);
-
+                        props.setValue(current);
                         return [...current];
                       });
                     }
@@ -180,12 +185,14 @@ export const MultiSelectFormField = (props: MultiSelectFormFieldProps) => {
                     if (selectedValues.includes(option.value)) {
                       setSelectedValues((current) => {
                         current.splice(current.indexOf(option.value), 1);
+                        props.setValue(current);
 
                         return [...current];
                       });
                     } else {
                       setSelectedValues((current) => {
                         current.push(option.value);
+                        props.setValue(current);
 
                         return [...current];
                       });

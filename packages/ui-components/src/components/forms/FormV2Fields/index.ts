@@ -7,3 +7,5 @@ export * from "./ReadOnlyField";
 export * from "./MultiSelectFormField";
 export * from "./DropZoneFormField";
 export * from "./BooleanCheckboxFormField";
+export * from "./KeyValueFormField";
+export * from "./ConfigurableKeyValueFormField";

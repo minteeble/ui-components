@@ -14,6 +14,11 @@ export interface HeaderItem {
   fieldName: string;
 
   /**
+   * Specifies if column values are copyable
+   */
+  copyable?: boolean;
+
+  /**
    * Column max width (optional).
    */
   maxWidth?: string;
@@ -43,6 +48,10 @@ export interface TableRecord {
    * Record data.
    */
   items: Array<RecordItem>;
+  /**
+   * Record link
+   */
+  link?: string;
 }
 
 /**

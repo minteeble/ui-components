@@ -14,6 +14,8 @@ import { Story, Meta } from "@storybook/react";
 import Table from "./Table";
 import { TableProps } from "./Table.types";
 import { ItemsListProps } from "../ItemsList";
+import { Button } from "../../forms";
+import { TableToolbarItemsPosition } from "./components/TableToolbar";
 
 export default {
   title: "ui-components/widgets/Table",
@@ -44,6 +46,7 @@ const SimpleTableArgs: TableProps = {
           fieldName: "book discount",
         },
       ],
+      link: "https://google.com",
     },
     {
       items: [
@@ -89,6 +92,7 @@ const SimpleTableArgs: TableProps = {
   header: [
     {
       fieldName: "book name",
+      copyable: true,
     },
     {
       fieldName: "ordered amount",
@@ -236,6 +240,7 @@ const PaginableTableArgs: TableProps = {
           fieldName: "book price",
         },
       ],
+      link: "https://google.com",
     },
     {
       items: [
@@ -921,6 +926,7 @@ const PaginableTableArgs: TableProps = {
   header: [
     {
       fieldName: "book name",
+      copyable: true,
     },
     {
       fieldName: "ordered amount",
@@ -959,3 +965,35 @@ const EmptyTableArgs: TableProps = {
   ],
 };
 EmptyTable.args = EmptyTableArgs;
+
+export const ToolbarTable = Template.bind({});
+const ToolbarTableArgs: TableProps = {
+  rowsClickable: true,
+  paginationEnabled: true,
+  onRowClick: (data) => {
+    console.log("Clicked record:", data);
+  },
+  toolbarEnabled: true,
+  toolbarProps: [
+    {
+      position: TableToolbarItemsPosition.Center,
+      content: <Button text={"Test"} />,
+    },
+  ],
+  records: [],
+  header: [
+    {
+      fieldName: "book name",
+    },
+    {
+      fieldName: "ordered amount",
+    },
+    {
+      fieldName: "book price",
+    },
+    {
+      fieldName: "book discount",
+    },
+  ],
+};
+ToolbarTable.args = ToolbarTableArgs;

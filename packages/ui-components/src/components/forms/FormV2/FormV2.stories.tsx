@@ -23,7 +23,9 @@ import { useFormV2 } from "./useFormV2";
 import {
   BooleanCheckboxFormField,
   CheckboxButtonsFormField,
+  ConfigurableKeyValueFormField,
   DropZoneFormField,
+  KeyValueFormField,
   MultiSelectFormField,
   RadioButtonsFormField,
   SelectFormField,
@@ -152,8 +154,19 @@ const Template: Story<FormV2Props> = (args) => {
       label: "Select your Car Brand",
       attributes: {
         options: ["BMW", "Audi", "Mercedes"],
+        customSelectEnabled: true,
       },
       fieldComponent: MultiSelectFormField,
+      required: true,
+    });
+
+    formLogic.addField({
+      key: "option",
+      value: {
+        key: "value",
+      },
+      fieldComponent: KeyValueFormField,
+      label: "Options",
     });
 
     formLogic.addField({
@@ -468,6 +481,55 @@ const MultiSelectFormTemplate: Story<FormV2Props> = (args) => {
     />
   );
 };
+const ConfigurableValuesTemplate: Story<FormV2Props> = (args) => {
+  const formLogic = useFormV2({});
+
+  useEffect(() => {
+    formLogic.addField({
+      key: "conf",
+      value: [],
+      label: "Configure",
+      fieldComponent: ConfigurableKeyValueFormField,
+      attributes: {
+        header: ["name", "value", "stage"],
+        subFields: [
+          {
+            key: "key",
+            value: "",
+            formFieldComponent: TextFormField,
+            placeholder: "name",
+          },
+          {
+            key: "value",
+            value: "",
+            formFieldComponent: TextFormField,
+            placeholder: "value",
+          },
+          {
+            key: "stage",
+            value: "",
+            formFieldComponent: SelectFormField,
+            placeholder: "stage",
+            attributes: {
+              options: ["A", "B", "C"],
+            },
+          },
+        ],
+      },
+    });
+
+    formLogic.enableSubmit(true);
+  }, []);
+
+  return (
+    <FormV2
+      onSubmit={(formData: FormOnSubmitDataModel) => {
+        console.log("DATA", formData.values.tags);
+      }}
+      formLogic={formLogic}
+    />
+  );
+};
 
 export const SimpleForm = Template.bind({});
 SimpleForm.args = {};
@@ -488,4 +550,7 @@ export const ProgressiveForm = ProgressiveFormTemplate.bind({});
 ProgressiveForm.args = {};
 
 export const MultiSelectForm = MultiSelectFormTemplate.bind({});
+MultiSelectForm.args = {};
+
+export const ConfigurableValuesForm = ConfigurableValuesTemplate.bind({});
 MultiSelectForm.args = {};

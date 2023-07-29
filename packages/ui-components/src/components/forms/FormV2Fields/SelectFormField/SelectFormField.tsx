@@ -5,31 +5,74 @@ import { faCheck, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { internalValue } from "../../FormV2/FormV2.types";
 
 export const SelectFormField = (props: SelectFormFieldProps) => {
-  const options: string[] | internalValue[] = props.attributes?.options || [];
-
   const dropUp = props.attributes?.dropUp || false;
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [currentOption, setCurrentOption] = useState<string | null>(
-    props.value ? props.value : null
+  const [options, setOptions] = useState<Array<string | internalValue>>(
+    props.attributes?.options || []
   );
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const [currentOption, setCurrentOption] = useState<string | null>(
+    props.value && options.length > 0
+      ? // @ts-ignore
+        options.find(
+          (item: any) =>
+            typeof item !== "string" && item.value === props.value.value
+        ) || props.value
+      : null
+  );
+
+  useEffect(() => {
+    setCurrentOption(
+      props.value && options.length > 0
+        ? // @ts-ignore
+          options.find(
+            (item: any) =>
+              typeof item !== "string" && item.value === props.value.value
+          ) || props.value
+        : null
+    );
+  }, [props.value]);
+
+  useEffect(() => {
+    setOptions(props.attributes?.options || []);
+  }, [props.attributes?.options]);
 
   const field = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (currentOption) {
-      let value =
+    let text;
+    if (props.value && options.length > 0) {
+      if (
+        typeof props.value !== "string" &&
+        props.value.text === "" &&
+        props.value.value !== ""
+      ) {
         // @ts-ignore
-        options.find((val: any) => {
-          return typeof val === "string" && val === currentOption;
-        }) ||
-        // @ts-ignore
-        options.find((val: any) => {
-          return typeof val !== "string" && val.text === currentOption;
-        }).value;
-      props.setValue(value);
+        text = options.find(
+          (item: any) =>
+            typeof item !== "string" && item.value === props.value.value
+          // @ts-ignore
+        ).text;
+      } else {
+        text =
+          // @ts-ignore
+          options.find((val: any) => {
+            return typeof val === "string" && val === props.value;
+          }) ||
+          // @ts-ignore
+          options.find((val: any) => {
+            return (
+              typeof val !== "string" &&
+              (val.value === props.value || val.value === props.value.value)
+            );
+            // @ts-ignore
+          }).text;
+      }
+      if (typeof text !== "undefined") setCurrentOption(text);
     }
-  }, [currentOption]);
+  }, [props.value, options]);
 
   useEffect(() => {
     function handleClickOutside(event: any) {
@@ -87,8 +130,8 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
                 }`}
                 key={i}
                 onClick={() => {
-                  setCurrentOption(
-                    typeof option === "string" ? option : option.text
+                  props.setValue(
+                    typeof option === "string" ? option : option.value
                   );
                   setIsOpen(false);
                 }}
