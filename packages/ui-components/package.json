@@ -18,6 +18,7 @@
     "set-dev": "./scripts/set-dev-env.sh"
   },
   "devDependencies": {
+    "@monaco-editor/react": "^4.5.1",
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-react": "^7.18.6",
@@ -73,6 +74,7 @@
     "web3-utils": "^1.7.4"
   },
   "peerDependencies": {
+    "@monaco-editor/react": "^4.5.1",
     "@fortawesome/fontawesome-free": "^6.1.2",
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@fortawesome/free-brands-svg-icons": "^6.1.2",
