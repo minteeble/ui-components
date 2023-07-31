@@ -1,6 +1,6 @@
 {
   "name": "@minteeble/ui-components",
-  "version": "1.0.63-extra.0",
+  "version": "1.0.63",
   "description": "Minteeble UI components package",
   "repository": "https://github.com/minteeble/ui-components.git",
   "author": "Samuele Girgenti <samuele.girgenti458@gmail.com>",
