@@ -1,6 +1,6 @@
 {
   "name": "@minteeble/ui-components-extra",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Minteeble UI extra components package",
   "repository": "https://github.com/minteeble/ui-components.git",
   "author": "Giuseppe Compagnone <compagnonegiuseppe04@gmail.com>",
@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "@metamask/jazzicon": "^2.0.0",
-    "@minteeble/ui-components": "^1.0.65",
+    "@minteeble/ui-components": "^1.0.66",
     "react-contenteditable": "^3.3.7",
     "react-dropzone": "^14.2.3",
     "react-responsive-combo-box": "^1.3.0",
@@ -88,5 +88,5 @@
     "react-router-dom": "6.3.0",
     "react-router-hash-link": "2.4.3"
   },
-  "gitHead": "e7ee8fd6153cf941097c690adebb690f43260c14"
+  "gitHead": "625c01f3f1082530cd1144ed97ba48b034f0e263"
 }
