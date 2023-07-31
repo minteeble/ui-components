@@ -15,7 +15,8 @@
     "build": "rollup -c",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "set-dev": "./scripts/set-dev-env.sh"
+    "set-dev": "./scripts/set-dev-env.sh",
+    "pub": "yarn build && lerna publish"
   },
   "devDependencies": {
     "@monaco-editor/react": "^4.5.1",

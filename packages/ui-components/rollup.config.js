@@ -40,7 +40,13 @@ export default [
       terser(),
       svg(),
     ],
-    external: ["react", "react-dom", "react-router-dom", "styled-components"],
+    external: [
+      "react",
+      "react-dom",
+      "react-router-dom",
+      "styled-components",
+      "@monaco-editor/react",
+    ],
   },
   {
     input: "dist/esm/types/index.d.ts",

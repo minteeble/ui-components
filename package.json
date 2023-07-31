@@ -9,7 +9,8 @@
     "build": "lerna exec \"rollup -c\"",
     "storybook": "lerna exec \"storybook dev -p 6006\"",
     "build-storybook": "lerna exec \"storybook build\"",
-    "set-dev": "lerna run set-dev"
+    "set-dev": "lerna run set-dev",
+    "pub": "lerna run pub"
   },
   "workspaces": [
     "packages/*"
