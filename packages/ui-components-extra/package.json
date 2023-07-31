@@ -1,6 +1,6 @@
 {
   "name": "@minteeble/ui-components-extra",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Minteeble UI extra components package",
   "repository": "https://github.com/minteeble/ui-components.git",
   "author": "Giuseppe Compagnone <compagnonegiuseppe04@gmail.com>",
@@ -29,6 +29,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@minteeble/ui-components": "latest",
     "@monaco-editor/react": "^4.5.1",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
@@ -65,8 +66,7 @@
     "storybook": "^7.0.10",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
-    "typescript-plugin-css-modules": "^3.4.0",
-    "@minteeble/ui-components": "latest"
+    "typescript-plugin-css-modules": "^3.4.0"
   },
   "dependencies": {
     "@metamask/jazzicon": "^2.0.0",
@@ -76,13 +76,13 @@
     "web3-utils": "^1.7.4"
   },
   "peerDependencies": {
-    "@minteeble/ui-components": "latest",
     "@fortawesome/fontawesome-free": "^6.1.2",
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@fortawesome/free-brands-svg-icons": "^6.1.2",
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@minteeble/ui-components": "latest",
     "@monaco-editor/react": "^4.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
