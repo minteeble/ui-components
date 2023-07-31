@@ -65,17 +65,18 @@
     "storybook": "^7.0.10",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
-    "typescript-plugin-css-modules": "^3.4.0"
+    "typescript-plugin-css-modules": "^3.4.0",
+    "@minteeble/ui-components": "latest"
   },
   "dependencies": {
     "@metamask/jazzicon": "^2.0.0",
-    "@minteeble/ui-components": "^1.0.67",
     "react-contenteditable": "^3.3.7",
     "react-dropzone": "^14.2.3",
     "react-responsive-combo-box": "^1.3.0",
     "web3-utils": "^1.7.4"
   },
   "peerDependencies": {
+    "@minteeble/ui-components": "latest",
     "@fortawesome/fontawesome-free": "^6.1.2",
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@fortawesome/free-brands-svg-icons": "^6.1.2",
