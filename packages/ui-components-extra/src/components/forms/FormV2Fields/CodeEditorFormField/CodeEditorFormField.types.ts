@@ -1,4 +1,4 @@
-import { FieldComponentProps } from "../../FormV2/FormV2.types";
+import { FieldComponentProps } from "@minteeble/ui-components";
 
 export enum CodeEditorFormFieldResizeOption {
   None,

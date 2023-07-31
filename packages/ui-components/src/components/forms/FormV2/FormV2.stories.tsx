@@ -23,7 +23,6 @@ import { useFormV2 } from "./useFormV2";
 import {
   BooleanCheckboxFormField,
   CheckboxButtonsFormField,
-  CodeEditorFormField,
   ConfigurableKeyValueFormField,
   DropZoneFormField,
   KeyValueFormField,
@@ -178,14 +177,6 @@ const Template: Story<FormV2Props> = (args) => {
         checkboxText: "Accept our conditions",
       },
       fieldComponent: BooleanCheckboxFormField,
-    });
-
-    formLogic.addField({
-      key: "code",
-      value: "",
-      label: "Custom code",
-      fieldComponent: CodeEditorFormField,
-      placeholder: "// write your code",
     });
 
     formLogic.onFieldValueChange("name", (field) => {

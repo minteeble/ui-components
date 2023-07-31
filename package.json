@@ -6,11 +6,15 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "build": "lerna exec \"rollup -c\"",
-    "storybook": "lerna exec \"storybook dev -p 6006\"",
+    "build": "lerna run build --scope=@minteeble/ui-components",
+    "build-extra": "lerna run build --scope=@minteeble/ui-components-extra",
+    "storybook": "lerna run storybook --scope=@minteeble/ui-components",
+    "storybook-extra": "lerna run storybook --scope=@minteeble/ui-components-extra",
     "build-storybook": "lerna exec \"storybook build\"",
-    "set-dev": "lerna run set-dev",
-    "pub": "lerna run pub"
+    "set-dev": "lerna run set-dev --scope=@minteeble/ui-components",
+    "set-dev-extra": "lerna run set-dev --scope=@minteeble/ui-components-extra",
+    "pub": "lerna run pub --scope=@minteeble/ui-components",
+    "pub-extra": "lerna run pub --scope=@minteeble/ui-components-extra"
   },
   "workspaces": [
     "packages/*"

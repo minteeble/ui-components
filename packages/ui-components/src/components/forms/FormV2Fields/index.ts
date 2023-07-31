@@ -9,4 +9,3 @@ export * from "./DropZoneFormField";
 export * from "./BooleanCheckboxFormField";
 export * from "./KeyValueFormField";
 export * from "./ConfigurableKeyValueFormField";
-export * from "./CodeEditorFormField";
