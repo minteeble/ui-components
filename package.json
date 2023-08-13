@@ -6,15 +6,19 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "build": "lerna run build --scope=@minteeble/ui-components",
-    "build-extra": "lerna run build --scope=@minteeble/ui-components-extra",
-    "storybook": "lerna run storybook --scope=@minteeble/ui-components",
-    "storybook-extra": "lerna run storybook --scope=@minteeble/ui-components-extra",
+    "build": "lerna run build",
+    "build:ui-components": "lerna run build --scope=@minteeble/ui-components",
+    "build:ui-components-extra": "lerna run build --scope=@minteeble/ui-components-extra",
+    "storybook": "lerna run storybook",
+    "storybook:ui-components": "lerna run storybook --scope=@minteeble/ui-components",
+    "storybook:ui-components-extra": "lerna run storybook --scope=@minteeble/ui-components",
     "build-storybook": "lerna exec \"storybook build\"",
-    "set-dev": "lerna run set-dev --scope=@minteeble/ui-components",
-    "set-dev-extra": "lerna run set-dev --scope=@minteeble/ui-components-extra",
-    "pub": "lerna run pub --scope=@minteeble/ui-components",
-    "pub-extra": "lerna run pub --scope=@minteeble/ui-components-extra"
+    "set-dev": "lerna run set-dev",
+    "set-dev:ui-components": "lerna run set-dev --scope=@minteeble/ui-components",
+    "set-dev:ui-components-extra": "lerna run set-dev --scope=@minteeble/ui-components-extra",
+    "pub": "lerna run pub",
+    "pub:ui-components": "lerna run pub --scope=@minteeble/ui-components",
+    "pub:ui-components-extra": "lerna run pub --scope=@minteeble/ui-components-extra"
   },
   "workspaces": [
     "packages/*"
