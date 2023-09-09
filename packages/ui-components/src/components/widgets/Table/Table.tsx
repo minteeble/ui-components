@@ -214,7 +214,7 @@ const Table = (props: TableProps) => {
                                         />
                                       </div>
                                     )}
-                                    {item.value}
+                                    <div className="text">{item.value}</div>
                                   </span>
                                 </div>
                               );
