@@ -32,4 +32,6 @@ export interface PopupProps extends StylableComponent, ClassExtensible {
   closeButtonEnabled?: boolean;
   closeCrossEnabled?: boolean;
   closeButtonText?: string;
+  closeOnOutsideClickEnabled?: boolean;
+  closable?: boolean;
 }

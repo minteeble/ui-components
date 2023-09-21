@@ -108,4 +108,9 @@ export interface TableProps {
    * Table header.
    */
   header: Array<HeaderItem>;
+
+  /**
+   * Specifies custom text for the add button
+   */
+  addButtonText?: string;
 }

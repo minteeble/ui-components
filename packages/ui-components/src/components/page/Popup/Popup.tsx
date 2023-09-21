@@ -16,13 +16,17 @@ import { PopupProps } from "./Popup.types";
 
 const Popup = (props: PopupProps) => {
   const triggerClose = () => {
-    props.popupLogic.closePopup();
+    let hasToClose = props.closable ?? true;
+
+    if (hasToClose) props.popupLogic.closePopup();
   };
 
   return props.popupLogic.isPopupOpen ? (
     <div
       className={"popup-wrapper " + (props.className || "")}
-      onClick={triggerClose}
+      onClick={() => {
+        if (props.closeOnOutsideClickEnabled) triggerClose();
+      }}
       style={props.style}
     >
       <div
