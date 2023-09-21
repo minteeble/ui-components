@@ -1,13 +1,12 @@
-import { ErrorCardProps } from "./ErrorCard.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTriangleExclamation,
   faWallet,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
-import React from "react";
-import { PageCard } from "../../page";
+import React, { useEffect, useState } from "react";
+import { ErrorCardProps } from "./ErrorCard.types";
+import PageCard from "../../page/PageCard";
 
 const ErrorCard = (props: ErrorCardProps) => {
   //States

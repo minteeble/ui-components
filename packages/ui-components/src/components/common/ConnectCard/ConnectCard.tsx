@@ -1,9 +1,9 @@
 import React from "react";
-import { ConnectCardProps } from ".";
-import { PageCard } from "../../";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "./../../";
 import { faWallet } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "../../forms/Button";
+import { ConnectCardProps } from "./ConnectCard.types";
+import { PageCard } from "../../page/PageCard";
 
 const ConnectCard = (props: ConnectCardProps) => {
   return (
