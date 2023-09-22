@@ -1,0 +1,77 @@
+.stepping-widget {
+  display: flex;
+  flex-direction: column;
+
+  .step-box {
+    position: relative;
+    padding-left: 3rem;
+    padding-bottom: 1rem;
+
+    $step-dot-size: 1rem;
+    $left-line-size: $step-dot-size / 3;
+    $line-color: rgb(209, 209, 209);
+    $current-line-color: var(--primary-color);
+    $success-line-color: rgb(92, 188, 92);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: ($step-dot-size / 2) - ($left-line-size / 2);
+      top: $left-line-size;
+      width: $left-line-size;
+      height: 100%;
+      background-color: $line-color;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0rem;
+      top: 0rem;
+      width: $step-dot-size;
+      height: $step-dot-size;
+      border-radius: 100%;
+      background-color: $line-color;
+    }
+
+    &.success {
+      &::before {
+        background-color: $success-line-color;
+      }
+
+      &::after {
+        background-color: $success-line-color;
+      }
+    }
+
+    &.current {
+      &::before {
+        background-color: $current-line-color;
+      }
+
+      &::after {
+        background-color: $current-line-color;
+      }
+    }
+
+    .step-content {
+      position: relative;
+      padding: 1rem 0rem;
+      .step-box-cover {
+        position: absolute;
+        top: 0rem;
+        left: 0rem;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        opacity: 0.5;
+      }
+    }
+
+    .step-toolbar {
+      display: flex;
+      gap: 1rem;
+      flex-direction: row-reverse;
+    }
+  }
+}
