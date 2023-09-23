@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React, { Children, useEffect } from "react";
 import { Button } from "../../forms";
 import { StepContextProvider } from "./StepContextProvider";
 import { SteppingWidgetProps } from "./SteppingWidget.types";
@@ -10,6 +10,12 @@ export const SteppingWidget = (props: SteppingWidgetProps) => {
     if (arrayChildren.length === 0) return false;
     return index === arrayChildren.length - 1;
   };
+
+  useEffect(() => {
+    if (arrayChildren && arrayChildren.length > 0) {
+      props.logic.nextStep();
+    }
+  }, []);
 
   return (
     <div className="stepping-widget">

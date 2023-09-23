@@ -1,16 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SteppingWidgetLogic,
+  SteppingWidgetState,
+  StepsArleadyCompletedError,
+  UninitializedSteppingWidgetError,
   UseSteppingWidgetProps,
 } from "./SteppingWidget.types";
 
 export const useSteppingWidget = (
   props: UseSteppingWidgetProps
 ): SteppingWidgetLogic => {
-  const [currentStepIndex, setCurrentStepIndex] = useState<number | null>(0);
+  // --- States --- //
+  const [currentStepIndex, setCurrentStepIndex] = useState<
+    number | SteppingWidgetState
+  >(SteppingWidgetState.UNINITIALIZED);
+
   const [stepsNum, setStepsNum] = useState<number>(0);
 
-  const goToStep = (stepIndex: number): void => {
+  // --- functions --- //
+
+  const goToStep = (
+    stepIndex: number | SteppingWidgetState.COMPLETED
+  ): void => {
     console.log("Going to step:", stepIndex);
     setCurrentStepIndex(stepIndex);
   };
@@ -24,7 +35,10 @@ export const useSteppingWidget = (
 
   const nextStep = (): void => {
     setCurrentStepIndex((prevIndex) => {
-      if (prevIndex === null) return 0;
+      if (prevIndex === SteppingWidgetState.COMPLETED)
+        throw new StepsArleadyCompletedError();
+
+      if (prevIndex === SteppingWidgetState.UNINITIALIZED) return 0;
 
       if (prevIndex < stepsNum - 1) {
         return prevIndex + 1;
@@ -36,10 +50,23 @@ export const useSteppingWidget = (
 
   const prevStep = (): void => {
     setCurrentStepIndex((prevIndex) => {
-      if (prevIndex === null || prevIndex <= 0) return null;
-      return prevIndex - 1;
+      if (prevIndex === SteppingWidgetState.UNINITIALIZED)
+        throw new UninitializedSteppingWidgetError();
+
+      if (prevIndex === SteppingWidgetState.COMPLETED) return stepsNum - 1;
+
+      if (prevIndex > 0) return prevIndex - 1;
+      return prevIndex;
     });
   };
 
-  return { currentStepIndex, goToStep, prevStep, nextStep, setSteps };
+  // --- useEffects --- //
+
+  return {
+    currentStepIndex,
+    goToStep,
+    prevStep,
+    nextStep,
+    setSteps,
+  };
 };
