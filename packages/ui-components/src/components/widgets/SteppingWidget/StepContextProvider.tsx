@@ -3,8 +3,14 @@ import React, { PropsWithChildren } from "react";
 import { SteppingWidgetLogic } from "./SteppingWidget.types";
 
 export interface StepContextProviderProps extends PropsWithChildren {
+  /**
+   * Step index number
+   */
   stepIndex: number;
 
+  /**
+   * SteppingWidget logic object
+   */
   steppingWidgetLogic: SteppingWidgetLogic;
 }
 
@@ -17,7 +23,12 @@ export const StepContextProvider = (props: StepContextProviderProps) => {
 
   return (
     <StepContext.Provider
-      value={{ stepIndex: props.stepIndex, goToNextStep, goToPreviousStep }}
+      value={{
+        stepIndex: props.stepIndex,
+        goToNextStep,
+        goToPreviousStep,
+        steppingWidgetLogic: props.steppingWidgetLogic,
+      }}
     >
       {props.children}
     </StepContext.Provider>

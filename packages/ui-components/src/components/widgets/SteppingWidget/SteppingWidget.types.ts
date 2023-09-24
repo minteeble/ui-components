@@ -2,6 +2,9 @@ import { PropsWithChildren } from "react";
 
 /* --- Stepping Widget --- */
 
+/**
+ * SteppingWIdget component props
+ */
 export interface SteppingWidgetProps extends PropsWithChildren {
   logic: SteppingWidgetLogic;
 }
@@ -32,12 +35,28 @@ export interface SteppingWidgetLogic {
    */
   currentStepIndex: number | SteppingWidgetState;
 
-  goToStep(stepIndex: number): void;
+  /**
+   * Go to ste specified step. It can be a step index (number) or a state (uninitialized or completed)
+   *
+   * @param stepIndex Specifies the step to move to.
+   */
+  goToStep(stepIndex: number | SteppingWidgetState): void;
 
+  /**
+   * Set the number of steps
+   *
+   * @param newSteps Number of new steps to set
+   */
   setSteps(newSteps: number): void;
 
+  /**
+   * Goes to the previous step
+   */
   prevStep(): void;
 
+  /**
+   * Goes to the next step
+   */
   nextStep(): void;
 }
 
