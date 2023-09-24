@@ -7,10 +7,6 @@ export interface StepContextContent {
    */
   stepIndex?: number;
 
-  goToNextStep?(): void;
-
-  goToPreviousStep?(): void;
-
   steppingWidgetLogic?: SteppingWidgetLogic;
 }
 

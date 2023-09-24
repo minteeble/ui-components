@@ -11,7 +11,28 @@ export interface SteppingWidgetProps extends PropsWithChildren {
 
 /* --- useSteppingWidget --- */
 
-export interface UseSteppingWidgetProps {}
+export interface SteppingWidgetNavigationPolicy {
+  /**
+   * Specifies if toolbar is enabled or not. (default to true)
+   */
+  toolbarEnabled?: boolean;
+
+  /**
+   * Specifies if `Next` button is enabled or not.
+   * N.B. In order to be enabled, it also required the toolbar to be enabled
+   */
+  nextButtonEnabled?: boolean;
+
+  /**
+   * Specifies if `Back` button is enabled or not.
+   * N.B. In order to be enabled, it also required the toolbar to be enabled
+   */
+  prevButtonEnabled?: boolean;
+}
+
+export interface UseSteppingWidgetProps {
+  navigationConfig?: SteppingWidgetNavigationPolicy;
+}
 
 /**
  * Stepping widget states
@@ -36,6 +57,16 @@ export interface SteppingWidgetLogic {
   currentStepIndex: number | SteppingWidgetState;
 
   /**
+   * True if steps were all completed
+   */
+  stepsCompleted: boolean;
+
+  /**
+   * General navigation config. They con ve overwritten by each step
+   */
+  navigationConfig: SteppingWidgetNavigationPolicy;
+
+  /**
    * Go to ste specified step. It can be a step index (number) or a state (uninitialized or completed)
    *
    * @param stepIndex Specifies the step to move to.
@@ -58,6 +89,27 @@ export interface SteppingWidgetLogic {
    * Goes to the next step
    */
   nextStep(): void;
+
+  /**
+   * Checks if step is the current one
+   *
+   * @param stepIndex Step index to check
+   */
+  isCurrentStep(stepIndex: number): boolean;
+
+  /**
+   * Checks if step was completed
+   *
+   * @param stepIndex Step index to check
+   */
+  isSuccess(stepIndex: number): boolean;
+
+  /**
+   * Checks if a step is the last one
+   *
+   * @param stepIndex Step index to check
+   */
+  isLastIndex(stepIndex: number): boolean;
 }
 
 /**

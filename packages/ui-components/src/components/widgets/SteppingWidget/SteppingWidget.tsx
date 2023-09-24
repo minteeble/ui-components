@@ -6,13 +6,9 @@ import { SteppingWidgetProps } from "./SteppingWidget.types";
 export const SteppingWidget = (props: SteppingWidgetProps) => {
   const arrayChildren = Children.toArray(props.children);
 
-  const isLastChild = (index: number) => {
-    if (arrayChildren.length === 0) return false;
-    return index === arrayChildren.length - 1;
-  };
-
   useEffect(() => {
     if (arrayChildren && arrayChildren.length > 0) {
+      props.logic.setSteps(arrayChildren.length);
       props.logic.nextStep();
     }
   }, []);
@@ -20,20 +16,15 @@ export const SteppingWidget = (props: SteppingWidgetProps) => {
   return (
     <div className="stepping-widget">
       {Children.map(arrayChildren, (child, index) => {
-        const isCurrent = index === props.logic.currentStepIndex;
-        const isSuccess =
-          props.logic.currentStepIndex !== null &&
-          index < props.logic.currentStepIndex;
-
         return (
-          <StepContextProvider
-            stepIndex={index}
-            steppingWidgetLogic={props.logic}
+          <div
+            className={`step-box ${
+              props.logic.isCurrentStep(index) ? "current" : ""
+            } ${props.logic.isSuccess(index) ? "success" : ""}`}
           >
-            <div
-              className={`step-box ${isCurrent ? "current" : ""} ${
-                isSuccess ? "success" : ""
-              }`}
+            <StepContextProvider
+              stepIndex={index}
+              steppingWidgetLogic={props.logic}
             >
               <div className="step-content">
                 {index !== props.logic.currentStepIndex && (
@@ -41,7 +32,8 @@ export const SteppingWidget = (props: SteppingWidgetProps) => {
                 )}
                 {child}
               </div>
-              {isCurrent && (
+
+              {/* {isCurrent && (
                 <div className="step-toolbar">
                   {!isLastChild(index) && (
                     <Button
@@ -52,9 +44,9 @@ export const SteppingWidget = (props: SteppingWidgetProps) => {
                     />
                   )}
                 </div>
-              )}
-            </div>
-          </StepContextProvider>
+              )} */}
+            </StepContextProvider>
+          </div>
         );
       })}
     </div>

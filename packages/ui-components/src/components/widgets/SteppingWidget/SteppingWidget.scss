@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .stepping-widget {
   display: flex;
   flex-direction: column;
@@ -8,7 +10,7 @@
     padding-bottom: 1rem;
 
     $step-dot-size: 1rem;
-    $left-line-size: $step-dot-size / 3;
+    $left-line-size: calc($step-dot-size / 3);
     $line-color: rgb(209, 209, 209);
     $current-line-color: var(--primary-color);
     $success-line-color: rgb(92, 188, 92);
@@ -16,7 +18,7 @@
     &::before {
       content: "";
       position: absolute;
-      left: ($step-dot-size / 2) - ($left-line-size / 2);
+      left: calc($step-dot-size / 2) - math.div($left-line-size, 2);
       top: $left-line-size;
       width: $left-line-size;
       height: 100%;
