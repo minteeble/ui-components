@@ -18,6 +18,21 @@ export interface StepContextProviderProps extends PropsWithChildren {
    * SteppingWidget logic object
    */
   steppingWidgetLogic: SteppingWidgetLogic;
+
+  /**
+   * Text for `next` button
+   */
+  nextButtonText: string;
+
+  /**
+   * Text for `back` button
+   */
+  backButtonText: string;
+
+  /**
+   * Text for `finish` button
+   */
+  finishButtonText: string;
 }
 
 export const StepContextProvider = (props: StepContextProviderProps) => {
@@ -26,6 +41,13 @@ export const StepContextProvider = (props: StepContextProviderProps) => {
     useState<SteppingWidgetNavigationPolicy>();
   const [finalNavigationSettings, setFinalNavigationSettings] =
     useState<SteppingWidgetNavigationPolicy>();
+
+  const backButtonText = props.backButtonText;
+  const nextButtonText = props.nextButtonText;
+  const finishButtonText = props.finishButtonText;
+
+  const isLast = props.steppingWidgetLogic.isLastIndex(props.stepIndex);
+  const isFirst = props.stepIndex === 0;
 
   // --- UseEffects --- //
 
@@ -62,19 +84,21 @@ export const StepContextProvider = (props: StepContextProviderProps) => {
               />
             )} */}
             <Button
-              text="Next"
+              text={isLast ? finishButtonText : nextButtonText}
               styleType={ButtonStyleType.Filled}
               onClick={() => {
                 props.steppingWidgetLogic.nextStep();
               }}
             />
-            <Button
-              text="Back"
-              styleType={ButtonStyleType.Secondary}
-              onClick={() => {
-                props.steppingWidgetLogic.prevStep();
-              }}
-            />
+            {!isFirst && (
+              <Button
+                text="Back"
+                styleType={ButtonStyleType.Secondary}
+                onClick={() => {
+                  props.steppingWidgetLogic.prevStep();
+                }}
+              />
+            )}
           </div>
         )}
     </StepContext.Provider>

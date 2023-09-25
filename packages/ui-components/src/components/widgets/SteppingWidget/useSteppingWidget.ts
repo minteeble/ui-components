@@ -18,6 +18,10 @@ export const useSteppingWidget = (
     prevButtonEnabled: true,
   };
 
+  const backButtonText = props.backButtonText || "Back";
+  const nextButtonText = props.nextButtonText || "Next";
+  const finishButtonText = props.finishButtonText || "Finish";
+
   // --- States --- //
 
   const [currentStepIndex, setCurrentStepIndex] = useState<
@@ -116,5 +120,8 @@ export const useSteppingWidget = (
     isCurrentStep,
     isSuccess,
     isLastIndex,
+    backButtonText,
+    nextButtonText,
+    finishButtonText,
   };
 };

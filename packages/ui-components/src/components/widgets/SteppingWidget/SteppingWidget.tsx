@@ -23,6 +23,9 @@ export const SteppingWidget = (props: SteppingWidgetProps) => {
             } ${props.logic.isSuccess(index) ? "success" : ""}`}
           >
             <StepContextProvider
+              nextButtonText={props.logic.nextButtonText}
+              backButtonText={props.logic.backButtonText}
+              finishButtonText={props.logic.finishButtonText}
               stepIndex={index}
               steppingWidgetLogic={props.logic}
             >

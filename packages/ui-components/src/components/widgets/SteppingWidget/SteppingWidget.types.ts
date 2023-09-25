@@ -31,7 +31,25 @@ export interface SteppingWidgetNavigationPolicy {
 }
 
 export interface UseSteppingWidgetProps {
+  /**
+   * SteppingWidget navigation policy
+   */
   navigationConfig?: SteppingWidgetNavigationPolicy;
+
+  /**
+   * Text for `next` button
+   */
+  nextButtonText?: string;
+
+  /**
+   * Text for `back` button
+   */
+  backButtonText?: string;
+
+  /**
+   * Text for `finish` button
+   */
+  finishButtonText?: string;
 }
 
 /**
@@ -65,6 +83,21 @@ export interface SteppingWidgetLogic {
    * General navigation config. They con ve overwritten by each step
    */
   navigationConfig: SteppingWidgetNavigationPolicy;
+
+  /**
+   * Text for `next` button
+   */
+  nextButtonText: string;
+
+  /**
+   * Text for `back` button
+   */
+  backButtonText: string;
+
+  /**
+   * Text for `finish` button
+   */
+  finishButtonText: string;
 
   /**
    * Go to ste specified step. It can be a step index (number) or a state (uninitialized or completed)
