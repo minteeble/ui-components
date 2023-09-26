@@ -8,3 +8,4 @@ export * from "./ActionPopup";
 export * from "./InfoBox";
 export * from "./DropZone";
 export * from "./EditableImage";
+export * from "./SteppingWidget";
