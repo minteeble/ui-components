@@ -67,6 +67,13 @@ export enum SteppingWidgetState {
   COMPLETED = "COMPLETED",
 }
 
+/**
+ * Interface model for data shared between models
+ */
+export interface StepDataModel {
+  [key: string]: any;
+}
+
 export interface SteppingWidgetLogic {
   /**
    * Specifies the current active step index.
@@ -98,6 +105,27 @@ export interface SteppingWidgetLogic {
    * Text for `finish` button
    */
   finishButtonText: string;
+
+  /**
+   * Set data for a specific step
+   *
+   * @param stepIndex Step index to set data to
+   * @param data Data object
+   */
+  setStepData(stepIndex: number, data: StepDataModel): void;
+
+  /**
+   * Get data of a specific step
+   *
+   * @param stepIndex Step index to get data from
+   * @returns The step data model if existing (or unset, by defualt empty object), null if index does not exist
+   */
+  getStepData(stepIndex: number): StepDataModel | null;
+
+  /**
+   * List of all steps data
+   */
+  stepsData: Array<StepDataModel>;
 
   /**
    * Go to ste specified step. It can be a step index (number) or a state (uninitialized or completed)

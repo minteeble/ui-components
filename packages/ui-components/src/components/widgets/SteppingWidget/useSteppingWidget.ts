@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  StepDataModel,
   SteppingWidgetLogic,
   SteppingWidgetNavigationPolicy,
   SteppingWidgetState,
@@ -31,6 +32,7 @@ export const useSteppingWidget = (
   const [stepsNum, setStepsNum] = useState<number>(0);
   const [navigationConfig, setNavigationConfig] =
     useState<SteppingWidgetNavigationPolicy>(defaultNavigationPolicy);
+  const [stepsData, setInternalStepsData] = useState<Array<StepDataModel>>([]);
 
   // --- functions --- //
 
@@ -92,6 +94,22 @@ export const useSteppingWidget = (
     return stepIndex === stepsNum - 1;
   };
 
+  const setStepData = (stepIndex: number, data: StepDataModel): void => {
+    if (stepIndex > 0 && stepIndex < stepsNum) {
+      setInternalStepsData((oldData) => {
+        oldData[stepIndex] = { ...data };
+
+        return [...oldData];
+      });
+    }
+  };
+
+  const getStepData = (stepIndex: number): StepDataModel | null => {
+    if (stepIndex > 0 && stepIndex < stepsNum) {
+      return stepsData[stepIndex] || null;
+    } else return null;
+  };
+
   // --- useEffects --- //
 
   useEffect(() => {
@@ -109,6 +127,18 @@ export const useSteppingWidget = (
     );
   }, [props.navigationConfig]);
 
+  useEffect(() => {
+    if (stepsNum > stepsData.length) {
+      setInternalStepsData((oldSteps) => {
+        for (let i = stepsNum - 1; i < stepsData.length; i++) {
+          oldSteps.push({});
+        }
+
+        return oldSteps;
+      });
+    }
+  }, [stepsNum]);
+
   return {
     currentStepIndex,
     stepsCompleted,
@@ -123,5 +153,8 @@ export const useSteppingWidget = (
     backButtonText,
     nextButtonText,
     finishButtonText,
+    stepsData,
+    setStepData,
+    getStepData,
   };
 };
