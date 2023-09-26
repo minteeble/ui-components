@@ -92,7 +92,7 @@ export const StepContextProvider = (props: StepContextProviderProps) => {
             />
             {!isFirst && (
               <Button
-                text="Back"
+                text={backButtonText}
                 styleType={ButtonStyleType.Secondary}
                 onClick={() => {
                   props.steppingWidgetLogic.prevStep();
