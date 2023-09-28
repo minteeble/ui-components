@@ -9,4 +9,5 @@ export * from "./DeletePopup";
 export * from "./ErrorCard";
 export * from "./ConnectCard";
 export * from "./InfoCard";
+export * from "./InfoCardsStack";
 // export {};
