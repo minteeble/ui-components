@@ -8,4 +8,5 @@ export * from "./AvatarHash";
 export * from "./DeletePopup";
 export * from "./ErrorCard";
 export * from "./ConnectCard";
+export * from "./InfoCard";
 // export {};
