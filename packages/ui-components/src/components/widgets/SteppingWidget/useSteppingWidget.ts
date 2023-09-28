@@ -33,6 +33,9 @@ export const useSteppingWidget = (
   const [navigationConfig, setNavigationConfig] =
     useState<SteppingWidgetNavigationPolicy>(defaultNavigationPolicy);
   const [stepsData, setInternalStepsData] = useState<Array<StepDataModel>>([]);
+  const [onFinishCallback, setOnFinishCallback] = useState<() => void>(
+    () => {}
+  );
 
   // --- functions --- //
 
@@ -57,6 +60,8 @@ export const useSteppingWidget = (
         throw new StepsArleadyCompletedError();
 
       if (prevIndex === SteppingWidgetState.UNINITIALIZED) return 0;
+
+      if (prevIndex === stepsNum - 1) return SteppingWidgetState.COMPLETED;
 
       if (prevIndex < stepsNum) {
         return prevIndex + 1;
@@ -110,6 +115,10 @@ export const useSteppingWidget = (
     } else return null;
   };
 
+  const onFinish = (callback: () => void) => {
+    setOnFinishCallback(() => callback);
+  };
+
   // --- useEffects --- //
 
   useEffect(() => {
@@ -139,6 +148,17 @@ export const useSteppingWidget = (
     }
   }, [stepsNum]);
 
+  useEffect(() => {
+    if (
+      stepsCompleted &&
+      currentStepIndex === SteppingWidgetState.COMPLETED &&
+      onFinishCallback
+    ) {
+      console.log("Calling onFInish callback");
+      onFinishCallback();
+    }
+  }, [stepsCompleted, currentStepIndex]);
+
   return {
     currentStepIndex,
     stepsCompleted,
@@ -156,5 +176,6 @@ export const useSteppingWidget = (
     stepsData,
     setStepData,
     getStepData,
+    onFinish,
   };
 };

@@ -171,6 +171,13 @@ export interface SteppingWidgetLogic {
    * @param stepIndex Step index to check
    */
   isLastIndex(stepIndex: number): boolean;
+
+  /**
+   * Sets callback triggered once steps are completed
+   *
+   * @param callback Function callback
+   */
+  onFinish(callback: () => void): void;
 }
 
 /**

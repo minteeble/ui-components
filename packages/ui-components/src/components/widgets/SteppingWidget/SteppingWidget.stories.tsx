@@ -8,7 +8,7 @@
  * website:   https://minteeble.com
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Story, Meta } from "@storybook/react";
 
@@ -23,8 +23,12 @@ export default {
   argTypes: {},
 } as Meta<typeof SteppingWidget>;
 
-const TestStep1 = () => {
+const TestStep = () => {
   const step = useStep();
+
+  useEffect(() => {
+    step.nextStepReady();
+  }, []);
 
   return (
     <div>
@@ -38,9 +42,9 @@ const Template: Story<SteppingWidgetProps> = (args) => {
 
   return (
     <SteppingWidget {...args} logic={logic}>
-      <TestStep1 />
-      <p>Simple paragraph</p>
-      <div>Simple div</div>
+      <TestStep />
+      <TestStep />
+      <TestStep />
     </SteppingWidget>
   );
 };
