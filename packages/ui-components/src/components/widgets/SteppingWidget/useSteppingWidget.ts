@@ -89,7 +89,9 @@ export const useSteppingWidget = (
 
   const isSuccess = (stepIndex: number): boolean => {
     return (
-      (currentStepIndex !== null && stepIndex < currentStepIndex) ||
+      (currentStepIndex !== null &&
+        typeof currentStepIndex === "number" &&
+        stepIndex < currentStepIndex) ||
       currentStepIndex === SteppingWidgetState.COMPLETED
     );
   };
