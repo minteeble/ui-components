@@ -118,7 +118,10 @@ const Table = (props: TableProps) => {
                         ...currentToolbarItems,
                         {
                           content: (
-                            <Button onClick={props.onAdd} text={"Add"} />
+                            <Button
+                              onClick={props.onAdd}
+                              text={props.addButtonText || "Add"}
+                            />
                           ),
                           position: TableToolbarItemsPosition.Right,
                         },
