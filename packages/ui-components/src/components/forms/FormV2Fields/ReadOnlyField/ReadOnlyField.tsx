@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { ReadOnlyFieldProps } from "./ReadOnlyField.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faCopy } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faCheck,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ReadOnlyField = (props: ReadOnlyFieldProps) => {
   const [copyVal, setCopyVal] = useState<string>("");
@@ -16,6 +20,14 @@ const ReadOnlyField = (props: ReadOnlyFieldProps) => {
               props.value.map((val, i) => {
                 return (
                   <div className="value-wrapper">
+                    {props.link && val.length > 0 && (
+                      <FontAwesomeIcon
+                        onClick={() => {
+                          window.open(props.link, "_blank");
+                        }}
+                        icon={faArrowUpRightFromSquare}
+                      />
+                    )}
                     {props.copyable && val.length > 0 && (
                       <FontAwesomeIcon
                         onClick={() => {
@@ -44,10 +56,20 @@ const ReadOnlyField = (props: ReadOnlyFieldProps) => {
           </div>
         ) : (
           <div className="value-wrapper">
+            {props.link && props.value.length > 0 && (
+              <FontAwesomeIcon
+                onClick={() => {
+                  window.open(props.link, "_blank");
+                }}
+                icon={faArrowUpRightFromSquare}
+              />
+            )}
             {props.copyable && props.value.length > 0 && (
               <FontAwesomeIcon
                 onClick={() => {
+                  // @ts-ignore
                   setCopyVal(props.value);
+                  // @ts-ignore
                   window.navigator.clipboard.writeText(props.value);
                   setTimeout(() => {
                     setCopyVal("");

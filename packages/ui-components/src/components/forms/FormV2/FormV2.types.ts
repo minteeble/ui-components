@@ -69,6 +69,10 @@ export interface FieldComponentProps {
    */
   copyable?: boolean;
   /**
+   * Specifies a link for field in readonly mode
+   */
+  link?: string;
+  /**
    * Specifies if the field can be edit or not. False by default
    */
   disabled?: boolean;
@@ -195,6 +199,10 @@ export interface FormFieldState {
    * Specifies if value can be copied in readonly mode. False by default
    */
   copyable?: boolean;
+  /**
+   * Specifies a link for field in readonly mode
+   */
+  link?: string;
   /**
    * Specifies if the field can be edit or not. False by default
    */
