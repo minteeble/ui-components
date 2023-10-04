@@ -111,6 +111,7 @@ export const FormV2 = (props: FormV2Props) => {
                     return (
                       <div className="read-only-wrapper" key={i}>
                         <ReadOnlyField
+                          link={field.link}
                           copyable={field.copyable}
                           label={field.label}
                           value={field.value}
@@ -152,6 +153,7 @@ export const FormV2 = (props: FormV2Props) => {
           return (
             <div className="read-only-wrapper" key={i}>
               <ReadOnlyField
+                link={field.link}
                 copyable={field.copyable}
                 label={field.label}
                 value={field.value}

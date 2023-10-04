@@ -252,6 +252,7 @@ const ReadOnlyTemplate: Story<FormV2Props> = (args) => {
       },
       fieldComponent: SelectFormField,
       readOnly: true,
+      link: "https://www.google.com",
     });
 
     formLogic.addField({
