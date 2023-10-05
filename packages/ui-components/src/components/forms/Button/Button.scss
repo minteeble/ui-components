@@ -39,6 +39,12 @@
     }
   }
 
+  &.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+  }
+
   &.btn-danger {
     background-color: rgb(255, 76, 76);
     color: white;

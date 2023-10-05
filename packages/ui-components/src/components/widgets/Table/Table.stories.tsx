@@ -65,6 +65,7 @@ const SimpleTableArgs: TableProps = {
         {
           value: "$42.50",
           fieldName: "book price",
+          tooltip: "This is the price",
         },
       ],
     },
@@ -119,18 +120,22 @@ const ClickableTableArgs: TableProps = {
         {
           value: "first book",
           fieldName: "book name",
+          tooltip: "This is a tooltip",
         },
         {
           value: "8",
           fieldName: "ordered amount",
+          tooltip: "This is a tooltip",
         },
         {
           value: "$10.25",
           fieldName: "book price",
+          tooltip: "This is a tooltip",
         },
         {
           value: "20.00%",
           fieldName: "book discount",
+          tooltip: "This is a tooltip",
         },
       ],
     },

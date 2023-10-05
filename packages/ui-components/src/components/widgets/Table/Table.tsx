@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import TablePaginator, { usePaginator } from "./components/TablePaginator";
 import { RecordItem, TableProps, TableRecord } from "./Table.types";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 import {
   faCheck,
   faCircleExclamation,
@@ -154,7 +156,7 @@ const Table = (props: TableProps) => {
                             href={record.link}
                             style={{
                               cursor:
-                                record.link && props.rowsClickable
+                                record.link || props.rowsClickable
                                   ? "cursor"
                                   : "unset",
                             }}
@@ -179,8 +181,29 @@ const Table = (props: TableProps) => {
                             }`}
                           >
                             {record.items.map((item, index) => {
+                              const tooltipId =
+                                item.tooltip && `rt-${rowIndex}-${index}`;
+
                               return (
-                                <div className="table-record-item" key={index}>
+                                <div
+                                  className="table-record-item"
+                                  key={index}
+                                  data-tooltip-id={tooltipId}
+                                >
+                                  {tooltipId && (
+                                    <ReactTooltip
+                                      id={tooltipId}
+                                      place="bottom"
+                                      content={item.tooltip}
+                                    />
+                                  )}
+                                  {/* {tooltipId && (
+                                    <ReactTooltip
+                                      id={tooltipId}
+                                      place="bottom"
+                                      content="Hello world! I'm a Tooltip"
+                                    />
+                                  )} */}
                                   <span className="table-record-item-text">
                                     {header.find(
                                       (head) =>
