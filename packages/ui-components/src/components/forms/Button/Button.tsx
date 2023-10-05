@@ -19,10 +19,10 @@ const Button = (props: ButtonProps) => {
   let loading = props.loading || false;
   let style = props.styleType || ButtonStyleType.Filled;
 
+  const buttonStyles = ["btn-primary", "btn-danger", "btn-secondary"];
+
   let commonButtonProps = {
-    className: `button ${
-      style === ButtonStyleType.Filled ? "btn-primary" : "btn-danger"
-    }`,
+    className: `button ${buttonStyles[(style || ButtonStyleType.Filled) - 1]}`,
     disabled: disabled,
     onClick: props.onClick || (() => {}),
   };

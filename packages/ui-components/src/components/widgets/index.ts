@@ -7,3 +7,4 @@ export * from "./KeyValueBox";
 export * from "./ActionPopup";
 export * from "./InfoBox";
 export * from "./EditableImage";
+export * from "./SteppingWidget";

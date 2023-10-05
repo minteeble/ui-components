@@ -6,6 +6,7 @@ export * from "./AppVersionLabel";
 export * from "./ChainIcon";
 export * from "./AvatarHash";
 export * from "./DeletePopup";
-export * from "./ErrorCard";
 export * from "./ConnectCard";
+export * from "./InfoCard";
+export * from "./InfoCardsStack";
 // export {};

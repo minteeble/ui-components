@@ -38,6 +38,11 @@ export interface RecordItem {
    * Should match the header field names.
    */
   fieldName: string;
+
+  /**
+   * Optional tooltip text
+   */
+  tooltip?: string;
 }
 
 /**
