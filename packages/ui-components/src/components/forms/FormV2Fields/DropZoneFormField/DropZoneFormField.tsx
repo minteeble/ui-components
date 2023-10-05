@@ -9,13 +9,18 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowDown, faUpload } from "@fortawesome/free-solid-svg-icons";
 import Dropzone from "react-dropzone";
+import { LoadingSpinner, LoadingSpinnerSize } from "../../../common";
 
 const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   //States
-  const [currentImage, setCurrentImage] = useState<number | null>(0);
+  const [currentImage, setCurrentImage] = useState<number | null>(
+    props.value.length > 0 ? 0 : null
+  );
   const [fileName, setFileName] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [allowedFiles, setAllowedFiles] = useState<string>("");
+  const [parsedFiles, setParsedFiles] = useState<Array<string>>([]);
+  const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false);
   const layout = props.attributes.layout || DropZoneLayout.Horizontal;
   const mode = props.attributes.mode || DropZoneMode.Image;
   const uploadStrategy =
@@ -51,14 +56,57 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   //Effects
 
   useEffect(() => {
-    if (props.attributes.allowedFiles) {
+    if (props.attributes.allowedExtensions) {
       let hold = "Only ";
-      for (let i = 0; i < props.attributes.allowedFiles.length; i++) {
-        hold += props.attributes.allowedFiles[i] + " ";
+      for (let i = 0; i < props.attributes.allowedExtensions.length; i++) {
+        hold += props.attributes.allowedExtensions[i] + " ";
       }
       setAllowedFiles(hold);
     }
-  }, [props.attributes.allowedFiles]);
+  }, [props.attributes.allowedExtensions]);
+
+  useEffect(() => {
+    const parsed: string[] = [];
+
+    props.value.forEach(async (file: ArrayBuffer) => {
+      setIsLoadingImage(true);
+      const parsedFile = ((await fileToBase64(file)) as string) || "";
+      parsed.push(parsedFile);
+      setIsLoadingImage(false);
+    });
+
+    setParsedFiles(parsed);
+  }, [props.value]);
+
+  useEffect(() => {
+    setCurrentImage(props.value.length > 0 ? 0 : null);
+  }, [props.value]);
+
+  //Methods
+
+  const fileToArrayBuffer = (file: any) => {
+    return new Promise<any>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const arrayBuffer = reader.result;
+
+        resolve(arrayBuffer);
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
+  const fileToBase64 = async (file: any) => {
+    const buffer = await fileToArrayBuffer(file);
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  };
 
   return (
     <>
@@ -85,45 +133,41 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                 onDrop={(acceptedFiles) => {
                   console.log(acceptedFiles);
                   if (
-                    props.attributes.allowedFiles &&
-                    props.attributes.allowedFiles.length > 0
+                    props.attributes.allowedExtensions &&
+                    props.attributes.allowedExtensions.length > 0
                   ) {
                     let allowed = false;
                     for (
                       let i = 0;
-                      i < props.attributes.allowedFiles.length;
+                      i < props.attributes.allowedExtensions.length;
                       i++
                     ) {
                       if (
                         acceptedFiles[0].name.split(".")[
                           acceptedFiles[0].name.split(".").length - 1
-                        ] === props.attributes.allowedFiles[i]
+                        ] === props.attributes.allowedExtensions[i]
                       ) {
                         allowed = true;
                       }
                     }
                     if (allowed) {
                       setError("");
+                      if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
+                        props.setValue([acceptedFiles[0]]);
+                      }
                       if (typeof props.attributes.onDrop !== "undefined") {
-                        props.attributes.onDrop(acceptedFiles[0]);
+                        props.attributes.onDrop(acceptedFiles);
                       }
                     } else {
                       setError("");
                       setError(allowedFiles);
                     }
                   } else {
-                    if (
-                      (acceptedFiles[0].type === "image/png" ||
-                        acceptedFiles[0].type === "image/jpeg") &&
-                      acceptedFiles.length === 1
-                    ) {
-                      setError("");
-                      console.log("accepted");
-                      if (typeof props.attributes.onDrop !== "undefined") {
-                        props.attributes.onDrop(acceptedFiles[0]);
-                      }
-                    } else {
-                      setError("Only png or jpeg");
+                    if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
+                      props.setValue([acceptedFiles[0]]);
+                    }
+                    if (typeof props.attributes.onDrop !== "undefined") {
+                      props.attributes.onDrop(acceptedFiles);
                     }
                   }
                 }}
@@ -142,11 +186,30 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                       <div className="file-section">
                         {mode === DropZoneMode.Image ? (
                           <div className="image-wrapper">
+                            {isLoadingImage && (
+                              <div className="loading-wrapper">
+                                <LoadingSpinner
+                                  Size={LoadingSpinnerSize.Medium}
+                                />
+                              </div>
+                            )}
+                            <div
+                              className="drop-layer"
+                              style={{
+                                opacity: isDragActive ? 1 : 0,
+                                pointerEvents: isDragActive ? "all" : "none",
+                              }}
+                            >
+                              {icon}
+                            </div>
                             {typeof currentImage === "number" && (
                               <>
                                 <img
                                   className="current-image"
-                                  src={props.value[currentImage]}
+                                  src={
+                                    "data:image/png;base64," +
+                                    parsedFiles[currentImage]
+                                  }
                                 />
                               </>
                             )}
@@ -156,13 +219,16 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                         )}
                       </div>
                       <div className="info-section">
-                        <FontAwesomeIcon icon={faCloudArrowDown} />
+                        <FontAwesomeIcon
+                          icon={faCloudArrowDown}
+                          className="icon"
+                        />
                         <span className="text">
                           <strong>DRAG&DROP</strong> Files here
                           <br />
                           or
                           <br />
-                          Browse Files
+                          Click to Browse Files
                         </span>
                       </div>
                     </div>

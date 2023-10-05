@@ -354,10 +354,12 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
   useEffect(() => {
     formLogic.addField({
       key: "image",
-      value: ["https://picsum.photos/500"],
+      value: [],
       label: "Set image",
       fieldComponent: DropZoneFormField as any,
-      attributes: {},
+      attributes: {
+        allowedExtensions: ["png"],
+      },
     });
 
     formLogic.onSubmit((formData: FormOnSubmitDataModel) => {

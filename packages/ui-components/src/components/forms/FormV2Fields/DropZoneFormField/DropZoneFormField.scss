@@ -29,6 +29,11 @@
           position: relative;
           cursor: pointer;
 
+          &.active {
+            border: 3px dashed var(--primary-color);
+            background: rgba(222, 227, 236, 0.27);
+          }
+
           &.horizontal {
             flex-direction: row;
             width: 30rem;
@@ -47,10 +52,13 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 1rem;
             padding: 1rem;
             width: 15rem;
             aspect-ratio: 1/1;
+          }
+
+          .file-section {
             .image-wrapper {
               width: 100%;
               height: 100%;
@@ -58,6 +66,27 @@
               max-height: 100%;
               border-radius: 0.5rem;
               background: black;
+              position: relative;
+              overflow: hidden;
+
+              .drop-layer,
+              .loading-wrapper {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+                background: rgba(0, 0, 0, 0.447);
+                transition: all 0.4s ease-in-out;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .drag-icon {
+                  width: 50%;
+                  fill: white;
+                }
+              }
               .current-image {
                 width: 100%;
                 height: 100%;
@@ -67,65 +96,21 @@
               }
             }
           }
-        }
-      }
-    }
-    .preview {
-      border-radius: 1rem;
-      border: 3px solid var(--primary-color);
-      width: 22rem;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      flex-direction: column;
-      padding: 1rem;
-      gap: 1rem;
-
-      .image-wrapper {
-        border-radius: 1rem;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 11rem;
-        aspect-ratio: 1/1;
-        background: #1e1e1e;
-        position: relative;
-        .image {
-          width: 100%;
-          max-width: 100%;
-        }
-
-        .upload {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.6);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          font-size: 1.5rem;
-          opacity: 0;
-          transition: all 0.2s ease-in-out;
-          color: white;
-        }
-
-        &:hover {
-          .upload {
-            opacity: 1;
+          .info-section {
+            .icon {
+              color: var(--primary-color);
+              font-size: 2rem;
+            }
+            .text {
+              text-align: center;
+              line-height: 1.3rem;
+              font-size: 1.1rem;
+              strong {
+                color: var(--primary-color);
+              }
+            }
           }
         }
-      }
-
-      .info {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
       }
     }
   }

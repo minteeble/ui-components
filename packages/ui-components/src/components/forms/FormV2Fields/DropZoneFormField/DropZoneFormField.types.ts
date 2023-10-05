@@ -20,7 +20,7 @@ export interface DropZoneFormFieldProps extends FieldComponentProps {
     mode?: DropZoneMode;
     title?: string;
     text?: string;
-    allowedFiles?: string[];
+    allowedExtensions?: string[];
     uploadStrategy?: DropZoneUploadStrategy;
     onDrop?: (file: any) => void;
   };
