@@ -28,7 +28,6 @@ import Select from "./Select/Select";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 import Toggle from "./Toggle";
-import DropZonePreview from "./DropZonePreview";
 
 export interface FieldState {
   value: any;
@@ -74,27 +73,6 @@ const Form = (props: FormProps) => {
           }
 
           if (element.type === FormFieldType.TextArea) {
-            return {
-              value: element.value || "",
-              onValueChange: (newValue: any) => {
-                let sanitized: boolean = true;
-                console.log("ELement", element);
-                if (element.sanitize) {
-                  sanitized = element.sanitize(newValue);
-                  console.log("Sanitized:", sanitized);
-                }
-
-                setFieldsState((s) => {
-                  console.log("AAAAAA", s);
-                  if (sanitized) s[i].value = newValue;
-
-                  return [...s];
-                });
-              },
-              originalFormField: element,
-            };
-          }
-          if (element.type === FormFieldType.DropZoneReview) {
             return {
               value: element.value || "",
               onValueChange: (newValue: any) => {
@@ -177,19 +155,6 @@ const Form = (props: FormProps) => {
           alignment={field.originalFormField.alignment}
           placeHolder={field.originalFormField.placeholder}
           readonlyField={props.editable ? !underEdit : false}
-        />
-      );
-    }
-    if (field.originalFormField.type === FormFieldType.DropZoneReview) {
-      let originalFormField = field.originalFormField as DropZoneParams;
-
-      console.log("Error", field.errorMessage);
-      return (
-        <DropZonePreview
-          value={field?.value}
-          onValueChange={field?.onValueChange}
-          label={field.originalFormField.label}
-          alignment={field.originalFormField.alignment}
         />
       );
     }

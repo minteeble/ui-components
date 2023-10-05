@@ -1,7 +1,6 @@
 export * from "./TextInput";
 export * from "./Select";
 export * from "./Toggle";
-export * from "./DropZonePreview";
 export * from "./TextArea";
 
 import Form from "./Form";

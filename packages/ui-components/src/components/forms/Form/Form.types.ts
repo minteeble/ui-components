@@ -43,7 +43,6 @@ export enum FormFieldType {
   Select,
   Toggle,
   TextArea,
-  DropZoneReview,
 }
 
 export enum FormFieldAlignment {

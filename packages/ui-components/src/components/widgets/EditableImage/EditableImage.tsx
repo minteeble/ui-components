@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { EditableImageProps, EditableImagesSize } from "./EditableImage.types";
 import { PageCard, Popup, usePopup } from "../../page";
-import DropZone from "../DropZone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import {
   DropZoneFormField,
+  FieldComponentProps,
   FormOnSubmitDataModel,
   FormV2,
   useFormV2,
@@ -28,7 +28,7 @@ const EditableImage = (props: EditableImageProps) => {
       key: "image",
       value: "",
       label: "Set new Image",
-      fieldComponent: DropZoneFormField,
+      fieldComponent: DropZoneFormField as React.FC<FieldComponentProps>,
     });
 
     formLogic.enableSubmit(true);
