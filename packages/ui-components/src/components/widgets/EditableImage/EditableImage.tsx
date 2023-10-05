@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import {
   DropZoneFormField,
+  DropZoneFormFieldProps,
   FieldComponentProps,
   FormOnSubmitDataModel,
   FormV2,
@@ -26,9 +27,10 @@ const EditableImage = (props: EditableImageProps) => {
   useEffect(() => {
     formLogic.addField({
       key: "image",
-      value: "",
+      value: [],
       label: "Set new Image",
       fieldComponent: DropZoneFormField as React.FC<FieldComponentProps>,
+      attributes: {},
     });
 
     formLogic.enableSubmit(true);
@@ -37,8 +39,8 @@ const EditableImage = (props: EditableImageProps) => {
   }, []);
 
   useEffect(() => {
-    if (isFormLoaded) {
-      formLogic.setValue("image", props.image);
+    if (isFormLoaded && props.image) {
+      formLogic.setValue("image", [props.image]);
     }
   }, [props.image, isFormLoaded]);
 
@@ -66,17 +68,43 @@ const EditableImage = (props: EditableImageProps) => {
     })();
   }, [image, isFormLoaded]);
 
+  const fileToArrayBuffer = (file: any) => {
+    return new Promise<any>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const arrayBuffer = reader.result;
+
+        resolve(arrayBuffer);
+      };
+
+      reader.readAsArrayBuffer(file);
+    });
+  };
+
+  const fileToBase64 = async (file: any) => {
+    const buffer = await fileToArrayBuffer(file);
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  };
+
   return (
     <>
       <div className="editable-image">
-        <Popup popupLogic={popupLogic}>
+        <Popup popupLogic={popupLogic} closeCrossEnabled>
           <div className="wrapper">
+            <h1 className="title kanit">Update image</h1>
             <FormV2
               formLogic={formLogic}
-              onSubmit={(formData: FormOnSubmitDataModel) => {
-                setImage(formData.values.image);
+              onSubmit={async (formData: FormOnSubmitDataModel) => {
+                const image = await fileToArrayBuffer(formData.values.image[0]);
+                setImage(image);
                 if (props.onSubmit) {
-                  props.onSubmit(formData.values.image);
+                  props.onSubmit(image);
                 }
                 popupLogic.closePopup();
               }}
