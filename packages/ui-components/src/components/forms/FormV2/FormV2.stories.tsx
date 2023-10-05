@@ -25,6 +25,7 @@ import {
   CheckboxButtonsFormField,
   ConfigurableKeyValueFormField,
   DropZoneFormField,
+  DropZoneSizeUnit,
   KeyValueFormField,
   MultiSelectFormField,
   RadioButtonsFormField,
@@ -359,6 +360,10 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
       fieldComponent: DropZoneFormField as any,
       attributes: {
         allowedExtensions: ["png"],
+        maxSize: {
+          value: 10,
+          unit: DropZoneSizeUnit.MB,
+        },
       },
     });
 

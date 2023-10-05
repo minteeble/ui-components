@@ -14,6 +14,18 @@ export enum DropZoneUploadStrategy {
   Multifile,
 }
 
+export enum DropZoneSizeUnit {
+  B = 1,
+  KB = 1024,
+  MB = 1048576,
+  GB = 1073741824,
+}
+
+export interface DropZoneSize {
+  value: number;
+  unit: DropZoneSizeUnit;
+}
+
 export interface DropZoneFormFieldProps extends FieldComponentProps {
   attributes: {
     layout?: DropZoneLayout;
@@ -22,6 +34,7 @@ export interface DropZoneFormFieldProps extends FieldComponentProps {
     text?: string;
     allowedExtensions?: string[];
     uploadStrategy?: DropZoneUploadStrategy;
+    maxSize?: DropZoneSize;
     onDrop?: (file: any) => void;
   };
 }

@@ -4,6 +4,7 @@ import {
   DropZoneFormFieldProps,
   DropZoneLayout,
   DropZoneMode,
+  DropZoneSizeUnit,
   DropZoneUploadStrategy,
 } from "./DropZoneFormField.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +14,7 @@ import { LoadingSpinner, LoadingSpinnerSize } from "../../../common";
 
 const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   //States
-  const [currentImage, setCurrentImage] = useState<number | null>(
+  const [currentFile, setCurrentFile] = useState<number | null>(
     props.value.length > 0 ? 0 : null
   );
   const [fileName, setFileName] = useState<string>("");
@@ -79,8 +80,15 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   }, [props.value]);
 
   useEffect(() => {
-    setCurrentImage(props.value.length > 0 ? 0 : null);
+    setCurrentFile(props.value.length > 0 ? 0 : null);
   }, [props.value]);
+
+  useEffect(() => {
+    if (typeof currentFile === "number") {
+      console.log("VALUE", props.value);
+      setFileName(props.value[currentFile].name.replace(/.[a-z]*$/, ""));
+    }
+  }, [currentFile]);
 
   //Methods
 
@@ -132,6 +140,26 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
               <Dropzone
                 onDrop={(acceptedFiles) => {
                   console.log(acceptedFiles);
+                  if (props.attributes.maxSize) {
+                    let isValid = true;
+                    const max =
+                      props.attributes.maxSize.value *
+                      props.attributes.maxSize.unit;
+                    acceptedFiles.forEach((file) => {
+                      if (file.size > max) {
+                        isValid = false;
+                        return;
+                      }
+                    });
+                    if (!isValid) {
+                      setError(
+                        `Max size ${props.attributes.maxSize!.value}${
+                          DropZoneSizeUnit[props.attributes.maxSize!.unit]
+                        }`
+                      );
+                      return;
+                    }
+                  }
                   if (
                     props.attributes.allowedExtensions &&
                     props.attributes.allowedExtensions.length > 0
@@ -202,13 +230,13 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                             >
                               {icon}
                             </div>
-                            {typeof currentImage === "number" && (
+                            {typeof currentFile === "number" && (
                               <>
                                 <img
                                   className="current-image"
                                   src={
                                     "data:image/png;base64," +
-                                    parsedFiles[currentImage]
+                                    parsedFiles[currentFile]
                                   }
                                 />
                               </>
@@ -219,6 +247,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                         )}
                       </div>
                       <div className="info-section">
+                        <div className="filename">{fileName}</div>
                         <FontAwesomeIcon
                           icon={faCloudArrowDown}
                           className="icon"
@@ -230,6 +259,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                           <br />
                           Click to Browse Files
                         </span>
+                        <span className="error">{error}</span>
                       </div>
                     </div>
                   </section>
