@@ -13,6 +13,7 @@ import { Story, Meta } from "@storybook/react";
 
 import { FormV2 } from "./FormV2";
 import {
+  FieldComponentProps,
   FormFieldState,
   FormInjectedData,
   FormOnSubmitDataModel,
@@ -25,6 +26,8 @@ import {
   CheckboxButtonsFormField,
   ConfigurableKeyValueFormField,
   DropZoneFormField,
+  DropZoneFormFieldProps,
+  DropZoneMode,
   DropZoneSizeUnit,
   KeyValueFormField,
   MultiSelectFormField,
@@ -357,13 +360,14 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
       key: "image",
       value: [],
       label: "Set image",
-      fieldComponent: DropZoneFormField as any,
+      fieldComponent: DropZoneFormField as React.FC<FieldComponentProps>,
       attributes: {
-        allowedExtensions: ["png"],
+        allowedExtensions: ["zip"],
         maxSize: {
           value: 10,
           unit: DropZoneSizeUnit.MB,
         },
+        mode: DropZoneMode.File,
       },
     });
 

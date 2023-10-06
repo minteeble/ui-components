@@ -8,7 +8,11 @@ import {
   DropZoneUploadStrategy,
 } from "./DropZoneFormField.types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudArrowDown, faUpload } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudArrowDown,
+  faFolder,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
 import Dropzone from "react-dropzone";
 import { LoadingSpinner, LoadingSpinnerSize } from "../../../common";
 
@@ -18,6 +22,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
     props.value.length > 0 ? 0 : null
   );
   const [fileName, setFileName] = useState<string>("");
+  const [fileSize, setFileSize] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [allowedFiles, setAllowedFiles] = useState<string>("");
   const [parsedFiles, setParsedFiles] = useState<Array<string>>([]);
@@ -67,16 +72,17 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   }, [props.attributes.allowedExtensions]);
 
   useEffect(() => {
-    const parsed: string[] = [];
+    if (mode === DropZoneMode.Image) {
+      const parsed: string[] = [];
 
-    props.value.forEach(async (file: ArrayBuffer) => {
-      setIsLoadingImage(true);
-      const parsedFile = ((await fileToBase64(file)) as string) || "";
-      parsed.push(parsedFile);
-      setIsLoadingImage(false);
-    });
-
-    setParsedFiles(parsed);
+      props.value.forEach(async (file: ArrayBuffer) => {
+        setIsLoadingImage(true);
+        const parsedFile = ((await fileToBase64(file)) as string) || "";
+        parsed.push(parsedFile);
+        setIsLoadingImage(false);
+      });
+      setParsedFiles(parsed);
+    }
   }, [props.value]);
 
   useEffect(() => {
@@ -85,8 +91,25 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
 
   useEffect(() => {
     if (typeof currentFile === "number") {
-      console.log("VALUE", props.value);
       setFileName(props.value[currentFile].name.replace(/.[a-z]*$/, ""));
+      let size = props.value[currentFile].size;
+      if (Math.abs(size) < 1024) {
+        setFileSize(size + " B");
+      }
+
+      const units = ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+      let u = -1;
+      const r = 10 ** 1;
+
+      do {
+        size /= 1024;
+        ++u;
+      } while (
+        Math.round(Math.abs(size) * r) / r >= 1024 &&
+        u < units.length - 1
+      );
+
+      setFileSize(size.toFixed(1) + " " + units[u]);
     }
   }, [currentFile]);
 
@@ -212,42 +235,53 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                       {...getRootProps()}
                     >
                       <div className="file-section">
-                        {mode === DropZoneMode.Image ? (
-                          <div className="image-wrapper">
-                            {isLoadingImage && (
-                              <div className="loading-wrapper">
-                                <LoadingSpinner
-                                  Size={LoadingSpinnerSize.Medium}
-                                />
-                              </div>
-                            )}
-                            <div
-                              className="drop-layer"
-                              style={{
-                                opacity: isDragActive ? 1 : 0,
-                                pointerEvents: isDragActive ? "all" : "none",
-                              }}
-                            >
-                              {icon}
+                        <div className="wrapper">
+                          {isLoadingImage && (
+                            <div className="loading-wrapper">
+                              <LoadingSpinner
+                                Size={LoadingSpinnerSize.Medium}
+                              />
                             </div>
-                            {typeof currentFile === "number" && (
-                              <>
-                                <img
-                                  className="current-image"
-                                  src={
-                                    "data:image/png;base64," +
-                                    parsedFiles[currentFile]
-                                  }
-                                />
-                              </>
-                            )}
+                          )}
+                          <div
+                            className="drop-layer"
+                            style={{
+                              opacity: isDragActive ? 1 : 0,
+                              pointerEvents: isDragActive ? "all" : "none",
+                            }}
+                          >
+                            {icon}
                           </div>
-                        ) : (
-                          <div className="file">file</div>
-                        )}
+                          {mode === DropZoneMode.Image ? (
+                            <>
+                              {typeof currentFile === "number" && (
+                                <>
+                                  <img
+                                    className="current-image"
+                                    src={
+                                      "data:image/png;base64," +
+                                      parsedFiles[currentFile]
+                                    }
+                                  />
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <div className="file">
+                              <FontAwesomeIcon
+                                icon={faFolder}
+                                className="icon"
+                              />
+                              <span className="name">{fileName || "None"}</span>
+                              <span className="size">{fileSize}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                       <div className="info-section">
-                        <div className="filename">{fileName}</div>
+                        {mode !== DropZoneMode.File && (
+                          <div className="filename">{fileName || "None"}</div>
+                        )}
                         <FontAwesomeIcon
                           icon={faCloudArrowDown}
                           className="icon"
