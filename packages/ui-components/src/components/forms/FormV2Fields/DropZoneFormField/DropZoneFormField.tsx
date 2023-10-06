@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloudArrowDown,
   faFolder,
+  faTrash,
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import Dropzone from "react-dropzone";
@@ -73,17 +74,31 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
 
   useEffect(() => {
     if (mode === DropZoneMode.Image) {
-      const parsed: string[] = [];
-
-      props.value.forEach(async (file: ArrayBuffer) => {
+      (async () => {
         setIsLoadingImage(true);
-        const parsedFile = ((await fileToBase64(file)) as string) || "";
-        parsed.push(parsedFile);
-        setIsLoadingImage(false);
-      });
-      setParsedFiles(parsed);
+        const parsed: string[] = [];
+
+        for (let i = 0; i < props.value.length; i++) {
+          await new Promise<void>(async (resolve, reject) => {
+            const parsedFile =
+              ((await fileToBase64(props.value[i])) as string) || "";
+            parsed.push(parsedFile);
+            console.log("Cycle", parsed.length);
+            resolve();
+          });
+        }
+
+        console.log("Parsing item:", props.value, parsed.length);
+
+        setParsedFiles(parsed);
+      })();
     }
   }, [props.value]);
+
+  useEffect(() => {
+    setIsLoadingImage(false);
+    console.log(parsedFiles.length);
+  }, [parsedFiles]);
 
   useEffect(() => {
     setCurrentFile(props.value.length > 0 ? 0 : null);
@@ -91,25 +106,14 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
 
   useEffect(() => {
     if (typeof currentFile === "number") {
-      setFileName(props.value[currentFile].name.replace(/.[a-z]*$/, ""));
-      let size = props.value[currentFile].size;
-      if (Math.abs(size) < 1024) {
-        setFileSize(size + " B");
-      }
+      const temp = props.value[currentFile];
+      console.log("CHECK", props.value, temp.name, currentFile);
+      setFileName(temp.name.replace(/.[a-z]*$/, ""));
 
-      const units = ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-      let u = -1;
-      const r = 10 ** 1;
-
-      do {
-        size /= 1024;
-        ++u;
-      } while (
-        Math.round(Math.abs(size) * r) / r >= 1024 &&
-        u < units.length - 1
-      );
-
-      setFileSize(size.toFixed(1) + " " + units[u]);
+      setFileSize(byteSizeToString(temp.size));
+    } else {
+      setFileName("");
+      setFileSize("");
     }
   }, [currentFile]);
 
@@ -139,168 +143,230 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
     return window.btoa(binary);
   };
 
+  const byteSizeToString = (byte: number) => {
+    if (Math.abs(byte) < 1024) {
+      setFileSize(byte + " B");
+    }
+
+    const units = ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    let u = -1;
+    const r = 10 ** 1;
+
+    do {
+      byte /= 1024;
+      ++u;
+    } while (
+      Math.round(Math.abs(byte) * r) / r >= 1024 &&
+      u < units.length - 1
+    );
+
+    return byte.toFixed(1) + " " + units[u];
+  };
+
   return (
     <>
       <div className={`drop-zone-form-field`}>
         <div className="content">
-          <>
-            <div className="drop-zone-container">
-              {/* <DropZone
-                  title="Set new Image"
-                  onDrop={(file) => {
-                    const i = new Image();
-                    let reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = () => {
-                      props.setValue(reader.result?.toString() || currentImage);
-                      setFileName(file.name.replace(/.[a-z]*$/, ""));
-                      setEdit(false);
-                    };
-                  }}
-                  allowedFiles={["png"]}
-                  text="Select or Drop new Image"
-                /> */}
-              <Dropzone
-                onDrop={(acceptedFiles) => {
-                  console.log(acceptedFiles);
-                  if (props.attributes.maxSize) {
-                    let isValid = true;
-                    const max =
-                      props.attributes.maxSize.value *
-                      props.attributes.maxSize.unit;
-                    acceptedFiles.forEach((file) => {
-                      if (file.size > max) {
-                        isValid = false;
-                        return;
-                      }
-                    });
-                    if (!isValid) {
-                      setError(
-                        `Max size ${props.attributes.maxSize!.value}${
-                          DropZoneSizeUnit[props.attributes.maxSize!.unit]
-                        }`
-                      );
+          <div className="drop-zone-container">
+            <Dropzone
+              onDrop={(acceptedFiles) => {
+                console.log(acceptedFiles);
+                if (props.attributes.maxSize) {
+                  let isValid = true;
+                  const max =
+                    props.attributes.maxSize.value *
+                    props.attributes.maxSize.unit;
+                  acceptedFiles.forEach((file) => {
+                    if (file.size > max) {
+                      isValid = false;
                       return;
                     }
+                  });
+                  if (!isValid) {
+                    setError(
+                      `Max size ${props.attributes.maxSize!.value}${
+                        DropZoneSizeUnit[props.attributes.maxSize!.unit]
+                      }`
+                    );
+                    return;
                   }
-                  if (
-                    props.attributes.allowedExtensions &&
-                    props.attributes.allowedExtensions.length > 0
+                }
+                if (
+                  props.attributes.allowedExtensions &&
+                  props.attributes.allowedExtensions.length > 0
+                ) {
+                  let allowed = false;
+                  for (
+                    let i = 0;
+                    i < props.attributes.allowedExtensions.length;
+                    i++
                   ) {
-                    let allowed = false;
-                    for (
-                      let i = 0;
-                      i < props.attributes.allowedExtensions.length;
-                      i++
+                    if (
+                      acceptedFiles[0].name.split(".")[
+                        acceptedFiles[0].name.split(".").length - 1
+                      ] === props.attributes.allowedExtensions[i]
                     ) {
-                      if (
-                        acceptedFiles[0].name.split(".")[
-                          acceptedFiles[0].name.split(".").length - 1
-                        ] === props.attributes.allowedExtensions[i]
-                      ) {
-                        allowed = true;
-                      }
+                      allowed = true;
                     }
-                    if (allowed) {
-                      setError("");
-                      if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
-                        props.setValue([acceptedFiles[0]]);
-                      }
-                      if (typeof props.attributes.onDrop !== "undefined") {
-                        props.attributes.onDrop(acceptedFiles);
-                      }
-                    } else {
-                      setError("");
-                      setError(allowedFiles);
-                    }
-                  } else {
+                  }
+                  if (allowed) {
+                    setError("");
                     if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
                       props.setValue([acceptedFiles[0]]);
+                    }
+                    if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
+                      props.setValue([...props.value, ...acceptedFiles]);
                     }
                     if (typeof props.attributes.onDrop !== "undefined") {
                       props.attributes.onDrop(acceptedFiles);
                     }
+                  } else {
+                    setError("");
+                    setError(allowedFiles);
                   }
-                }}
-              >
-                {({ getRootProps, getInputProps, isDragActive }) => (
-                  <section>
-                    <input {...getInputProps()} />
-                    <div
-                      className={`drop-zone ${isDragActive ? "active" : ""} ${
-                        layout === DropZoneLayout.Horizontal
-                          ? "horizontal"
-                          : "vertical"
-                      }`}
-                      {...getRootProps()}
-                    >
-                      <div className="file-section">
-                        <div className="wrapper">
-                          {isLoadingImage && (
-                            <div className="loading-wrapper">
-                              <LoadingSpinner
-                                Size={LoadingSpinnerSize.Medium}
-                              />
-                            </div>
-                          )}
-                          <div
-                            className="drop-layer"
-                            style={{
-                              opacity: isDragActive ? 1 : 0,
-                              pointerEvents: isDragActive ? "all" : "none",
-                            }}
-                          >
-                            {icon}
+                } else {
+                  if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
+                    props.setValue([acceptedFiles[0]]);
+                  }
+                  if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
+                    props.setValue([...props.value, ...acceptedFiles]);
+                  }
+                  if (typeof props.attributes.onDrop !== "undefined") {
+                    props.attributes.onDrop(acceptedFiles);
+                  }
+                }
+              }}
+            >
+              {({ getRootProps, getInputProps, isDragActive }) => (
+                <section>
+                  <input {...getInputProps()} />
+                  <div
+                    className={`drop-zone ${isDragActive ? "active" : ""} ${
+                      layout === DropZoneLayout.Horizontal
+                        ? "horizontal"
+                        : "vertical"
+                    }`}
+                    {...getRootProps()}
+                  >
+                    <div className="file-section">
+                      <div className="wrapper">
+                        {isLoadingImage && (
+                          <div className="loading-wrapper">
+                            <LoadingSpinner Size={LoadingSpinnerSize.Medium} />
                           </div>
-                          {mode === DropZoneMode.Image ? (
-                            <>
-                              {typeof currentFile === "number" && (
-                                <>
-                                  <img
-                                    className="current-image"
-                                    src={
-                                      "data:image/png;base64," +
-                                      parsedFiles[currentFile]
-                                    }
-                                  />
-                                </>
-                              )}
-                            </>
-                          ) : (
-                            <div className="file">
-                              <FontAwesomeIcon
-                                icon={faFolder}
-                                className="icon"
-                              />
-                              <span className="name">{fileName || "None"}</span>
-                              <span className="size">{fileSize}</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="info-section">
-                        {mode !== DropZoneMode.File && (
-                          <div className="filename">{fileName || "None"}</div>
                         )}
-                        <FontAwesomeIcon
-                          icon={faCloudArrowDown}
-                          className="icon"
-                        />
-                        <span className="text">
-                          <strong>DRAG&DROP</strong> Files here
-                          <br />
-                          or
-                          <br />
-                          Click to Browse Files
-                        </span>
-                        <span className="error">{error}</span>
+                        <div
+                          className="drop-layer"
+                          style={{
+                            opacity: isDragActive ? 1 : 0,
+                            pointerEvents: isDragActive ? "all" : "none",
+                          }}
+                        >
+                          {icon}
+                        </div>
+                        {mode === DropZoneMode.Image ? (
+                          <>
+                            {typeof currentFile === "number" && (
+                              <>
+                                <img
+                                  className="current-image"
+                                  src={
+                                    "data:image/png;base64," +
+                                    parsedFiles[currentFile]
+                                  }
+                                />
+                              </>
+                            )}
+                          </>
+                        ) : (
+                          <div className="file">
+                            <FontAwesomeIcon icon={faFolder} className="icon" />
+                            <span className="name">{fileName || "None"}</span>
+                            <span className="size">{fileSize}</span>
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </section>
-                )}
-              </Dropzone>
+                    <div className="info-section">
+                      {mode !== DropZoneMode.File && (
+                        <div className="filename">{fileName || "None"}</div>
+                      )}
+                      <FontAwesomeIcon
+                        icon={faCloudArrowDown}
+                        className="icon"
+                      />
+                      <span className="text">
+                        <strong>DRAG&DROP</strong> Files here
+                        <br />
+                        or
+                        <br />
+                        Click to Browse Files
+                      </span>
+                      <span className="error">{error}</span>
+                    </div>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+          </div>
+          {props.attributes.uploadStrategy ===
+            DropZoneUploadStrategy.Multifile && (
+            <div className="files-list">
+              {props.value.map((file: Blob, i: number) => {
+                return (
+                  <div
+                    className={`file-row ${currentFile === i ? "active" : ""}`}
+                    key={i}
+                    onClick={() => {
+                      setCurrentFile(i);
+                    }}
+                  >
+                    <div className="icon-wrapper">
+                      {mode === DropZoneMode.File && (
+                        <FontAwesomeIcon
+                          icon={faFolder}
+                          className="folder-icon"
+                        />
+                      )}
+                      {mode === DropZoneMode.Image && (
+                        <>
+                          {isLoadingImage ? (
+                            <div className="loading-wrapper">
+                              <LoadingSpinner Size={LoadingSpinnerSize.Small} />
+                            </div>
+                          ) : (
+                            <img
+                              src={"data:image/png;base64," + parsedFiles[i]}
+                              className="image"
+                            />
+                          )}
+                        </>
+                      )}
+                    </div>
+                    <div className="file-info">
+                      <div className="name">
+                        {props.value[i].name.replace(/.[a-z]*$/, "")}
+                      </div>
+                      <div className="size">
+                        {byteSizeToString(props.value[i].size)}
+                      </div>
+                    </div>
+                    <div
+                      className="remove"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        let temp = props.value;
+                        temp.splice(i, 1);
+                        props.setValue([...temp]);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          </>
+          )}
         </div>
       </div>
     </>

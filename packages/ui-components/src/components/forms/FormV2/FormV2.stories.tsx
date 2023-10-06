@@ -29,6 +29,7 @@ import {
   DropZoneFormFieldProps,
   DropZoneMode,
   DropZoneSizeUnit,
+  DropZoneUploadStrategy,
   KeyValueFormField,
   MultiSelectFormField,
   RadioButtonsFormField,
@@ -362,12 +363,13 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
       label: "Set image",
       fieldComponent: DropZoneFormField as React.FC<FieldComponentProps>,
       attributes: {
-        allowedExtensions: ["zip"],
+        allowedExtensions: ["png"],
         maxSize: {
-          value: 10,
+          value: 15,
           unit: DropZoneSizeUnit.MB,
         },
         mode: DropZoneMode.File,
+        uploadStrategy: DropZoneUploadStrategy.Multifile,
       },
     });
 
