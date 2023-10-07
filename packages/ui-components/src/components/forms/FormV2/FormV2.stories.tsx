@@ -368,7 +368,7 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
           value: 15,
           unit: DropZoneSizeUnit.MB,
         },
-        mode: DropZoneMode.File,
+        mode: DropZoneMode.Image,
         uploadStrategy: DropZoneUploadStrategy.Multifile,
       },
     });

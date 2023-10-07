@@ -83,13 +83,9 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
             const parsedFile =
               ((await fileToBase64(props.value[i])) as string) || "";
             parsed.push(parsedFile);
-            console.log("Cycle", parsed.length);
             resolve();
           });
         }
-
-        console.log("Parsing item:", props.value, parsed.length);
-
         setParsedFiles(parsed);
       })();
     }
@@ -97,7 +93,6 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
 
   useEffect(() => {
     setIsLoadingImage(false);
-    console.log(parsedFiles.length);
   }, [parsedFiles]);
 
   useEffect(() => {
@@ -105,9 +100,9 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   }, [props.value]);
 
   useEffect(() => {
-    if (typeof currentFile === "number") {
+    if (typeof currentFile === "number" && props.value.length > 0) {
       const temp = props.value[currentFile];
-      console.log("CHECK", props.value, temp.name, currentFile);
+
       setFileName(temp.name.replace(/.[a-z]*$/, ""));
 
       setFileSize(byteSizeToString(temp.size));
@@ -115,7 +110,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
       setFileName("");
       setFileSize("");
     }
-  }, [currentFile]);
+  }, [currentFile, props.value]);
 
   //Methods
 
@@ -170,7 +165,6 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
           <div className="drop-zone-container">
             <Dropzone
               onDrop={(acceptedFiles) => {
-                console.log(acceptedFiles);
                 if (props.attributes.maxSize) {
                   let isValid = true;
                   const max =
