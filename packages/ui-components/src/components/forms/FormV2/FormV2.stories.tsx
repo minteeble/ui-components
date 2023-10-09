@@ -28,6 +28,7 @@ import {
   DropZoneAlignment,
   DropZoneFormField,
   DropZoneFormFieldProps,
+  DropZoneLayout,
   DropZoneMode,
   DropZoneSizeUnit,
   DropZoneUploadStrategy,
@@ -371,7 +372,8 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
         },
         mode: DropZoneMode.Image,
         uploadStrategy: DropZoneUploadStrategy.Multifile,
-        alignment: DropZoneAlignment.Stretch,
+        alignment: DropZoneAlignment.Center,
+        layout: DropZoneLayout.Vertical,
       },
     });
 
