@@ -25,6 +25,7 @@ import {
   BooleanCheckboxFormField,
   CheckboxButtonsFormField,
   ConfigurableKeyValueFormField,
+  DropZoneAlignment,
   DropZoneFormField,
   DropZoneFormFieldProps,
   DropZoneMode,
@@ -363,13 +364,14 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
       label: "Set image",
       fieldComponent: DropZoneFormField as React.FC<FieldComponentProps>,
       attributes: {
-        allowedExtensions: ["png"],
+        allowedExtensions: ["png", "jpeg"],
         maxSize: {
           value: 15,
           unit: DropZoneSizeUnit.MB,
         },
         mode: DropZoneMode.Image,
         uploadStrategy: DropZoneUploadStrategy.Multifile,
+        alignment: DropZoneAlignment.Stretch,
       },
     });
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../Button";
 import {
+  DropZoneAlignment,
   DropZoneFormFieldProps,
   DropZoneLayout,
   DropZoneMode,
@@ -32,6 +33,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   const mode = props.attributes.mode || DropZoneMode.Image;
   const uploadStrategy =
     props.attributes.uploadStrategy || DropZoneUploadStrategy.Monofile;
+  const alignment = props.attributes.alignment || DropZoneAlignment.Left;
   const icon = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -64,9 +66,11 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
 
   useEffect(() => {
     if (props.attributes.allowedExtensions) {
-      let hold = "Only ";
+      let hold = "Allowed files: ";
       for (let i = 0; i < props.attributes.allowedExtensions.length; i++) {
-        hold += props.attributes.allowedExtensions[i] + " ";
+        hold +=
+          props.attributes.allowedExtensions[i] +
+          (i === props.attributes.allowedExtensions.length - 1 ? " " : ", ");
       }
       setAllowedFiles(hold);
     }
@@ -162,7 +166,17 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
     <>
       <div className={`drop-zone-form-field`}>
         <div className="content">
-          <div className="drop-zone-container">
+          <div
+            className="drop-zone-container"
+            style={{
+              justifyContent:
+                alignment === DropZoneAlignment.Left
+                  ? "flex-start"
+                  : alignment === DropZoneAlignment.Center
+                  ? "center"
+                  : "",
+            }}
+          >
             <Dropzone
               onDrop={(acceptedFiles) => {
                 if (props.attributes.maxSize) {
@@ -232,13 +246,15 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
               }}
             >
               {({ getRootProps, getInputProps, isDragActive }) => (
-                <section>
+                <>
                   <input {...getInputProps()} />
                   <div
                     className={`drop-zone ${isDragActive ? "active" : ""} ${
                       layout === DropZoneLayout.Horizontal
                         ? "horizontal"
                         : "vertical"
+                    } ${
+                      alignment === DropZoneAlignment.Stretch ? "stretch" : ""
                     }`}
                     {...getRootProps()}
                   >
@@ -299,7 +315,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                       <span className="error">{error}</span>
                     </div>
                   </div>
-                </section>
+                </>
               )}
             </Dropzone>
           </div>

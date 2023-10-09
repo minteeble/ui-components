@@ -26,6 +26,12 @@ export interface DropZoneSize {
   unit: DropZoneSizeUnit;
 }
 
+export enum DropZoneAlignment {
+  Left = 1,
+  Center,
+  Stretch,
+}
+
 export interface DropZoneFormFieldProps extends FieldComponentProps {
   attributes: {
     layout?: DropZoneLayout;
@@ -35,6 +41,7 @@ export interface DropZoneFormFieldProps extends FieldComponentProps {
     allowedExtensions?: string[];
     uploadStrategy?: DropZoneUploadStrategy;
     maxSize?: DropZoneSize;
+    alignment?: DropZoneAlignment;
     onDrop?: (file: any) => void;
   };
 }
