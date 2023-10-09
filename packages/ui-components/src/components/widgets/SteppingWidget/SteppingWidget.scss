@@ -6,6 +6,8 @@
     position: relative;
     padding-left: 3rem;
     padding-bottom: 1rem;
+    padding-right: 1rem;
+    overflow: hidden;
 
     $step-dot-size: 1rem;
     $left-line-size: calc($step-dot-size / 3);
@@ -61,10 +63,11 @@
         position: absolute;
         top: 0rem;
         left: 0rem;
-        width: 100%;
+        width: calc(100% + 1rem);
         height: 100%;
         background-color: white;
         opacity: 0.5;
+        z-index: 5;
       }
     }
 
