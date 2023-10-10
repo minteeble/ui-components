@@ -118,7 +118,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
 
   //Methods
 
-  const fileToArrayBuffer = (file: any) => {
+  const fileToArrayBuffer = (file: Blob) => {
     return new Promise<any>((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
@@ -131,7 +131,8 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
     });
   };
 
-  const fileToBase64 = async (file: any) => {
+  const fileToBase64 = async (file: Blob) => {
+    console.log("FILE", file);
     const buffer = await fileToArrayBuffer(file);
     let binary = "";
     const bytes = new Uint8Array(buffer);

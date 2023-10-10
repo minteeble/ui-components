@@ -373,18 +373,21 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
         mode: DropZoneMode.Image,
         uploadStrategy: DropZoneUploadStrategy.Multifile,
         alignment: DropZoneAlignment.Center,
-        layout: DropZoneLayout.Vertical,
+        layout: DropZoneLayout.Horizontal,
       },
-    });
-
-    formLogic.onSubmit((formData: FormOnSubmitDataModel) => {
-      console.log("DATA", formData);
     });
 
     formLogic.enableSubmit(true);
   }, []);
 
-  return <FormV2 formLogic={formLogic} />;
+  return (
+    <FormV2
+      formLogic={formLogic}
+      onSubmit={async (formData: FormOnSubmitDataModel) => {
+        console.log(await (formData.values.image[0] as Blob).arrayBuffer());
+      }}
+    />
+  );
 };
 
 const ProgressiveFormTemplate: Story<FormV2Props> = (args) => {
