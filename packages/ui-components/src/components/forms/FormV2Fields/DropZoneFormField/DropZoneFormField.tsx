@@ -107,7 +107,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
     if (typeof currentFile === "number" && props.value.length > 0) {
       const temp = props.value[currentFile];
 
-      setFileName(temp.name.replace(/.[a-z]*$/, ""));
+      setFileName(temp.name ? temp.name.replace(/.[a-z]*$/, "") : "File");
 
       setFileSize(byteSizeToString(temp.size));
     } else {
@@ -356,7 +356,9 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                     </div>
                     <div className="file-info">
                       <div className="name">
-                        {props.value[i].name.replace(/.[a-z]*$/, "")}
+                        {props.value[i].name
+                          ? props.value[i].name.replace(/.[a-z]*$/, "")
+                          : "File"}
                       </div>
                       <div className="size">
                         {byteSizeToString(props.value[i].size)}
