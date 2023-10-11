@@ -80,16 +80,17 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   }, [props.value]);
 
   useEffect(() => {
-    if (typeof currentFile === "number" && props.value.length > 0) {
-      const temp = props.value[currentFile];
+    (async () => {
+      if (typeof currentFile === "number" && props.value.length > 0) {
+        const temp = await props.value[currentFile];
 
-      setFileName(temp.name ? temp.name.replace(/.[a-z]*$/, "") : "File");
-
-      setFileSize(byteSizeToString(temp.size));
-    } else {
-      setFileName("");
-      setFileSize("");
-    }
+        setFileName(temp.name ? temp.name.replace(/.[a-z]*$/, "") : "File");
+        setFileSize(byteSizeToString(atob(temp).length));
+      } else {
+        setFileName("");
+        setFileSize("");
+      }
+    })();
   }, [currentFile, props.value]);
 
   //Methods
@@ -179,7 +180,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
             }}
           >
             <Dropzone
-              onDrop={(acceptedFiles) => {
+              onDrop={async (acceptedFiles) => {
                 if (props.attributes.maxSize) {
                   let isValid = true;
                   const max =
@@ -225,10 +226,10 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                         props.setValue([fileToBase64(acceptedFiles[0])]);
                       }
                       if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
-                        props.setValue([
-                          ...props.value,
-                          ...acceptedFiles.map((file) => fileToBase64(file)),
-                        ]);
+                        const newFiles = await Promise.all(
+                          acceptedFiles.map((file) => fileToBase64(file))
+                        );
+                        props.setValue([...props.value, ...newFiles]);
                       }
                     } else {
                       setItems(acceptedFiles);
@@ -246,10 +247,11 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                       props.setValue([fileToBase64(acceptedFiles[0])]);
                     }
                     if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
-                      props.setValue([
-                        ...props.value,
-                        ...acceptedFiles.map((file) => fileToBase64(file)),
-                      ]);
+                      const newFiles = await Promise.all(
+                        acceptedFiles.map((file) => fileToBase64(file))
+                      );
+
+                      props.setValue([...props.value, ...newFiles]);
                     }
                   } else {
                     setItems(acceptedFiles);
@@ -337,7 +339,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
           {props.attributes.uploadStrategy ===
             DropZoneUploadStrategy.Multifile && (
             <div className="files-list">
-              {props.value.map((file: Blob, i: number) => {
+              {props.value.map((file: string, i: number) => {
                 return (
                   <div
                     className={`file-row ${currentFile === i ? "active" : ""}`}
@@ -375,7 +377,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                           : "File"}
                       </div>
                       <div className="size">
-                        {byteSizeToString(props.value[i].size)}
+                        {byteSizeToString(atob(file).length)}
                       </div>
                     </div>
                     <div
