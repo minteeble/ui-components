@@ -223,7 +223,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                     setError("");
                     if (props.attributes.mode === DropZoneMode.File) {
                       if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
-                        props.setValue([fileToBase64(acceptedFiles[0])]);
+                        props.setValue([await fileToBase64(acceptedFiles[0])]);
                       }
                       if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
                         const newFiles = await Promise.all(
@@ -244,7 +244,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                 } else {
                   if (props.attributes.mode === DropZoneMode.File) {
                     if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
-                      props.setValue([fileToBase64(acceptedFiles[0])]);
+                      props.setValue([await fileToBase64(acceptedFiles[0])]);
                     }
                     if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
                       const newFiles = await Promise.all(
