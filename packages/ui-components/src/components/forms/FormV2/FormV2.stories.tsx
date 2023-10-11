@@ -370,7 +370,7 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
           value: 15,
           unit: DropZoneSizeUnit.MB,
         },
-        mode: DropZoneMode.Image,
+        mode: DropZoneMode.File,
         uploadStrategy: DropZoneUploadStrategy.Multifile,
         alignment: DropZoneAlignment.Center,
         layout: DropZoneLayout.Horizontal,
@@ -384,7 +384,7 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
     <FormV2
       formLogic={formLogic}
       onSubmit={async (formData: FormOnSubmitDataModel) => {
-        console.log(await (formData.values.image[0] as Blob).arrayBuffer());
+        console.log(formData);
       }}
     />
   );

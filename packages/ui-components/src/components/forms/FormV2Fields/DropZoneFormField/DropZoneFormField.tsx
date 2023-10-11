@@ -27,7 +27,6 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   const [fileSize, setFileSize] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [allowedFiles, setAllowedFiles] = useState<string>("");
-  const [parsedFiles, setParsedFiles] = useState<Array<string>>([]);
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false);
   const layout = props.attributes.layout || DropZoneLayout.Horizontal;
   const mode = props.attributes.mode || DropZoneMode.Image;
@@ -77,29 +76,6 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   }, [props.attributes.allowedExtensions]);
 
   useEffect(() => {
-    if (mode === DropZoneMode.Image) {
-      (async () => {
-        setIsLoadingImage(true);
-        const parsed: string[] = [];
-
-        for (let i = 0; i < props.value.length; i++) {
-          await new Promise<void>(async (resolve, reject) => {
-            const parsedFile =
-              ((await fileToBase64(props.value[i])) as string) || "";
-            parsed.push(parsedFile);
-            resolve();
-          });
-        }
-        setParsedFiles(parsed);
-      })();
-    }
-  }, [props.value]);
-
-  useEffect(() => {
-    setIsLoadingImage(false);
-  }, [parsedFiles]);
-
-  useEffect(() => {
     setCurrentFile(props.value.length > 0 ? 0 : null);
   }, [props.value]);
 
@@ -132,7 +108,6 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
   };
 
   const fileToBase64 = async (file: Blob) => {
-    console.log("FILE", file);
     const buffer = await fileToArrayBuffer(file);
     let binary = "";
     const bytes = new Uint8Array(buffer);
@@ -161,6 +136,31 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
     );
 
     return byte.toFixed(1) + " " + units[u];
+  };
+
+  const setItems = async (items: Blob[]) => {
+    if (mode === DropZoneMode.Image) {
+      setIsLoadingImage(true);
+      let parsed: string[] = props.value;
+
+      if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
+        await new Promise<void>(async (resolve, reject) => {
+          const parsedFile = ((await fileToBase64(items[0])) as string) || "";
+          parsed = [parsedFile];
+          resolve();
+        });
+      } else {
+        for (let i = 0; i < items.length; i++) {
+          await new Promise<void>(async (resolve, reject) => {
+            const parsedFile = ((await fileToBase64(items[i])) as string) || "";
+            parsed.push(parsedFile);
+            resolve();
+          });
+        }
+      }
+      props.setValue([...parsed]);
+      setIsLoadingImage(false);
+    }
   };
 
   return (
@@ -220,11 +220,18 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                   }
                   if (allowed) {
                     setError("");
-                    if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
-                      props.setValue([acceptedFiles[0]]);
-                    }
-                    if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
-                      props.setValue([...props.value, ...acceptedFiles]);
+                    if (props.attributes.mode === DropZoneMode.File) {
+                      if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
+                        props.setValue([fileToBase64(acceptedFiles[0])]);
+                      }
+                      if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
+                        props.setValue([
+                          ...props.value,
+                          ...acceptedFiles.map((file) => fileToBase64(file)),
+                        ]);
+                      }
+                    } else {
+                      setItems(acceptedFiles);
                     }
                     if (typeof props.attributes.onDrop !== "undefined") {
                       props.attributes.onDrop(acceptedFiles);
@@ -234,11 +241,18 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                     setError(allowedFiles);
                   }
                 } else {
-                  if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
-                    props.setValue([acceptedFiles[0]]);
-                  }
-                  if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
-                    props.setValue([...props.value, ...acceptedFiles]);
+                  if (props.attributes.mode === DropZoneMode.File) {
+                    if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
+                      props.setValue([fileToBase64(acceptedFiles[0])]);
+                    }
+                    if (uploadStrategy === DropZoneUploadStrategy.Multifile) {
+                      props.setValue([
+                        ...props.value,
+                        ...acceptedFiles.map((file) => fileToBase64(file)),
+                      ]);
+                    }
+                  } else {
+                    setItems(acceptedFiles);
                   }
                   if (typeof props.attributes.onDrop !== "undefined") {
                     props.attributes.onDrop(acceptedFiles);
@@ -283,7 +297,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                                   className="current-image"
                                   src={
                                     "data:image/png;base64," +
-                                    parsedFiles[currentFile]
+                                    props.value[currentFile]
                                   }
                                 />
                               </>
@@ -347,7 +361,7 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                             </div>
                           ) : (
                             <img
-                              src={"data:image/png;base64," + parsedFiles[i]}
+                              src={"data:image/png;base64," + props.value[i]}
                               className="image"
                             />
                           )}
