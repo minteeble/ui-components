@@ -181,7 +181,7 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
                 {((typeof option === "string" && currentOption === option) ||
                   (typeof option === "object" &&
                     currentOption === option.text)) && (
-                  <FontAwesomeIcon icon={faCheck} />
+                  <FontAwesomeIcon icon={faCheck} className="check" />
                 )}
               </div>
             );

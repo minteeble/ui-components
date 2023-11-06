@@ -25,7 +25,7 @@
     justify-content: flex-start;
     cursor: pointer;
     gap: 1rem;
-    svg {
+    .arrow {
       position: absolute;
       right: 0.7rem;
       top: 50%;
@@ -65,9 +65,9 @@
       position: relative;
       font-weight: 600;
       .icon {
-        margin-right: 1rem;
+        margin-right: 0.5rem;
       }
-      .arrow {
+      .check {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
