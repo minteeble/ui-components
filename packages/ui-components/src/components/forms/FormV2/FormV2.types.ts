@@ -379,6 +379,10 @@ export enum SubmitButtonAlignment {
  */
 export interface internalValue {
   /**
+   * Option icon
+   */
+  icon?: string | JSX.Element;
+  /**
    * Displayed value
    */
   text: string;

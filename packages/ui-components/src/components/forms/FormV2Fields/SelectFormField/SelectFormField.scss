@@ -1,6 +1,17 @@
 .form-field.select-form-field {
   width: 100%;
   position: relative;
+  .icon {
+    width: 1.5rem;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icon-image {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
   .select-field {
     width: 100%;
     border: 2px solid var(--border-color);
@@ -11,9 +22,14 @@
     transition: all 0.2s ease-in-out;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     cursor: pointer;
+    gap: 1rem;
     svg {
+      position: absolute;
+      right: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
       color: black;
     }
     &.null {
@@ -48,6 +64,9 @@
       border-radius: 5px;
       position: relative;
       font-weight: 600;
+      .icon {
+        margin-right: 1rem;
+      }
       svg {
         position: absolute;
         top: 50%;

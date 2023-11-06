@@ -101,6 +101,38 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
         }}
         className={`montserrat select-field ${currentOption ? "" : "null"}`}
       >
+        {!!options.find(
+          (val) =>
+            typeof val !== "string" && val.text === currentOption && val.icon
+        ) && (
+          <div className="icon">
+            {typeof options.find(
+              (val) => typeof val !== "string" && val.text === currentOption
+              // @ts-ignore
+            )!.icon === "string" ? (
+              <img
+                className="icon-image"
+                src={
+                  options.find(
+                    (val) =>
+                      typeof val !== "string" && val.text === currentOption
+                    // @ts-ignore
+                  )!.icon
+                }
+              />
+            ) : (
+              <>
+                {
+                  options.find(
+                    (val) =>
+                      typeof val !== "string" && val.text === currentOption
+                    // @ts-ignore
+                  )!.icon
+                }
+              </>
+            )}
+          </div>
+        )}
         {currentOption
           ? currentOption
           : props.readOnly
@@ -136,6 +168,15 @@ export const SelectFormField = (props: SelectFormFieldProps) => {
                   setIsOpen(false);
                 }}
               >
+                {typeof option !== "string" && option.icon && (
+                  <div className="icon">
+                    {typeof option.icon === "string" ? (
+                      <img className="icon-image" src={option.icon} />
+                    ) : (
+                      <>{option.icon}</>
+                    )}
+                  </div>
+                )}
                 {typeof option === "string" ? option : option.text}
                 {((typeof option === "string" && currentOption === option) ||
                   (typeof option === "object" &&

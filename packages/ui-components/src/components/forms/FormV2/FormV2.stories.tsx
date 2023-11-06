@@ -472,7 +472,7 @@ const MultiSelectFormTemplate: Story<FormV2Props> = (args) => {
   useEffect(() => {
     formLogic.addField({
       key: "tags",
-      value: "",
+      value: [],
       label: "Add tags",
       fieldComponent: MultiSelectFormField,
       attributes: {
@@ -552,6 +552,63 @@ const ConfigurableValuesTemplate: Story<FormV2Props> = (args) => {
     />
   );
 };
+const IconSelectTemplate: Story<FormV2Props> = (args) => {
+  const formLogic = useFormV2({});
+
+  useEffect(() => {
+    formLogic.addField({
+      key: "country",
+      value: "",
+      label: "Select",
+      fieldComponent: SelectFormField,
+      attributes: {
+        options: [
+          {
+            text: "Italy",
+            value: "IT",
+            icon: (
+              <img
+                src="https://flagsapi.com/IT/flat/64.png"
+                className="icon-image"
+              />
+            ),
+          },
+          {
+            text: "United Kingdom",
+            value: "GB",
+            icon: "https://flagsapi.com/GB/flat/64.png",
+          },
+          {
+            text: "United States",
+            value: "US",
+            icon: "https://flagsapi.com/US/flat/64.png",
+          },
+          {
+            text: "France",
+            value: "FR",
+            icon: "https://flagsapi.com/FR/flat/64.png",
+          },
+          {
+            text: "Germany",
+            value: "DE",
+            icon: "https://flagsapi.com/DE/flat/64.png",
+          },
+        ],
+      },
+    });
+
+    formLogic.enableSubmit(true);
+  }, []);
+
+  return (
+    <FormV2
+      onSubmit={(formData: FormOnSubmitDataModel) => {
+        console.log("DATA", formData.values.tags);
+      }}
+      formLogic={formLogic}
+    />
+  );
+};
 
 export const SimpleForm = Template.bind({});
 SimpleForm.args = {};
@@ -575,4 +632,7 @@ export const MultiSelectForm = MultiSelectFormTemplate.bind({});
 MultiSelectForm.args = {};
 
 export const ConfigurableValuesForm = ConfigurableValuesTemplate.bind({});
-MultiSelectForm.args = {};
+ConfigurableValuesForm.args = {};
+
+export const IconSelectForm = IconSelectTemplate.bind({});
+IconSelectForm.args = {};
