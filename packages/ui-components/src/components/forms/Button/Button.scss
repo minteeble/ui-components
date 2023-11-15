@@ -33,7 +33,6 @@
   &.btn-primary {
     background-color: var(--primary-color);
     color: white;
-
     &:disabled {
       background-color: var(--primary-disabled);
     }
@@ -43,10 +42,20 @@
     background-color: transparent;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
+    &:disabled {
+      background-color: var(--secondary-bg);
+    }
   }
 
   &.btn-danger {
     background-color: rgb(255, 76, 76);
     color: white;
+    &:disabled {
+      background-color: rgb(146, 56, 56);
+    }
+  }
+
+  &:disabled {
+    pointer-events: none;
   }
 }
