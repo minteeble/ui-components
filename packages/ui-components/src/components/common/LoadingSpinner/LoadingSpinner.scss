@@ -22,10 +22,17 @@
 
   .spinner {
     display: inline;
-    color: var(--primary-color-trs);
     animation: spin 1s linear infinite;
 
     width: 2rem;
     height: 2rem;
+
+    &.primary {
+      color: var(--primary-color-trs);
+    }
+
+    &.white {
+      color: #ffffff6e;
+    }
   }
 }

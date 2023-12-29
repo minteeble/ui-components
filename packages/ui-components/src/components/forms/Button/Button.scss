@@ -58,4 +58,23 @@
   &:disabled {
     pointer-events: none;
   }
+
+  &.pending {
+    pointer-events: none;
+    color: transparent;
+    position: relative;
+  }
+}
+
+.spinner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.input-button-wrapper {
+  position: relative;
+  width: fit-content;
 }

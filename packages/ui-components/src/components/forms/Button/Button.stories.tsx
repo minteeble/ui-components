@@ -12,7 +12,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import Button from "./Button";
-import { ButtonProps } from "./Button.types";
+import { ButtonProps, ButtonStyleType } from "./Button.types";
 
 export default {
   title: "ui-components/forms/Button",
@@ -23,6 +23,32 @@ export default {
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
+
 Primary.args = {
   text: "Primary",
+};
+export const Secondary = Template.bind({});
+
+Secondary.args = {
+  text: "Secondary",
+  styleType: ButtonStyleType.Secondary,
+};
+export const Filled = Template.bind({});
+
+Filled.args = {
+  text: "Filled",
+  styleType: ButtonStyleType.Filled,
+};
+export const PromiseButton = Template.bind({});
+
+PromiseButton.args = {
+  text: "Submit",
+  onClick: async () => {
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        console.log("RESOLVE");
+        resolve("");
+      }, 5000);
+    });
+  },
 };

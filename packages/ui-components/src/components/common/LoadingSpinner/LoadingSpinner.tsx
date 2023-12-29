@@ -10,6 +10,7 @@
 
 import React from "react";
 import {
+  LoadingSpinnerColor,
   LoadingSpinnerProps,
   LoadingSpinnerSize,
 } from "./LoadingSpinner.types";
@@ -20,7 +21,11 @@ const LoadingSpinner = (props: LoadingSpinnerProps) => {
   return (
     <div className="loading-spinner">
       <svg
-        className="spinner"
+        className={`spinner ${
+          !props.color || props.color === LoadingSpinnerColor.Primary
+            ? "primary"
+            : ""
+        } ${props.color === LoadingSpinnerColor.White ? "white" : ""}`}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

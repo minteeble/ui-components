@@ -16,6 +16,12 @@ export enum LoadingSpinnerSize {
   Large = "3rem",
 }
 
+export enum LoadingSpinnerColor {
+  Primary = 1,
+  White,
+}
+
 export interface LoadingSpinnerProps extends ClassExtensible {
   Size?: LoadingSpinnerSize;
+  color?: LoadingSpinnerColor;
 }
