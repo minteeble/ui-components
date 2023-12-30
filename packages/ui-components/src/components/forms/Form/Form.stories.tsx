@@ -92,12 +92,6 @@ SimpleForm.args = {
       placeholder: "Additional Info",
       resizable: true,
     } as TextAreaParams,
-    {
-      fieldName: "image",
-      type: FormFieldType.DropZoneReview,
-      value: "https://picsum.photos/200",
-      label: "Set Image",
-    } as DropZoneParams,
   ],
   onSubmit: (data: Record<string, any>) => {
     console.log(data);

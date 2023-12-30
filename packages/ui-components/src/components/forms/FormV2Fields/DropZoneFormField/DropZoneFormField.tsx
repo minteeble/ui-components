@@ -81,14 +81,20 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
 
   useEffect(() => {
     (async () => {
-      if (typeof currentFile === "number" && props.value.length > 0) {
-        const temp = await props.value[currentFile];
+      if (
+        props.attributes.uploadStrategy === DropZoneUploadStrategy.Multifile
+      ) {
+        if (typeof currentFile === "number" && props.value.length > 0) {
+          const temp = await props.value[currentFile];
 
-        setFileName(temp.name ? temp.name.replace(/.[a-z]*$/, "") : "File");
-        setFileSize(byteSizeToString(atob(temp).length));
+          setFileName(temp.name ? temp.name.replace(/.[a-z]*$/, "") : "File");
+          setFileSize(byteSizeToString(atob(temp).length));
+        } else {
+          setFileName("");
+          setFileSize("");
+        }
       } else {
-        setFileName("");
-        setFileSize("");
+        setFileName(fileName || "File");
       }
     })();
   }, [currentFile, props.value]);
@@ -232,6 +238,9 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                         props.setValue([...props.value, ...newFiles]);
                       }
                     } else {
+                      setFileName(
+                        acceptedFiles[0].name.replace(/.[a-z]*$/, "")
+                      );
                       setItems(acceptedFiles);
                     }
                     if (typeof props.attributes.onDrop !== "undefined") {
@@ -242,6 +251,8 @@ const DropZoneFormField = (props: DropZoneFormFieldProps) => {
                     setError(allowedFiles);
                   }
                 } else {
+                  console.log("Update file");
+
                   if (props.attributes.mode === DropZoneMode.File) {
                     if (uploadStrategy === DropZoneUploadStrategy.Monofile) {
                       props.setValue([await fileToBase64(acceptedFiles[0])]);

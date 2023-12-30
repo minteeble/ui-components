@@ -365,13 +365,13 @@ const FormDropZoneTemplate: Story<FormV2Props> = (args) => {
       label: "Set image",
       fieldComponent: DropZoneFormField as React.FC<FieldComponentProps>,
       attributes: {
-        allowedExtensions: ["png", "jpeg"],
+        allowedExtensions: ["png", "jpeg", "jpg"],
         maxSize: {
           value: 15,
           unit: DropZoneSizeUnit.MB,
         },
         mode: DropZoneMode.Image,
-        uploadStrategy: DropZoneUploadStrategy.Multifile,
+        uploadStrategy: DropZoneUploadStrategy.Monofile,
         alignment: DropZoneAlignment.Center,
         layout: DropZoneLayout.Horizontal,
       },
