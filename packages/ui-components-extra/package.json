@@ -52,7 +52,6 @@
     "babel-loader": "^8.2.5",
     "core-js": "^3.30.1",
     "lerna": "^6.5.1",
-    "postcss": "8.1.7",
     "postcss-scss": "^4.0.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
