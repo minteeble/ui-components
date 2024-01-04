@@ -1,0 +1,40 @@
+.connect-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  background: white;
+  height: 7rem;
+  padding: 0 2rem;
+  flex: none !important;
+  overflow: hidden;
+
+  .message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: black;
+
+    .icon-wrapper {
+      width: fit-content;
+      height: fit-content;
+      border-radius: 50%;
+      background: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1/1;
+      padding: 0.8rem;
+      .icon {
+        font-size: 1.4rem;
+        color: white;
+        aspect-ratio: 1/1;
+      }
+    }
+    .text {
+      font-size: 1.2rem;
+      @extend .monteserrat !optional;
+    }
+  }
+}

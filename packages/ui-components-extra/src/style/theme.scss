@@ -1,0 +1,52 @@
+/**
+ * Copyright Minteeble 2022. All Rights Reserved.
+ * Node module: @minteeble/ui-components
+ * This file is licensed under the MIT License.
+ * License text available at https://opensource.org/licenses/MIT
+ * 
+ * email:     minteeble@gmail.com
+ * website:   https://minteeble.com
+ */
+
+//fonts
+
+// Theming
+
+$themes: (
+  // Default theme
+  default:
+    (
+      // "primary-color": #53c2de,
+      // "primary-disabled": #73a0ac,
+      // "primary-hover": #90e9ff,
+      // "normal-text-color": rgb(46, 46, 46),
+      // "light-text-color": rgb(73, 73, 73),
+      // "primary-bg": rgb(255, 255, 255),
+      // "secondary-bg": rgb(232, 232, 232),
+      // "dark-border-color": rgb(47, 47, 47),
+      // "border-color": rgb(172, 172, 172),
+    ),
+  // Dark theme
+  dark:
+    (
+      // "primary-color": #53c2de,
+      // "primary-disabled": #73a0ac,
+      // "primary-hover": #90e9ff,
+      // "normal-text-color": rgb(234, 234, 234),
+      // "light-text-color": rgba(255, 255, 255, 0.5),
+      // "primary-bg": #414141,
+      // "secondary-bg": #1e1e1e,
+      // "dark-border-color": rgb(30, 30, 30),
+      // "border-color": #5b5b5b,
+    )
+);
+
+// Creating theming class names
+@each $name, $map in $themes {
+  .minteeble-#{$name}-theme {
+    @each $key, $value in $map {
+      --#{$key}: #{$value};
+      --#{$key}-trs: #{rgba($value, 0.5)};
+    }
+  }
+}
